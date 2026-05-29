@@ -9,6 +9,7 @@ import { AboutSection } from "@/components/AboutSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
 
+/** Live ticking clock shown in the header on desktop */
 function LiveClock() {
   const [time, setTime] = useState(() => new Date());
   useEffect(() => {
@@ -23,6 +24,87 @@ function LiveClock() {
       {hh}<span className="opacity-40">:</span>{mm}<span className="opacity-40">:</span>
       <span className="text-blue-500">{ss}</span>
     </span>
+  );
+}
+
+/**
+ * Ambient showreel — autoplays muted + looped when scrolled into view.
+ * No controls shown at any time.
+ * To use a real video: set the `src` prop to your hosted video URL.
+ */
+function AmbientVideo({ src }: { src?: string }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoRef.current?.play().catch(() => {});
+        } else {
+          videoRef.current?.pause();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={wrapRef} className="mt-10 w-full">
+      <div
+        className="relative w-full overflow-hidden rounded-2xl"
+        style={{
+          aspectRatio: "16/7",
+          boxShadow:
+            "0 24px 64px -16px rgba(15,23,42,0.22), 0 0 0 1px rgba(255,255,255,0.10)",
+        }}
+      >
+        {src ? (
+          <video
+            ref={videoRef}
+            src={src}
+            loop
+            muted
+            playsInline
+            autoPlay
+            disablePictureInPicture
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          /* Placeholder shown until a real video URL is provided */
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #1e293b 100%)",
+            }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(ellipse 75% 55% at 50% 35%, rgba(59,130,246,0.22) 0%, transparent 65%)",
+              }}
+            />
+            <div
+              className="absolute inset-0 opacity-[0.07]"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
+              }}
+            />
+            <p className="absolute bottom-5 left-6 font-mono text-xs uppercase tracking-[0.2em] text-white/25">
+              Showreel 2025
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -66,9 +148,8 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header — Apple-style solid glass ── */}
+        {/* ── Header — transparent glassy ── */}
         <header className="sticky top-0 z-40 w-full">
-          {/* Apple glass pill/bar */}
           <div
             className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
             style={{
@@ -80,12 +161,13 @@ export default function Home() {
                 "0 1px 0 rgba(0,0,0,0.04), 0 6px 24px rgba(59,130,246,0.05), inset 0 1px 0 rgba(255,255,255,0.7)",
             }}
           >
-            {/* Logo */}
-            <span className="select-none text-base font-black tracking-tight text-slate-900 uppercase" style={{ letterSpacing: "0.04em" }}>
+            <span
+              className="select-none font-black uppercase text-slate-900"
+              style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)", letterSpacing: "0.06em" }}
+            >
               GFX <span className="text-blue-600">WITH</span> USMAN
             </span>
 
-            {/* Desktop nav links — hidden on mobile */}
             <nav className="hidden items-center gap-8 md:flex">
               {["Work", "About", "Services", "Contact"].map((l) => (
                 <a
@@ -98,12 +180,10 @@ export default function Home() {
               ))}
             </nav>
 
-            {/* Right side: clock on desktop, hamburger on mobile only */}
             <div className="flex items-center gap-4">
               <div className="hidden md:block">
                 <LiveClock />
               </div>
-              {/* Hamburger — mobile only */}
               <button
                 onClick={() => setNavOpen(true)}
                 data-testid="button-menu"
@@ -120,7 +200,7 @@ export default function Home() {
         <main className="w-full">
           <section className="relative flex min-h-[95vh] w-full flex-col px-6 pt-10 pb-10 md:px-12">
 
-            {/* ── Name + niche pushed near top ── */}
+            {/* Name + niche — top of section */}
             <div className="w-full select-none">
               <h1
                 className="w-full text-center font-black uppercase leading-none text-slate-900"
@@ -134,7 +214,6 @@ export default function Home() {
                 Usman Farooqi
               </h1>
 
-              {/* Niche typewriter — centered */}
               <p
                 className="w-full text-center font-semibold uppercase text-slate-400 mt-4"
                 style={{ fontSize: "clamp(0.7rem, 1.5vw, 1rem)", letterSpacing: "0.32em" }}
@@ -147,12 +226,10 @@ export default function Home() {
                 />
               </p>
 
-              {/* Supporting text — centered */}
               <p className="mx-auto mt-4 max-w-sm text-center text-sm leading-relaxed text-slate-400">
                 I craft visual identities and digital experiences that help brands stand out and connect with their audience.
               </p>
 
-              {/* CTA buttons — left aligned */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <PillButton
                   variant="primary"
@@ -173,72 +250,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ── Video / showreel rectangle ── */}
-            <div className="mt-10 w-full">
-              <div
-                className="relative w-full overflow-hidden rounded-2xl"
-                style={{
-                  aspectRatio: "16/7",
-                  background: "linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(30,58,138,0.82) 100%)",
-                  boxShadow: "0 24px 64px -12px rgba(15,23,42,0.28), 0 0 0 1px rgba(255,255,255,0.08)",
-                  backdropFilter: "blur(2px)",
-                }}
-              >
-                {/* Shimmer overlay */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse 70% 60% at 50% 30%, rgba(59,130,246,0.18) 0%, transparent 70%)",
-                  }}
-                />
-                {/* Grid lines for depth */}
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-10"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
-                    backgroundSize: "60px 60px",
-                  }}
-                />
-                {/* Play button */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                  <button
-                    aria-label="Play showreel"
-                    className="group flex size-16 items-center justify-center rounded-full transition-transform duration-200 hover:scale-110 active:scale-95"
-                    style={{
-                      background: "rgba(255,255,255,0.15)",
-                      border: "1.5px solid rgba(255,255,255,0.3)",
-                      backdropFilter: "blur(8px)",
-                      boxShadow: "0 8px 32px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.2)",
-                    }}
-                  >
-                    {/* Triangle */}
-                    <span
-                      className="ml-1"
-                      style={{
-                        width: 0,
-                        height: 0,
-                        borderStyle: "solid",
-                        borderWidth: "10px 0 10px 18px",
-                        borderColor: "transparent transparent transparent rgba(255,255,255,0.9)",
-                        display: "block",
-                      }}
-                    />
-                  </button>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
-                    Watch showreel
-                  </p>
-                </div>
-                {/* Corner labels */}
-                <span className="absolute bottom-4 left-5 text-xs font-mono tracking-widest text-white/30 uppercase">
-                  Showreel 2025
-                </span>
-                <span className="absolute bottom-4 right-5 text-xs font-mono tracking-widest text-white/30">
-                  0:42
-                </span>
-              </div>
-            </div>
+            {/* Ambient autoplay showreel — no controls, part of the UI */}
+            <AmbientVideo />
           </section>
 
           <WorkSection />
@@ -252,7 +265,6 @@ export default function Home() {
         </main>
       </div>
 
-      {/* Mobile nav overlay */}
       <MobileNav isOpen={navOpen} setIsOpen={setNavOpen} />
     </div>
   );
