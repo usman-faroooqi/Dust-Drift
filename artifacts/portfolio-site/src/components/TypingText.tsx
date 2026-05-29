@@ -1,98 +1,92 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const WORDS = ["Graphic Designer", "Brand Strategist", "Visual Artist", "Creative Director"];
-const TYPE_SPEED = 80;
-const DELETE_SPEED = 45;
-const PAUSE_AFTER_TYPE = 1600;
-const PAUSE_AFTER_DELETE = 400;
-
-function useTypingSound() {
-  const ctxRef = useRef<AudioContext | null>(null);
-
-  const playTick = useCallback(() => {
-    try {
-      if (!ctxRef.current) {
-        ctxRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
-      }
-      const ctx = ctxRef.current;
-      if (ctx.state === "suspended") ctx.resume();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = 780 + Math.random() * 180;
-      osc.type = "triangle";
-      gain.gain.setValueAtTime(0.035, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.045);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.045);
-    } catch {
-      // AudioContext not available, skip
-    }
-  }, []);
-
-  return playTick;
-}
-
-export function TypingText() {
-  const [displayed, setDisplayed] = useState("");
+export function Typewriter({
+  words,
+  className,
+  typeSpeed = 110,
+  deleteSpeed = 55,
+  holdTime = 1400,
+}: {
+  words: string[];
+  className?: string;
+  typeSpeed?: number;
+  deleteSpeed?: number;
+  holdTime?: number;
+}) {
+  const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
-  const playTick = useTypingSound();
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [phase, setPhase] = useState<"typing" | "holding" | "deleting">("typing");
+  const audioRef = useRef<AudioContext | null>(null);
+  const soundOn = useRef(false);
 
   useEffect(() => {
-    const currentWord = WORDS[wordIndex];
-
-    const tick = () => {
-      if (!isDeleting) {
-        if (displayed.length < currentWord.length) {
-          setDisplayed(currentWord.slice(0, displayed.length + 1));
-          playTick();
-          timeoutRef.current = setTimeout(tick, TYPE_SPEED);
-        } else {
-          timeoutRef.current = setTimeout(() => setIsDeleting(true), PAUSE_AFTER_TYPE);
-        }
-      } else {
-        if (displayed.length > 0) {
-          setDisplayed(currentWord.slice(0, displayed.length - 1));
-          playTick();
-          timeoutRef.current = setTimeout(tick, DELETE_SPEED);
-        } else {
-          setIsDeleting(false);
-          setWordIndex(prev => (prev + 1) % WORDS.length);
-          timeoutRef.current = setTimeout(tick, PAUSE_AFTER_DELETE);
-        }
+    const unlock = () => {
+      if (!audioRef.current) {
+        const Ctx =
+          window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        if (Ctx) audioRef.current = new Ctx();
       }
+      audioRef.current?.resume();
+      soundOn.current = true;
     };
-
-    timeoutRef.current = setTimeout(tick, isDeleting ? DELETE_SPEED : TYPE_SPEED);
-    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
-  }, [displayed, isDeleting, wordIndex, playTick]);
-
-  // Cursor blink
-  useEffect(() => {
-    const id = setInterval(() => setShowCursor(v => !v), 530);
-    return () => clearInterval(id);
+    window.addEventListener("pointerdown", unlock, { once: true });
+    window.addEventListener("keydown", unlock, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+    };
   }, []);
+
+  const click = () => {
+    const ctx = audioRef.current;
+    if (!ctx || !soundOn.current) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "square";
+    osc.frequency.setValueAtTime(420 + Math.random() * 180, ctx.currentTime);
+    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.05);
+  };
+
+  useEffect(() => {
+    const current = words[wordIndex];
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (phase === "typing") {
+      if (text.length < current.length) {
+        timer = setTimeout(() => {
+          setText(current.slice(0, text.length + 1));
+          click();
+        }, typeSpeed);
+      } else {
+        timer = setTimeout(() => setPhase("deleting"), holdTime);
+      }
+    } else if (phase === "deleting") {
+      if (text.length > 0) {
+        timer = setTimeout(() => {
+          setText(current.slice(0, text.length - 1));
+          click();
+        }, deleteSpeed);
+      } else {
+        setWordIndex((i) => (i + 1) % words.length);
+        setPhase("typing");
+      }
+    }
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, phase, wordIndex, words]);
 
   return (
-    <span className="inline-flex items-baseline">
+    <span className={className}>
+      {text}
       <span
-        className="font-medium"
-        style={{ color: "#2563eb" }}
-      >
-        {displayed}
-      </span>
-      <span
-        className="ml-0.5 inline-block w-0.5 h-[1em] align-middle"
-        style={{
-          background: "#2563eb",
-          opacity: showCursor ? 1 : 0,
-          transition: "opacity 0.1s",
-          borderRadius: 2,
-        }}
+        aria-hidden
+        className="ml-1 inline-block h-[0.95em] w-[2px] translate-y-[0.12em] animate-pulse rounded-full bg-current"
       />
     </span>
   );

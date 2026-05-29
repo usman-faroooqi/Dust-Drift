@@ -1,198 +1,150 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useSpring, useTransform } from "framer-motion";
-import { Menu } from "lucide-react";
-import { DustParticles } from "@/components/DustParticles";
-import { GlassCard } from "@/components/GlassCard";
-import { PrimaryButton, SecondaryButton } from "@/components/Buttons";
+import { Menu, ArrowRight } from "lucide-react";
+import { DustLayer } from "@/components/DustLayer";
+import { FloatingCards } from "@/components/FloatingCards";
+import { PillButton } from "@/components/Buttons";
 import { MobileNav } from "@/components/MobileNav";
-import { TypingText } from "@/components/TypingText";
+import { Typewriter } from "@/components/TypingText";
 import { WorkSection } from "@/components/WorkSection";
 import { AboutSection } from "@/components/AboutSection";
-import { SkillsSection } from "@/components/SkillsSection";
+import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
 
 export default function Home() {
   const [navOpen, setNavOpen] = useState(false);
-
-  // Parallax
-  const mouseX = useSpring(0, { stiffness: 50, damping: 20 });
-  const mouseY = useSpring(0, { stiffness: 50, damping: 20 });
+  const [px, setPx] = useState(0);
+  const [py, setPy] = useState(0);
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = (e.clientY / window.innerHeight) * 2 - 1;
-      mouseX.set(x);
-      mouseY.set(y);
+    const handleMove = (e: MouseEvent) => {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      frameRef.current = requestAnimationFrame(() => {
+        const nx = (e.clientX / window.innerWidth - 0.5) * 2;
+        const ny = (e.clientY / window.innerHeight - 0.5) * 2;
+        setPx(nx);
+        setPy(ny);
+      });
     };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  const bgX = useTransform(mouseX, [-1, 1], [-2, 2]);
-  const bgY = useTransform(mouseY, [-1, 1], [-2, 2]);
-  const particles1X = useTransform(mouseX, [-1, 1], [-5, 5]);
-  const particles1Y = useTransform(mouseY, [-1, 1], [-5, 5]);
-  const particles2X = useTransform(mouseX, [-1, 1], [-15, 15]);
-  const particles2Y = useTransform(mouseY, [-1, 1], [-15, 15]);
-  const cardsX = useTransform(mouseX, [-1, 1], [-35, 35]);
-  const cardsY = useTransform(mouseY, [-1, 1], [-35, 35]);
+    window.addEventListener("mousemove", handleMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
 
   return (
-    <div className="relative w-full overflow-x-hidden bg-vignette font-sans text-gray-900 selection:bg-blue-200">
+    <div className="relative w-full min-h-screen overflow-x-hidden scene-bg font-sans text-slate-900 selection:bg-blue-200">
 
-      {/* ── Fixed background scene (particles + gradients) ── */}
-      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-        <div className="noise-bg" />
-        <motion.div className="absolute inset-0 light-gradient" style={{ x: bgX, y: bgY }} />
-        <motion.div className="absolute inset-0 overflow-hidden" style={{ x: particles1X, y: particles1Y }}>
-          <DustParticles />
-        </motion.div>
-        <motion.div className="absolute inset-0 overflow-hidden opacity-60" style={{ x: particles2X, y: particles2Y }}>
-          {/* second parallax layer handled inside DustParticles via groups */}
-        </motion.div>
+      {/* Noise overlay */}
+      <div className="noise-overlay" />
+
+      {/* Dust particles — fixed behind everything */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 0, translate: `${px * -2}px ${py * -2}px`, transition: "translate 800ms cubic-bezier(0.22,1,0.36,1)" }}
+      >
+        <DustLayer px={px} py={py} />
       </div>
 
-      {/* ── Sticky header ── */}
-      <header className="fixed top-0 left-0 right-0 z-40 p-6 md:p-8 flex justify-between items-center pointer-events-auto">
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-lg font-semibold tracking-tight text-gray-800"
-        >
-          Usman<span style={{ color: "#2563eb" }}>.</span>
-        </motion.span>
+      {/* Camera drift wrapper */}
+      <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="hidden md:flex items-center gap-8"
-        >
-          {["Work", "About", "Skills", "Contact"].map(link => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200"
+        {/* ── Header ── */}
+        <header className="sticky top-0 z-40 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
+          {/* Frosted header bg */}
+          <div className="absolute inset-0 bg-[#f3f3f5]/70 backdrop-blur-md" style={{ zIndex: -1 }} />
+          <span className="relative text-xl font-bold tracking-tight text-slate-900">
+            Portfolio<span className="text-blue-600">.</span>
+          </span>
+          <nav className="relative hidden items-center gap-8 md:flex">
+            {["Work", "About", "Services", "Contact"].map((l) => (
+              <a
+                key={l}
+                href={`#${l.toLowerCase()}`}
+                className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+              >
+                {l}
+              </a>
+            ))}
+          </nav>
+          <div className="relative flex items-center gap-3">
+            <PillButton
+              variant="primary"
+              size="md"
+              className="hidden md:inline-flex"
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              data-testid="button-hire-header"
             >
-              {link}
-            </a>
-          ))}
-        </motion.div>
-
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          onClick={() => setNavOpen(true)}
-          data-testid="button-menu"
-          className="p-3 bg-white/40 backdrop-blur-md border border-white/60 rounded-full shadow-sm hover:bg-white/60 transition-colors"
-        >
-          <Menu className="w-5 h-5 text-gray-800" strokeWidth={2} />
-        </motion.button>
-      </header>
-
-      {/* ── Hero Section ── */}
-      <section className="relative min-h-[100dvh] w-full flex flex-col lg:flex-row items-center justify-center px-6 md:px-16 lg:px-24 pt-28 pb-16"
-        style={{ zIndex: 1 }}>
-
-        {/* Left: Name + Typing role */}
-        <div className="w-full lg:w-1/2 flex flex-col items-start gap-8 z-30 mb-16 lg:mb-0">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1], delay: 0.25 }}
-          >
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-semibold leading-[1.05] tracking-tight text-gray-900 mb-4">
-              Usman Farooqi
-            </h1>
-            <div className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight min-h-[1.4em]">
-              <TypingText />
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1], delay: 0.45 }}
-            className="flex flex-wrap items-center gap-4"
-          >
-            <PrimaryButton onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}>
-              See My Work
-            </PrimaryButton>
-            <SecondaryButton onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-              Let's Talk
-            </SecondaryButton>
-          </motion.div>
-
-          {/* Subtle availability badge */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.65 }}
-            className="flex items-center gap-2.5 px-4 py-2 rounded-full"
-            style={{
-              background: "rgba(255,255,255,0.5)",
-              border: "1px solid rgba(255,255,255,0.7)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm text-gray-600 font-medium">Available for new projects</span>
-          </motion.div>
-        </div>
-
-        {/* Right: Glass Cards Parallax */}
-        <motion.div
-          className="w-full lg:w-1/2 relative h-[400px] lg:h-[580px] flex items-center justify-center pointer-events-auto"
-          style={{ x: cardsX, y: cardsY }}
-        >
-          <div className="relative w-full h-full max-w-lg">
-            <GlassCard
-              name="Interface Layout"
-              role="Web System"
-              stat="+42% Conv."
-              initialRotate={-3}
-              className="absolute top-10 right-4 lg:right-10 z-10 scale-90 opacity-90"
-            />
-            <GlassCard
-              name="Interaction Design"
-              role="Mobile Application"
-              stat="98% CSAT"
-              initialRotate={2}
-              className="absolute bottom-10 left-4 lg:left-10 z-30"
-            />
-            <GlassCard
-              name="Brand Identity"
-              role="Visual System"
-              stat="Award Winner"
-              initialRotate={-1}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 shadow-2xl"
-            />
+              Hire me
+            </PillButton>
+            <button
+              onClick={() => setNavOpen(true)}
+              data-testid="button-menu"
+              aria-label="Open menu"
+              className="grid size-10 place-items-center rounded-full bg-white/50 border border-white/60 backdrop-blur-md text-slate-700 shadow-sm transition-colors hover:bg-white/70"
+            >
+              <Menu className="size-5" strokeWidth={2} />
+            </button>
           </div>
-        </motion.div>
-      </section>
+        </header>
 
-      {/* ── Page Sections ── */}
-      <div className="relative" style={{ zIndex: 1 }}>
-        <WorkSection />
-        <AboutSection />
-        <SkillsSection />
-        <ContactSection />
+        {/* ── Hero ── */}
+        <main className="w-full">
+          <section className="mx-auto flex min-h-[86vh] w-full max-w-6xl flex-col items-start justify-center px-6 py-16 md:flex-row md:items-center md:gap-12">
+
+            {/* Left copy */}
+            <div className="max-w-xl flex-1">
+              <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
+                Usman Farooqi
+              </h1>
+              <p className="mt-4 text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl lg:text-5xl">
+                <Typewriter words={["Graphic Designer", "Brand Designer", "Art Director"]} />
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-3">
+                <PillButton
+                  variant="primary"
+                  size="lg"
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  data-testid="button-hire-hero"
+                >
+                  Hire Now <ArrowRight className="size-4" />
+                </PillButton>
+                <PillButton
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+                  data-testid="button-view-work"
+                >
+                  View work
+                </PillButton>
+              </div>
+            </div>
+
+            {/* Right — floating cards */}
+            <div
+              className="mt-12 flex flex-1 justify-center md:mt-0"
+              style={{
+                translate: `${px * -30}px ${py * -20}px`,
+                transition: "translate 700ms cubic-bezier(0.22,1,0.36,1)",
+              }}
+            >
+              <FloatingCards px={px} py={py} />
+            </div>
+          </section>
+
+          <WorkSection />
+          <AboutSection />
+          <ServicesSection />
+          <ContactSection />
+
+          <footer className="mx-auto w-full max-w-6xl px-6 py-10 text-sm text-slate-400">
+            © {new Date().getFullYear()} Usman Farooqi. Crafted with care.
+          </footer>
+        </main>
       </div>
 
-      {/* ── Footer ── */}
-      <footer className="relative z-10 px-6 md:px-16 lg:px-24 py-10 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span className="text-sm text-gray-400">© 2024 Usman Farooqi. All rights reserved.</span>
-        <div className="flex items-center gap-6">
-          {["Behance", "Dribbble", "LinkedIn"].map(s => (
-            <a key={s} href="#" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">{s}</a>
-          ))}
-        </div>
-      </footer>
-
-      {/* ── Mobile Nav Overlay ── */}
+      {/* Mobile nav overlay */}
       <MobileNav isOpen={navOpen} setIsOpen={setNavOpen} />
     </div>
   );
