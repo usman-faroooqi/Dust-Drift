@@ -70,13 +70,14 @@ export default function Home() {
         <header className="sticky top-0 z-40 w-full">
           {/* Apple glass pill/bar */}
           <div
-            className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3"
+            className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
             style={{
-              background: "rgba(255,255,255,0.72)",
-              backdropFilter: "blur(24px) saturate(200%)",
-              WebkitBackdropFilter: "blur(24px) saturate(200%)",
-              borderBottom: "1px solid rgba(255,255,255,0.55)",
-              boxShadow: "0 1px 0 rgba(0,0,0,0.05), 0 4px 24px rgba(0,0,0,0.04)",
+              background: "rgba(246,248,255,0.94)",
+              backdropFilter: "blur(48px) saturate(220%) brightness(1.04)",
+              WebkitBackdropFilter: "blur(48px) saturate(220%) brightness(1.04)",
+              borderBottom: "1.5px solid rgba(255,255,255,0.85)",
+              boxShadow:
+                "0 2px 0 rgba(0,0,0,0.045), 0 8px 32px rgba(59,130,246,0.06), inset 0 1px 0 rgba(255,255,255,0.95)",
             }}
           >
             {/* Logo */}
