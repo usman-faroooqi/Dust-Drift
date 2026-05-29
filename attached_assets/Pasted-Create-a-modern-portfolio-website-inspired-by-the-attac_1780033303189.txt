@@ -1,0 +1,107 @@
+Create a modern portfolio website inspired by the attached reference image.
+
+The website should have a soft light-gray background with animated floating particles, similar to the reference image. Add subtle depth, floating elements, and layered card effects so the background feels dynamic but not distracting.
+
+The main purpose of the website is to showcase my work, projects, skills, and portfolio case studies. The UI should feel solid, premium, gridded, and structured, with clean spacing, strong alignment, and modern responsive layouts.
+
+Design style:
+
+* Modern portfolio website
+* Clean, premium, and professional
+* Gridded project showcase layout
+* Soft 3D depth
+* Smooth animations
+* Subtle glassmorphism and skeuomorphic details
+* High-quality spacing and typography
+* Fully responsive for desktop, tablet, and mobile
+
+Background:
+
+* Use a light-gray or off-white background similar to the attached image
+* Add animated small particles floating slowly across the page
+* Add subtle floating layered cards in the background inspired by the reference image
+* The background should look elegant and modern, not messy
+* Use soft shadows and depth to create a premium visual feel
+
+Hero section:
+
+* Add a bold headline introducing the portfolio
+* Include a short description about my work
+* Add two modern pill-shaped call-to-action buttons
+* Include a clean preview/card area that visually hints at my work showcase
+
+Buttons:
+Create modern 3D pill-shaped buttons with rounded capsule edges.
+
+Primary CTA button:
+
+* Vibrant blue gradient background
+* White text for strong contrast
+* Rounded capsule shape
+* Faint top-edge highlight
+* Soft inner glow
+* Realistic drop shadow
+* Tactile clickable feel
+
+Secondary CTA buttons:
+
+* Soft glossy light-blue-to-white vertical gradient
+* Dark text
+* Rounded capsule shape
+* Subtle top highlight
+* Soft inner glow
+* Realistic shadow
+* Slight hover lift animation
+
+Work showcase section:
+
+* Use a solid grid-based layout
+* Include multiple project cards
+* Cards should feel premium and structured
+* Use dark or semi-dark cards with soft shadows
+* Add project title, category, short description, and action buttons
+* Include hover effects like slight lift, glow, or depth increase
+* Make the grid responsive on all screen sizes
+
+Mobile navigation:
+Design a modern full-screen mobile navigation menu.
+
+Mobile menu style:
+
+* Dark navy blue full-screen background
+* Header at the top
+* Bold green text logo saying “Portfolio” on the left
+* Clean “X” close icon on the right
+* Navigation links arranged in a vertical stack
+* Use a thin, elegant sans-serif font
+* Link text should be muted white or light gray
+* Several menu items should include a subtle right-aligned downward chevron arrow to indicate dropdown accordion behavior
+* Organize links into sections separated by ultra-thin horizontal divider lines
+
+Mobile menu bottom buttons:
+
+* At the very bottom, place two fixed prominent capsule-shaped buttons
+* Primary button text: “Hire Now”
+* “Hire Now” button should use a vibrant yellow gradient
+* Secondary button text: “Let’s connect”
+* “Let’s connect” button should have a white outline with a dark translucent background
+* Both buttons should be large, rounded, tactile, and easy to tap
+
+Animation:
+
+* Smooth particle movement in the background
+* Soft hover animations on cards and buttons
+* Smooth mobile menu open and close transition
+* Keep all animations elegant and lightweight
+
+Technical requirements:
+
+* Build a fully responsive website
+* Use clean semantic HTML, CSS, and JavaScript, or React if needed
+* Keep the code organized and easy to customize
+* Make sure the mobile navigation works properly
+* Make sure the website looks polished on both desktop and mobile
+* Do not use overly bright or cluttered effects
+* Prioritize premium design, readability, and smooth user experience
+
+Final result should feel like a high-end modern portfolio website with animated particles, 3D tactile buttons, a solid project showcase grid, and a premium mobile full-screen navigation menu.
