@@ -91,45 +91,68 @@ export default function Home() {
 
         {/* ── Hero ── */}
         <main className="w-full">
-          <section className="mx-auto flex min-h-[86vh] w-full max-w-6xl flex-col items-start justify-center px-6 py-16 md:flex-row md:items-center md:gap-12">
+          <section className="relative flex min-h-[90vh] w-full flex-col justify-between overflow-hidden px-6 pb-12 pt-8 md:px-12 md:pb-16">
 
-            {/* Left copy */}
-            <div className="max-w-xl flex-1">
-              <h1 className="text-balance text-5xl font-semibold leading-[1.02] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
+            {/* ── Full-bleed name ── */}
+            <div className="mt-6 w-full select-none">
+              <h1
+                className="w-full text-center font-black uppercase leading-none tracking-tight text-slate-900"
+                style={{ fontSize: "clamp(3.5rem, 13vw, 14rem)", lineHeight: 0.92, letterSpacing: "-0.02em" }}
+              >
                 Usman Farooqi
               </h1>
-              <p className="mt-4 text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl lg:text-5xl">
-                <Typewriter words={["Graphic Designer", "Brand Designer", "Art Director"]} />
+
+              {/* Niche — centered small-caps tag */}
+              <p
+                className="mx-auto mt-6 text-center font-semibold uppercase tracking-[0.25em] text-slate-500"
+                style={{ fontSize: "clamp(0.65rem, 1.4vw, 1rem)", letterSpacing: "0.3em" }}
+              >
+                <Typewriter
+                  words={["Graphic Designer", "Brand Designer", "Art Director"]}
+                  typeSpeed={100}
+                  deleteSpeed={50}
+                  holdTime={2000}
+                />
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-3">
-                <PillButton
-                  variant="primary"
-                  size="lg"
-                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                  data-testid="button-hire-hero"
-                >
-                  Hire Now <ArrowRight className="size-4" />
-                </PillButton>
-                <PillButton
-                  variant="secondary"
-                  size="lg"
-                  onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-                  data-testid="button-view-work"
-                >
-                  View work
-                </PillButton>
-              </div>
             </div>
 
-            {/* Right — floating cards */}
-            <div
-              className="mt-12 flex flex-1 justify-center md:mt-0"
-              style={{
-                translate: `${px * -30}px ${py * -20}px`,
-                transition: "translate 700ms cubic-bezier(0.22,1,0.36,1)",
-              }}
-            >
-              <FloatingCards px={px} py={py} />
+            {/* ── Bottom row: description + floating cards + CTA ── */}
+            <div className="mt-10 flex w-full flex-col items-end gap-8 md:flex-row md:items-end md:justify-between">
+              {/* Description + buttons */}
+              <div className="max-w-xs">
+                <p className="mb-6 text-sm leading-relaxed text-slate-500">
+                  I craft visual identities and digital experiences that help brands stand out and connect with their audience.
+                </p>
+                <div className="flex flex-wrap items-center gap-3">
+                  <PillButton
+                    variant="primary"
+                    size="lg"
+                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                    data-testid="button-hire-hero"
+                  >
+                    Hire Now <ArrowRight className="size-4" />
+                  </PillButton>
+                  <PillButton
+                    variant="secondary"
+                    size="lg"
+                    onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+                    data-testid="button-view-work"
+                  >
+                    View work
+                  </PillButton>
+                </div>
+              </div>
+
+              {/* Floating cards — parallax */}
+              <div
+                className="shrink-0"
+                style={{
+                  translate: `${px * -30}px ${py * -20}px`,
+                  transition: "translate 700ms cubic-bezier(0.22,1,0.36,1)",
+                }}
+              >
+                <FloatingCards px={px} py={py} />
+              </div>
             </div>
           </section>
 
