@@ -72,12 +72,12 @@ export default function Home() {
           <div
             className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
             style={{
-              background: "rgba(246,248,255,0.94)",
-              backdropFilter: "blur(48px) saturate(220%) brightness(1.04)",
-              WebkitBackdropFilter: "blur(48px) saturate(220%) brightness(1.04)",
-              borderBottom: "1.5px solid rgba(255,255,255,0.85)",
+              background: "rgba(243,245,255,0.52)",
+              backdropFilter: "blur(40px) saturate(200%)",
+              WebkitBackdropFilter: "blur(40px) saturate(200%)",
+              borderBottom: "1px solid rgba(255,255,255,0.55)",
               boxShadow:
-                "0 2px 0 rgba(0,0,0,0.045), 0 8px 32px rgba(59,130,246,0.06), inset 0 1px 0 rgba(255,255,255,0.95)",
+                "0 1px 0 rgba(0,0,0,0.04), 0 6px 24px rgba(59,130,246,0.05), inset 0 1px 0 rgba(255,255,255,0.7)",
             }}
           >
             {/* Logo */}
@@ -118,12 +118,12 @@ export default function Home() {
 
         {/* ── Hero ── */}
         <main className="w-full">
-          <section className="relative flex min-h-[90vh] w-full flex-col items-start justify-center px-6 py-16 md:px-12">
+          <section className="relative flex min-h-[95vh] w-full flex-col px-6 pt-10 pb-10 md:px-12">
 
-            {/* Name — single line, full-width display */}
-            <div className="w-full text-center mb-4 select-none">
+            {/* ── Name + niche pushed near top ── */}
+            <div className="w-full select-none">
               <h1
-                className="font-black uppercase leading-none text-slate-900"
+                className="w-full text-center font-black uppercase leading-none text-slate-900"
                 style={{
                   fontSize: "clamp(3rem, 9.5vw, 11rem)",
                   letterSpacing: "-0.02em",
@@ -133,44 +133,111 @@ export default function Home() {
               >
                 Usman Farooqi
               </h1>
+
+              {/* Niche typewriter — centered */}
+              <p
+                className="w-full text-center font-semibold uppercase text-slate-400 mt-4"
+                style={{ fontSize: "clamp(0.7rem, 1.5vw, 1rem)", letterSpacing: "0.32em" }}
+              >
+                <Typewriter
+                  words={["Graphic Designer", "Brand Designer", "Art Director"]}
+                  typeSpeed={100}
+                  deleteSpeed={50}
+                  holdTime={2000}
+                />
+              </p>
+
+              {/* Supporting text — centered */}
+              <p className="mx-auto mt-4 max-w-sm text-center text-sm leading-relaxed text-slate-400">
+                I craft visual identities and digital experiences that help brands stand out and connect with their audience.
+              </p>
+
+              {/* CTA buttons — left aligned */}
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <PillButton
+                  variant="primary"
+                  size="lg"
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  data-testid="button-hire-hero"
+                >
+                  Hire Now <ArrowRight className="size-4" />
+                </PillButton>
+                <PillButton
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+                  data-testid="button-view-work"
+                >
+                  View work
+                </PillButton>
+              </div>
             </div>
 
-            {/* Niche — centered typewriter */}
-            <p
-              className="w-full text-center font-semibold uppercase text-slate-400"
-              style={{ fontSize: "clamp(0.7rem, 1.5vw, 1rem)", letterSpacing: "0.32em" }}
-            >
-              <Typewriter
-                words={["Graphic Designer", "Brand Designer", "Art Director"]}
-                typeSpeed={100}
-                deleteSpeed={50}
-                holdTime={2000}
-              />
-            </p>
-
-            {/* Supporting text — centered below niche */}
-            <p className="mx-auto mt-5 max-w-sm text-center text-sm leading-relaxed text-slate-400">
-              I craft visual identities and digital experiences that help brands stand out and connect with their audience.
-            </p>
-
-            {/* CTA buttons — left aligned */}
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <PillButton
-                variant="primary"
-                size="lg"
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                data-testid="button-hire-hero"
+            {/* ── Video / showreel rectangle ── */}
+            <div className="mt-10 w-full">
+              <div
+                className="relative w-full overflow-hidden rounded-2xl"
+                style={{
+                  aspectRatio: "16/7",
+                  background: "linear-gradient(135deg, rgba(15,23,42,0.88) 0%, rgba(30,58,138,0.82) 100%)",
+                  boxShadow: "0 24px 64px -12px rgba(15,23,42,0.28), 0 0 0 1px rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(2px)",
+                }}
               >
-                Hire Now <ArrowRight className="size-4" />
-              </PillButton>
-              <PillButton
-                variant="secondary"
-                size="lg"
-                onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-                data-testid="button-view-work"
-              >
-                View work
-              </PillButton>
+                {/* Shimmer overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 70% 60% at 50% 30%, rgba(59,130,246,0.18) 0%, transparent 70%)",
+                  }}
+                />
+                {/* Grid lines for depth */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-10"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
+                    backgroundSize: "60px 60px",
+                  }}
+                />
+                {/* Play button */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                  <button
+                    aria-label="Play showreel"
+                    className="group flex size-16 items-center justify-center rounded-full transition-transform duration-200 hover:scale-110 active:scale-95"
+                    style={{
+                      background: "rgba(255,255,255,0.15)",
+                      border: "1.5px solid rgba(255,255,255,0.3)",
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "0 8px 32px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.2)",
+                    }}
+                  >
+                    {/* Triangle */}
+                    <span
+                      className="ml-1"
+                      style={{
+                        width: 0,
+                        height: 0,
+                        borderStyle: "solid",
+                        borderWidth: "10px 0 10px 18px",
+                        borderColor: "transparent transparent transparent rgba(255,255,255,0.9)",
+                        display: "block",
+                      }}
+                    />
+                  </button>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/50">
+                    Watch showreel
+                  </p>
+                </div>
+                {/* Corner labels */}
+                <span className="absolute bottom-4 left-5 text-xs font-mono tracking-widest text-white/30 uppercase">
+                  Showreel 2025
+                </span>
+                <span className="absolute bottom-4 right-5 text-xs font-mono tracking-widest text-white/30">
+                  0:42
+                </span>
+              </div>
             </div>
           </section>
 

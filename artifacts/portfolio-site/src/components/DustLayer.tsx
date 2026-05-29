@@ -42,7 +42,7 @@ function makeParticles(count: number, seed: number): Particle[] {
 }
 
 export function DustLayer({
-  count = 60,
+  count = 120,
   px = 0,
   py = 0,
 }: {

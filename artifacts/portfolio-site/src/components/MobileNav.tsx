@@ -63,12 +63,12 @@ export function MobileNav({
         isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
       )}
       style={{
-        background: "linear-gradient(160deg, rgba(248,250,255,0.98) 0%, rgba(219,234,254,0.97) 55%, rgba(191,219,254,0.96) 100%)",
-        backdropFilter: "blur(60px) saturate(220%) brightness(1.06)",
-        WebkitBackdropFilter: "blur(60px) saturate(220%) brightness(1.06)",
-        borderRight: "1.5px solid rgba(255,255,255,0.9)",
+        background: "linear-gradient(160deg, rgba(248,250,255,0.58) 0%, rgba(219,234,254,0.55) 55%, rgba(191,219,254,0.52) 100%)",
+        backdropFilter: "blur(56px) saturate(200%)",
+        WebkitBackdropFilter: "blur(56px) saturate(200%)",
+        borderRight: "1px solid rgba(255,255,255,0.55)",
         boxShadow:
-          "inset 1px 0 0 rgba(255,255,255,0.95), inset 0 1px 0 rgba(255,255,255,0.95), 6px 0 60px rgba(59,130,246,0.10), 0 0 0 1px rgba(200,220,255,0.2)",
+          "inset 1px 0 0 rgba(255,255,255,0.7), inset 0 1px 0 rgba(255,255,255,0.7), 6px 0 40px rgba(59,130,246,0.08)",
       }}
       aria-hidden={!isOpen}
     >
