@@ -47,63 +47,37 @@ function AmbientVideo({ src }: { src?: string }) {
           videoRef.current?.pause();
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.15 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
   return (
-    <div ref={wrapRef} className="mt-10 w-full">
-      <div
-        className="relative w-full overflow-hidden rounded-2xl"
-        style={{
-          aspectRatio: "16/7",
-          boxShadow:
-            "0 24px 64px -16px rgba(15,23,42,0.22), 0 0 0 1px rgba(255,255,255,0.10)",
-        }}
-      >
-        {src ? (
-          <video
-            ref={videoRef}
-            src={src}
-            loop
-            muted
-            playsInline
-            autoPlay
-            disablePictureInPicture
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        ) : (
-          /* Placeholder shown until a real video URL is provided */
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #1e293b 100%)",
-            }}
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(ellipse 75% 55% at 50% 35%, rgba(59,130,246,0.22) 0%, transparent 65%)",
-              }}
-            />
-            <div
-              className="absolute inset-0 opacity-[0.07]"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
-                backgroundSize: "28px 28px",
-              }}
-            />
-            <p className="absolute bottom-5 left-6 font-mono text-xs uppercase tracking-[0.2em] text-white/25">
-              Showreel 2025
-            </p>
-          </div>
-        )}
-      </div>
+    <div
+      ref={wrapRef}
+      className="relative w-full overflow-hidden"
+      style={{ aspectRatio: "16 / 7" }}
+    >
+      {src ? (
+        <video
+          ref={videoRef}
+          src={src}
+          loop
+          muted
+          playsInline
+          autoPlay
+          disablePictureInPicture
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        <img
+          src="/showreel-placeholder.jpg"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
     </div>
   );
 }
@@ -198,9 +172,10 @@ export default function Home() {
 
         {/* ── Hero ── */}
         <main className="w-full">
-          <section className="relative flex min-h-[95vh] w-full flex-col px-6 pt-10 pb-10 md:px-12">
+          {/* Text + buttons — padded */}
+          <section className="relative w-full px-6 pt-10 pb-6 md:px-12">
 
-            {/* Name + niche — top of section */}
+            {/* Name + niche */}
             <div className="w-full select-none">
               <h1
                 className="w-full text-center font-black uppercase leading-none text-slate-900"
@@ -249,10 +224,10 @@ export default function Home() {
                 </PillButton>
               </div>
             </div>
-
-            {/* Ambient autoplay showreel — no controls, part of the UI */}
-            <AmbientVideo />
           </section>
+
+          {/* Ambient showreel — full-bleed, zero padding, seamless UI */}
+          <AmbientVideo />
 
           <WorkSection />
           <AboutSection />
