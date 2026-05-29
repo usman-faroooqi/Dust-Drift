@@ -1,5 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 
+/** Soft premium haptic — a very short double-pulse like iOS UIImpactFeedbackGenerator */
+function haptic() {
+  if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+    navigator.vibrate([4, 2, 4]);
+  }
+}
+
+/** Slightly longer haptic burst when a full word is completed */
+function hapticWordComplete() {
+  if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+    navigator.vibrate([8, 4, 8, 4, 12]);
+  }
+}
+
 export function Typewriter({
   words,
   className,
@@ -16,44 +30,28 @@ export function Typewriter({
   const [text, setText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [phase, setPhase] = useState<"typing" | "holding" | "deleting">("typing");
-  const audioRef = useRef<AudioContext | null>(null);
-  const soundOn = useRef(false);
+  const [active, setActive] = useState(false);
+  const containerRef = useRef<HTMLSpanElement | null>(null);
 
+  // Only start animating once the element scrolls into view
   useEffect(() => {
-    const unlock = () => {
-      if (!audioRef.current) {
-        const Ctx =
-          window.AudioContext ||
-          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        if (Ctx) audioRef.current = new Ctx();
-      }
-      audioRef.current?.resume();
-      soundOn.current = true;
-    };
-    window.addEventListener("pointerdown", unlock, { once: true });
-    window.addEventListener("keydown", unlock, { once: true });
-    return () => {
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("keydown", unlock);
-    };
+    const el = containerRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
-  const click = () => {
-    const ctx = audioRef.current;
-    if (!ctx || !soundOn.current) return;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "square";
-    osc.frequency.setValueAtTime(420 + Math.random() * 180, ctx.currentTime);
-    gain.gain.setValueAtTime(0.06, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.04);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.05);
-  };
-
   useEffect(() => {
+    if (!active) return;
     const current = words[wordIndex];
     let timer: ReturnType<typeof setTimeout>;
 
@@ -61,16 +59,17 @@ export function Typewriter({
       if (text.length < current.length) {
         timer = setTimeout(() => {
           setText(current.slice(0, text.length + 1));
-          click();
+          haptic();
         }, typeSpeed);
       } else {
+        hapticWordComplete();
         timer = setTimeout(() => setPhase("deleting"), holdTime);
       }
     } else if (phase === "deleting") {
       if (text.length > 0) {
         timer = setTimeout(() => {
           setText(current.slice(0, text.length - 1));
-          click();
+          haptic();
         }, deleteSpeed);
       } else {
         setWordIndex((i) => (i + 1) % words.length);
@@ -79,10 +78,10 @@ export function Typewriter({
     }
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, phase, wordIndex, words]);
+  }, [text, phase, wordIndex, words, active]);
 
   return (
-    <span className={className}>
+    <span ref={containerRef} className={className}>
       {text}
       <span
         aria-hidden
