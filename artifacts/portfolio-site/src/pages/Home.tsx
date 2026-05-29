@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Menu, ArrowRight } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import { DustLayer } from "@/components/DustLayer";
-import { FloatingCards } from "@/components/FloatingCards";
 import { PillButton } from "@/components/Buttons";
 import { MobileNav } from "@/components/MobileNav";
 import { Typewriter } from "@/components/TypingText";
@@ -9,6 +8,23 @@ import { WorkSection } from "@/components/WorkSection";
 import { AboutSection } from "@/components/AboutSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { ContactSection } from "@/components/ContactSection";
+
+function LiveClock() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const id = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const hh = String(time.getHours()).padStart(2, "0");
+  const mm = String(time.getMinutes()).padStart(2, "0");
+  const ss = String(time.getSeconds()).padStart(2, "0");
+  return (
+    <span className="font-mono text-sm tabular-nums tracking-widest text-slate-600 select-none">
+      {hh}<span className="opacity-40">:</span>{mm}<span className="opacity-40">:</span>
+      <span className="text-blue-500">{ss}</span>
+    </span>
+  );
+}
 
 export default function Home() {
   const [navOpen, setNavOpen] = useState(false);
@@ -50,109 +66,110 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header ── */}
-        <header className="sticky top-0 z-40 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
-          {/* Frosted header bg */}
-          <div className="absolute inset-0 bg-[#f3f3f5]/70 backdrop-blur-md" style={{ zIndex: -1 }} />
-          <span className="relative text-xl font-bold tracking-tight text-slate-900">
-            Portfolio<span className="text-blue-600">.</span>
-          </span>
-          <nav className="relative hidden items-center gap-8 md:flex">
-            {["Work", "About", "Services", "Contact"].map((l) => (
-              <a
-                key={l}
-                href={`#${l.toLowerCase()}`}
-                className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+        {/* ── Header — Apple-style solid glass ── */}
+        <header className="sticky top-0 z-40 w-full">
+          {/* Apple glass pill/bar */}
+          <div
+            className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3"
+            style={{
+              background: "rgba(255,255,255,0.72)",
+              backdropFilter: "blur(24px) saturate(200%)",
+              WebkitBackdropFilter: "blur(24px) saturate(200%)",
+              borderBottom: "1px solid rgba(255,255,255,0.55)",
+              boxShadow: "0 1px 0 rgba(0,0,0,0.05), 0 4px 24px rgba(0,0,0,0.04)",
+            }}
+          >
+            {/* Logo */}
+            <span className="select-none text-base font-black tracking-tight text-slate-900 uppercase" style={{ letterSpacing: "0.04em" }}>
+              GFX <span className="text-blue-600">WITH</span> USMAN
+            </span>
+
+            {/* Desktop nav links — hidden on mobile */}
+            <nav className="hidden items-center gap-8 md:flex">
+              {["Work", "About", "Services", "Contact"].map((l) => (
+                <a
+                  key={l}
+                  href={`#${l.toLowerCase()}`}
+                  className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+                >
+                  {l}
+                </a>
+              ))}
+            </nav>
+
+            {/* Right side: clock on desktop, hamburger on mobile only */}
+            <div className="flex items-center gap-4">
+              <div className="hidden md:block">
+                <LiveClock />
+              </div>
+              {/* Hamburger — mobile only */}
+              <button
+                onClick={() => setNavOpen(true)}
+                data-testid="button-menu"
+                aria-label="Open menu"
+                className="md:hidden grid size-10 place-items-center rounded-full text-slate-700 transition-colors hover:bg-slate-100"
               >
-                {l}
-              </a>
-            ))}
-          </nav>
-          <div className="relative flex items-center gap-3">
-            <PillButton
-              variant="primary"
-              size="md"
-              className="hidden md:inline-flex"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              data-testid="button-hire-header"
-            >
-              Hire me
-            </PillButton>
-            <button
-              onClick={() => setNavOpen(true)}
-              data-testid="button-menu"
-              aria-label="Open menu"
-              className="grid size-10 place-items-center rounded-full bg-white/50 border border-white/60 backdrop-blur-md text-slate-700 shadow-sm transition-colors hover:bg-white/70"
-            >
-              <Menu className="size-5" strokeWidth={2} />
-            </button>
+                <Menu className="size-5" strokeWidth={2} />
+              </button>
+            </div>
           </div>
         </header>
 
         {/* ── Hero ── */}
         <main className="w-full">
-          <section className="relative flex min-h-[90vh] w-full flex-col justify-between overflow-hidden px-6 pb-12 pt-8 md:px-12 md:pb-16">
+          <section className="relative flex min-h-[90vh] w-full flex-col items-start justify-center px-6 py-16 md:px-12">
 
-            {/* ── Full-bleed name ── */}
-            <div className="mt-6 w-full select-none">
+            {/* Name — single line, full-width display */}
+            <div className="w-full text-center mb-4 select-none">
               <h1
-                className="w-full text-center font-black uppercase leading-none tracking-tight text-slate-900"
-                style={{ fontSize: "clamp(3.5rem, 13vw, 14rem)", lineHeight: 0.92, letterSpacing: "-0.02em" }}
+                className="font-black uppercase leading-none text-slate-900"
+                style={{
+                  fontSize: "clamp(3rem, 9.5vw, 11rem)",
+                  letterSpacing: "-0.02em",
+                  whiteSpace: "nowrap",
+                  lineHeight: 0.9,
+                }}
               >
                 Usman Farooqi
               </h1>
-
-              {/* Niche — centered small-caps tag */}
-              <p
-                className="mx-auto mt-6 text-center font-semibold uppercase tracking-[0.25em] text-slate-500"
-                style={{ fontSize: "clamp(0.65rem, 1.4vw, 1rem)", letterSpacing: "0.3em" }}
-              >
-                <Typewriter
-                  words={["Graphic Designer", "Brand Designer", "Art Director"]}
-                  typeSpeed={100}
-                  deleteSpeed={50}
-                  holdTime={2000}
-                />
-              </p>
             </div>
 
-            {/* ── Bottom row: description + floating cards + CTA ── */}
-            <div className="mt-10 flex w-full flex-col items-end gap-8 md:flex-row md:items-end md:justify-between">
-              {/* Description + buttons */}
-              <div className="max-w-xs">
-                <p className="mb-6 text-sm leading-relaxed text-slate-500">
-                  I craft visual identities and digital experiences that help brands stand out and connect with their audience.
-                </p>
-                <div className="flex flex-wrap items-center gap-3">
-                  <PillButton
-                    variant="primary"
-                    size="lg"
-                    onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                    data-testid="button-hire-hero"
-                  >
-                    Hire Now <ArrowRight className="size-4" />
-                  </PillButton>
-                  <PillButton
-                    variant="secondary"
-                    size="lg"
-                    onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-                    data-testid="button-view-work"
-                  >
-                    View work
-                  </PillButton>
-                </div>
-              </div>
+            {/* Niche — centered typewriter */}
+            <p
+              className="w-full text-center font-semibold uppercase text-slate-400"
+              style={{ fontSize: "clamp(0.7rem, 1.5vw, 1rem)", letterSpacing: "0.32em" }}
+            >
+              <Typewriter
+                words={["Graphic Designer", "Brand Designer", "Art Director"]}
+                typeSpeed={100}
+                deleteSpeed={50}
+                holdTime={2000}
+              />
+            </p>
 
-              {/* Floating cards — parallax */}
-              <div
-                className="shrink-0"
-                style={{
-                  translate: `${px * -30}px ${py * -20}px`,
-                  transition: "translate 700ms cubic-bezier(0.22,1,0.36,1)",
-                }}
+            {/* Supporting text — centered below niche */}
+            <p className="mx-auto mt-5 max-w-sm text-center text-sm leading-relaxed text-slate-400">
+              I craft visual identities and digital experiences that help brands stand out and connect with their audience.
+            </p>
+
+            {/* CTA buttons — left aligned */}
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <PillButton
+                variant="primary"
+                size="lg"
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                data-testid="button-hire-hero"
               >
-                <FloatingCards px={px} py={py} />
-              </div>
+                Hire Now <ArrowRight className="size-4" />
+              </PillButton>
+              <PillButton
+                variant="secondary"
+                size="lg"
+                onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+                data-testid="button-view-work"
+              >
+                View work
+              </PillButton>
             </div>
           </section>
 
@@ -162,7 +179,7 @@ export default function Home() {
           <ContactSection />
 
           <footer className="mx-auto w-full max-w-6xl px-6 py-10 text-sm text-slate-400">
-            © {new Date().getFullYear()} Usman Farooqi. Crafted with care.
+            © {new Date().getFullYear()} Usman Farooqi · GFX With Usman. Crafted with care.
           </footer>
         </main>
       </div>
