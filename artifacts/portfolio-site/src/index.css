@@ -215,7 +215,7 @@
 /* ============================= */
 
 .ai-glass-header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -229,7 +229,7 @@
 
 .ai-glass-header__inner {
   position: relative;
-  max-width: 1280px;
+  max-width: 1440px;
   height: 52px;
   margin: 0 auto;
   padding: 0 28px;
@@ -329,21 +329,17 @@
 
 body { padding-top: 0 !important; }
 
-.hero-section { padding-top: 92px !important; }
-
 @media (max-width: 768px) {
   .ai-glass-header__inner { height: 56px; padding: 0 18px; }
   .ai-glass-header__nav,
   .ai-glass-header__clock { display: none; }
   .ai-glass-header__menu { display: inline-flex; }
   .ai-glass-header__brand { font-size: 13px; }
-  .hero-section { padding-top: 88px !important; }
 }
 
 @media (max-width: 480px) {
   .ai-glass-header__inner { height: 54px; padding: 0 14px; }
   .ai-glass-header__brand { font-size: 12px; }
-  .hero-section { padding-top: 84px !important; }
 }
 
 /* ── Reduced motion ── */
