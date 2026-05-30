@@ -147,7 +147,7 @@ export default function Home() {
               onClick={() => setNavOpen(true)}
               data-testid="button-menu"
               aria-label="Open menu"
-              className="md:hidden grid size-10 place-items-center rounded-full text-slate-700 transition-colors hover:bg-slate-100"
+              className="menu-button grid size-10 place-items-center rounded-full transition-colors hover:bg-slate-100"
             >
               <Menu className="size-5" strokeWidth={2} />
             </button>
@@ -157,7 +157,7 @@ export default function Home() {
         {/* ── Hero ── */}
         <main className="w-full">
           {/* Text + buttons — padded */}
-          <section className="relative w-full px-6 pt-10 pb-6 md:px-12">
+          <section className="hero-section relative w-full px-6 pb-6 md:px-12">
 
             {/* Name + niche */}
             <div className="w-full select-none">

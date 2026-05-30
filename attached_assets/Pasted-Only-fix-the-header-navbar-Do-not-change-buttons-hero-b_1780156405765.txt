@@ -1,0 +1,290 @@
+Only fix the header/navbar. Do not change buttons, hero buttons, hero text, work section, images, or page content.
+
+Current issue:
+The header material is now closer, but the layout is wrong. On desktop the header overlaps the huge "USMAN FAROOQI" title. On mobile there is too much empty space above the header, and the header is sitting too low. I want the header fixed near the top like a clean horizontal strip.
+
+Important:
+- Do not edit `.btn-capsule`
+- Do not edit `.btn-3d-primary`
+- Do not edit `.btn-3d-secondary`
+- Do not change button HTML or CSS
+- Only update header/navbar CSS and responsive header behavior
+
+Fix these:
+1. Header must be fixed to the viewport top.
+2. Header should be a long horizontal skeuomorphic strip.
+3. Header should use the same whitish 3D material as the secondary button.
+4. Header should NOT be pill-shaped.
+5. Header should have only slightly rounded corners.
+6. Remove huge top blank space on mobile.
+7. Prevent the fixed header from covering the hero title.
+8. On mobile, hide nav links and clock/time, show only logo and hamburger icon.
+9. Make the mobile header width clean and centered.
+
+Remove/override any old header classes like:
+- metal-glass-header
+- glass-metal-header
+- header-3d-secondary-strip if it has old conflicting CSS
+
+Then use this CSS as the final header CSS:
+
+```css
+/* ============================= */
+/* FINAL LIGHT 3D STRIP HEADER */
+/* ============================= */
+
+.header-3d-secondary-strip {
+  position: fixed !important;
+  top: 18px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: min(calc(100vw - 120px), 1140px);
+  height: 62px;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  padding: 0 30px;
+
+  /* strip shape, not pill */
+  border-radius: 12px;
+
+  background: linear-gradient(
+    180deg,
+    #e0f2fe 0%,
+    #f8fbff 36%,
+    #ffffff 68%,
+    #dbeafe 100%
+  );
+
+  border: 1px solid rgba(15, 23, 42, 0.06);
+
+  box-shadow:
+    0 12px 24px -10px rgba(15, 23, 42, 0.24),
+    0 5px 12px -6px rgba(37, 99, 235, 0.20),
+    inset 0 2px 2px rgba(255, 255, 255, 1),
+    inset 0 -2px 5px rgba(15, 23, 42, 0.08);
+
+  overflow: hidden;
+}
+
+/* glossy top highlight */
+.header-3d-secondary-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0.58) 24%,
+    rgba(255, 255, 255, 0.14) 48%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+
+/* very subtle bottom depth */
+.header-3d-secondary-strip::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 5px;
+  height: 1px;
+  border-radius: 999px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.24),
+    rgba(15, 23, 42, 0.10),
+    rgba(59, 130, 246, 0.24),
+    transparent
+  );
+}
+
+.header-3d-secondary-strip > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Logo */
+.header-strip-logo,
+.header-3d-secondary-strip .logo,
+.header-3d-secondary-strip .brand {
+  color: #0f172a;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 5px rgba(15, 23, 42, 0.12);
+}
+
+.header-strip-logo span,
+.header-3d-secondary-strip .logo span,
+.header-3d-secondary-strip .brand span {
+  color: #2563eb;
+}
+
+/* Navigation */
+.header-strip-nav,
+.header-3d-secondary-strip nav,
+.header-3d-secondary-strip ul {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Links */
+.header-strip-link,
+.header-3d-secondary-strip nav a,
+.header-3d-secondary-strip ul a {
+  color: #0f172a;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-strip-link:hover,
+.header-3d-secondary-strip nav a:hover,
+.header-3d-secondary-strip ul a:hover {
+  color: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* Right side clock/time */
+.header-strip-right,
+.header-3d-secondary-strip .time,
+.header-3d-secondary-strip .clock,
+.header-3d-secondary-strip .header-right {
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Hamburger/menu icon */
+.header-menu-button,
+.header-3d-secondary-strip .menu-button,
+.header-3d-secondary-strip .hamburger,
+.header-3d-secondary-strip button {
+  background: transparent;
+  border: none;
+  color: #0f172a;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: none;
+}
+
+/* IMPORTANT:
+   Do not use body padding for fixed header.
+   It creates weird blank space on mobile. */
+body {
+  padding-top: 0 !important;
+}
+
+/* Push only the hero content down so the fixed header does not cover the title */
+.hero,
+.hero-section,
+#hero,
+#home,
+main > section:first-child {
+  padding-top: 120px !important;
+}
+
+/* ============================= */
+/* TABLET / MOBILE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .header-3d-secondary-strip {
+    top: 14px !important;
+    width: calc(100vw - 28px);
+    height: 58px;
+    padding: 0 18px;
+    border-radius: 12px;
+  }
+
+  /* mobile: logo left, menu right */
+  .header-3d-secondary-strip {
+    justify-content: space-between;
+  }
+
+  .header-strip-nav,
+  .header-3d-secondary-strip nav,
+  .header-3d-secondary-strip ul,
+  .header-strip-right,
+  .header-3d-secondary-strip .time,
+  .header-3d-secondary-strip .clock,
+  .header-3d-secondary-strip .header-right {
+    display: none !important;
+  }
+
+  .header-menu-button,
+  .header-3d-secondary-strip .menu-button,
+  .header-3d-secondary-strip .hamburger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-strip-logo,
+  .header-3d-secondary-strip .logo,
+  .header-3d-secondary-strip .brand {
+    font-size: 15px;
+  }
+
+  .hero,
+  .hero-section,
+  #hero,
+  #home,
+  main > section:first-child {
+    padding-top: 104px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-3d-secondary-strip {
+    top: 12px !important;
+    width: calc(100vw - 20px);
+    height: 56px;
+    padding: 0 16px;
+    border-radius: 12px;
+  }
+
+  .header-strip-logo,
+  .header-3d-secondary-strip .logo,
+  .header-3d-secondary-strip .brand {
+    font-size: 14px;
+  }
+
+  .hero,
+  .hero-section,
+  #hero,
+  #home,
+  main > section:first-child {
+    padding-top: 96px !important;
+  }
+}
