@@ -122,24 +122,24 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header — premium metallic glass pill ── */}
-        <header className="metal-glass-header">
+        {/* ── Header — light 3D skeuomorphic strip ── */}
+        <header className="header-3d-secondary-strip">
           {/* Logo */}
-          <span className="metal-glass-logo select-none font-black uppercase" style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)" }}>
+          <span className="header-strip-logo select-none font-black uppercase" style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)" }}>
             GFX <span>WITH</span> USMAN
           </span>
 
           {/* Desktop nav */}
-          <nav className="metal-glass-nav hidden md:flex">
+          <nav className="header-strip-nav hidden md:flex">
             {["Work", "About", "Services", "Contact"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} className="metal-glass-link">
+              <a key={l} href={`#${l.toLowerCase()}`} className="header-strip-link">
                 {l}
               </a>
             ))}
           </nav>
 
           {/* Right side: clock + mobile hamburger */}
-          <div className="header-right flex items-center gap-4">
+          <div className="header-strip-right flex items-center gap-4">
             <div className="clock hidden md:block">
               <LiveClock />
             </div>
@@ -147,7 +147,7 @@ export default function Home() {
               onClick={() => setNavOpen(true)}
               data-testid="button-menu"
               aria-label="Open menu"
-              className="md:hidden grid size-10 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
+              className="md:hidden grid size-10 place-items-center rounded-full text-slate-700 transition-colors hover:bg-slate-100"
             >
               <Menu className="size-5" strokeWidth={2} />
             </button>
