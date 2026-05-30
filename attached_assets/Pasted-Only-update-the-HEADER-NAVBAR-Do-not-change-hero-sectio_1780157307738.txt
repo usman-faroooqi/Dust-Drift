@@ -1,0 +1,243 @@
+Only update the HEADER / NAVBAR.
+
+Do not change:
+- hero section
+- buttons
+- button CSS
+- body content
+- selected work section
+- images
+- typography outside the header
+
+I want the header to match the uploaded AI-generated reference image.
+
+Target style:
+- a thin premium top header
+- full-width horizontal strip
+- very clean and minimal
+- translucent / frosted / glassmorphism look
+- subtle blur
+- blurry abstract color patches behind the header content
+- crisp dark text over the blur
+- elegant and modern
+- not dark metallic
+- not skeuomorphic white button style
+- not thick
+- not pill shaped
+- not a floating rounded box
+- should feel like a clean top overlay bar
+
+Structure:
+- Left: brand text "GFX WITH USMAN"
+- Center: nav links "Work", "About", "Services", "Contact"
+- Right: live digital clock
+- On mobile: logo left, hamburger right, hide nav and clock
+
+Important:
+- remove/override previous header styles such as metallic, button-like, strip-like, or skeuomorphic ones
+- do not create duplicate header
+- update the existing header only
+- keep the content but replace the styling
+
+Use these class names:
+- main header wrapper: `ai-glass-header`
+- inner container: `ai-glass-header__inner`
+- brand: `ai-glass-header__brand`
+- nav: `ai-glass-header__nav`
+- links: `ai-glass-header__link`
+- clock: `ai-glass-header__clock`
+- mobile menu button: `ai-glass-header__menu`
+
+Use this CSS exactly:
+
+```css
+/* ============================= */
+/* AI STYLE GLASSMORPHIC HEADER */
+/* ============================= */
+
+.ai-glass-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.ai-glass-header__inner {
+  position: relative;
+  max-width: 1280px;
+  height: 52px;
+  margin: 0 auto;
+  padding: 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  overflow: hidden;
+}
+
+/* soft blurry color zones behind each text group */
+.ai-glass-header__inner::before,
+.ai-glass-header__inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* left / middle / right abstract blur patches */
+.ai-glass-header__inner::before {
+  background:
+    radial-gradient(ellipse 180px 70px at 18% 50%, rgba(255, 220, 170, 0.35), transparent 70%),
+    radial-gradient(ellipse 220px 80px at 48% 50%, rgba(120, 165, 255, 0.30), transparent 70%),
+    radial-gradient(ellipse 180px 70px at 78% 50%, rgba(255, 190, 150, 0.28), transparent 70%);
+  filter: blur(18px);
+  opacity: 0.95;
+}
+
+/* extra soft haze */
+.ai-glass-header__inner::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0.18) 0%,
+      rgba(255,255,255,0.08) 20%,
+      rgba(255,255,255,0.04) 40%,
+      rgba(255,255,255,0.08) 60%,
+      rgba(255,255,255,0.18) 100%
+    );
+  filter: blur(10px);
+  opacity: 0.8;
+}
+
+/* keep real content above blur */
+.ai-glass-header__brand,
+.ai-glass-header__nav,
+.ai-glass-header__clock,
+.ai-glass-header__menu {
+  position: relative;
+  z-index: 2;
+}
+
+.ai-glass-header__brand {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.ai-glass-header__brand span {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.ai-glass-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.ai-glass-header__link {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.ai-glass-header__link:hover {
+  color: #0f172a;
+  opacity: 0.75;
+}
+
+.ai-glass-header__clock {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.ai-glass-header__menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: #334155;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* push first section below the fixed header */
+.hero,
+.hero-section,
+#hero,
+#home,
+main > section:first-child {
+  padding-top: 92px !important;
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .ai-glass-header__inner {
+    height: 56px;
+    padding: 0 18px;
+  }
+
+  .ai-glass-header__nav,
+  .ai-glass-header__clock {
+    display: none;
+  }
+
+  .ai-glass-header__menu {
+    display: inline-flex;
+  }
+
+  .ai-glass-header__brand {
+    font-size: 13px;
+  }
+
+  .hero,
+  .hero-section,
+  #hero,
+  #home,
+  main > section:first-child {
+    padding-top: 88px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-glass-header__inner {
+    height: 54px;
+    padding: 0 14px;
+  }
+
+  .ai-glass-header__brand {
+    font-size: 12px;
+  }
+
+  .hero,
+  .hero-section,
+  #hero,
+  #home,
+  main > section:first-child {
+    padding-top: 84px !important;
+  }
+}

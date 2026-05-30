@@ -122,35 +122,37 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header — light 3D skeuomorphic strip ── */}
-        <header className="header-3d-secondary-strip">
-          {/* Logo */}
-          <span className="header-strip-logo select-none font-black uppercase" style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)" }}>
-            GFX <span>WITH</span> USMAN
-          </span>
+        {/* ── Header — AI glassmorphic strip ── */}
+        <header className="ai-glass-header">
+          <div className="ai-glass-header__inner">
+            {/* Brand */}
+            <span className="ai-glass-header__brand select-none font-black uppercase">
+              GFX <span>WITH</span> USMAN
+            </span>
 
-          {/* Desktop nav */}
-          <nav className="header-strip-nav hidden md:flex">
-            {["Work", "About", "Services", "Contact"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} className="header-strip-link">
-                {l}
-              </a>
-            ))}
-          </nav>
+            {/* Desktop nav */}
+            <nav className="ai-glass-header__nav">
+              {["Work", "About", "Services", "Contact"].map((l) => (
+                <a key={l} href={`#${l.toLowerCase()}`} className="ai-glass-header__link">
+                  {l}
+                </a>
+              ))}
+            </nav>
 
-          {/* Right side: clock + mobile hamburger */}
-          <div className="header-strip-right flex items-center gap-4">
-            <div className="clock hidden md:block">
-              <LiveClock />
+            {/* Right: clock + mobile hamburger */}
+            <div className="flex items-center gap-3">
+              <div className="ai-glass-header__clock">
+                <LiveClock />
+              </div>
+              <button
+                onClick={() => setNavOpen(true)}
+                data-testid="button-menu"
+                aria-label="Open menu"
+                className="ai-glass-header__menu"
+              >
+                <Menu className="size-5" strokeWidth={2} />
+              </button>
             </div>
-            <button
-              onClick={() => setNavOpen(true)}
-              data-testid="button-menu"
-              aria-label="Open menu"
-              className="menu-button grid size-10 place-items-center rounded-full transition-colors hover:bg-slate-100"
-            >
-              <Menu className="size-5" strokeWidth={2} />
-            </button>
           </div>
         </header>
 
