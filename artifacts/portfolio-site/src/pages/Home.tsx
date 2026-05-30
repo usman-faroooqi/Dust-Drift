@@ -122,38 +122,47 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header — transparent glassy ── */}
-        <header className="sticky top-0 z-40 w-full">
+        {/* ── Header — dark floating pill ── */}
+        <header className="fixed z-[9999] w-full" style={{ top: "20px", pointerEvents: "none" }}>
           <div
-            className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
+            className="mx-auto flex items-center justify-between"
             style={{
-              background: "rgba(243,245,255,0.52)",
-              backdropFilter: "blur(40px) saturate(200%)",
-              WebkitBackdropFilter: "blur(40px) saturate(200%)",
-              borderBottom: "1px solid rgba(255,255,255,0.55)",
-              boxShadow:
-                "0 1px 0 rgba(0,0,0,0.04), 0 6px 24px rgba(59,130,246,0.05), inset 0 1px 0 rgba(255,255,255,0.7)",
+              width: "90%",
+              maxWidth: "1200px",
+              padding: "12px 32px",
+              pointerEvents: "auto",
+              background: "rgba(15,15,15,0.45)",
+              backdropFilter: "blur(14px) saturate(180%)",
+              WebkitBackdropFilter: "blur(14px) saturate(180%)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: "9999px",
+              boxShadow: "0 8px 32px 0 rgba(0,0,0,0.3)",
+              transition: "all 0.3s ease",
             }}
           >
+            {/* Logo */}
             <span
-              className="select-none font-black uppercase text-slate-900"
-              style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)", letterSpacing: "0.06em" }}
+              className="select-none font-black uppercase text-white"
+              style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)", letterSpacing: "0.06em", textShadow: "0 1px 2px rgba(0,0,0,0.2)" }}
             >
-              GFX <span className="text-blue-600">WITH</span> USMAN
+              GFX <span className="text-blue-400">WITH</span> USMAN
             </span>
 
+            {/* Desktop nav */}
             <nav className="hidden items-center gap-8 md:flex">
               {["Work", "About", "Services", "Contact"].map((l) => (
                 <a
                   key={l}
                   href={`#${l.toLowerCase()}`}
-                  className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+                  className="text-sm font-medium transition-colors hover:text-blue-300"
+                  style={{ color: "#ffffff", textShadow: "0 1px 2px rgba(0,0,0,0.2)" }}
                 >
                   {l}
                 </a>
               ))}
             </nav>
 
+            {/* Right: clock + mobile hamburger */}
             <div className="flex items-center gap-4">
               <div className="hidden md:block">
                 <LiveClock />
@@ -162,13 +171,16 @@ export default function Home() {
                 onClick={() => setNavOpen(true)}
                 data-testid="button-menu"
                 aria-label="Open menu"
-                className="md:hidden grid size-10 place-items-center rounded-full text-slate-700 transition-colors hover:bg-slate-100"
+                className="md:hidden grid size-10 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
               >
                 <Menu className="size-5" strokeWidth={2} />
               </button>
             </div>
           </div>
         </header>
+
+        {/* Spacer so content doesn't hide under the fixed pill header */}
+        <div style={{ height: "80px" }} />
 
         {/* ── Hero ── */}
         <main className="w-full">
