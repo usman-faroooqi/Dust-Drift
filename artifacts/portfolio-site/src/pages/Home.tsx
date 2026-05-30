@@ -87,7 +87,11 @@ export default function Home() {
   const [px, setPx] = useState(0);
   const [py, setPy] = useState(0);
   const frameRef = useRef<number | null>(null);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const floatRef = useRef<HTMLButtonElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
 
+  /* Mouse parallax */
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
@@ -103,6 +107,22 @@ export default function Home() {
       window.removeEventListener("mousemove", handleMove);
       if (frameRef.current) cancelAnimationFrame(frameRef.current);
     };
+  }, []);
+
+  /* Scroll-reveal header + floating button dock */
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const pastHero = !entry.isIntersecting;
+        headerRef.current?.classList.toggle("is-visible", pastHero);
+        floatRef.current?.classList.toggle("is-docked", pastHero);
+      },
+      { threshold: 0.1 },
+    );
+    io.observe(hero);
+    return () => io.disconnect();
   }, []);
 
   return (
@@ -122,8 +142,8 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header — AI glassmorphic strip ── */}
-        <header className="ai-glass-header">
+        {/* ── Header — scroll-reveal AI glass strip ── */}
+        <header ref={headerRef} className="ai-glass-header">
           <div className="ai-glass-header__inner">
             {/* Brand */}
             <span className="ai-glass-header__brand select-none font-black uppercase">
@@ -156,10 +176,25 @@ export default function Home() {
           </div>
         </header>
 
+        {/* ── Floating message button ── */}
+        <button
+          ref={floatRef}
+          className="floating-message-button"
+          aria-label="Send a message"
+          onClick={() => {
+            const el = document.getElementById("contact");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+        </button>
+
         {/* ── Hero ── */}
-        <main className="w-full">
+        <main ref={heroRef} className="w-full">
           {/* Text + buttons — padded */}
-          <section className="hero-section relative w-full px-6 pb-6 md:px-12">
+          <section className="relative w-full px-6 pb-6 md:px-12">
 
             {/* Name + niche */}
             <div className="w-full select-none">

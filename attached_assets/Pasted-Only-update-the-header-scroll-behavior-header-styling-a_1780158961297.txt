@@ -1,0 +1,366 @@
+Only update the header scroll behavior, header styling, and floating message/chat button behavior.
+
+Do not change:
+- hero text
+- hero buttons
+- button CSS
+- work section
+- images
+- page content
+
+Current header style is mostly good. Keep the same clean translucent AI glass style, but improve these things:
+
+1. Header should NOT be visible while user is in the hero section.
+2. As soon as user scrolls down past the hero area, the header should smoothly appear.
+3. When user scrolls back to the hero section, the header should smoothly disappear again.
+4. Header should remain fixed after it appears.
+5. Slightly increase the header width.
+6. Make the header slightly more skeuomorphic while keeping translucency.
+7. Keep the header thin and premium, not thick, not pill-shaped.
+8. The header must not create the ugly blurred hero-title band.
+9. Floating message/chat button should be top-right while user is in the hero section.
+10. When user scrolls down, the floating message/chat button should move to bottom-right.
+11. On mobile, same behavior: header hidden in hero, appears after scroll; message button moves from top-right to bottom-right.
+
+Important:
+Do not use heavy `backdrop-filter` on the header because it causes the big hero title to blur inside the header.
+Use fake internal blur/glow layers instead.
+
+Use these classes:
+- Header wrapper: `ai-glass-header`
+- Header visible state: `is-visible`
+- Header inner: `ai-glass-header__inner`
+- Brand: `ai-glass-header__brand`
+- Nav: `ai-glass-header__nav`
+- Link: `ai-glass-header__link`
+- Clock: `ai-glass-header__clock`
+- Mobile menu button: `ai-glass-header__menu`
+- Floating message button: `floating-message-button`
+- Floating message button scrolled state: `is-docked`
+
+Replace the current header CSS with this:
+
+```css
+/* ============================= */
+/* SCROLL REVEAL AI GLASS HEADER */
+/* Hidden on hero, visible after scroll */
+/* ============================= */
+
+.ai-glass-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 54px;
+  z-index: 99999;
+
+  background: rgba(248, 250, 252, 0.72);
+
+  border-bottom: 1px solid rgba(15, 23, 42, 0.09);
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 26px rgba(15, 23, 42, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 2px rgba(15, 23, 42, 0.055);
+
+  overflow: hidden;
+  isolation: isolate;
+  contain: paint;
+
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.ai-glass-header.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.ai-glass-header__inner {
+  position: relative;
+
+  /* increased width */
+  max-width: 1380px;
+
+  height: 54px;
+  margin: 0 auto;
+  padding: 0 38px;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* fake soft glass/bokeh layer, does not blur hero text */
+.ai-glass-header__inner::before {
+  content: "";
+  position: absolute;
+  inset: -34px -100px;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(ellipse 190px 64px at 14% 50%, rgba(245, 220, 180, 0.42), transparent 72%),
+    radial-gradient(ellipse 250px 72px at 50% 48%, rgba(148, 163, 184, 0.28), transparent 70%),
+    radial-gradient(ellipse 210px 66px at 74% 48%, rgba(251, 191, 150, 0.30), transparent 72%),
+    radial-gradient(ellipse 170px 58px at 88% 52%, rgba(191, 219, 254, 0.36), transparent 70%);
+
+  filter: blur(18px);
+  opacity: 0.95;
+}
+
+/* translucent white veil */
+.ai-glass-header__inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.48) 0%,
+      rgba(255, 255, 255, 0.24) 48%,
+      rgba(255, 255, 255, 0.36) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.24)
+    );
+}
+
+/* content above glow layers */
+.ai-glass-header__brand,
+.ai-glass-header__nav,
+.ai-glass-header__clock,
+.ai-glass-header__menu {
+  position: relative;
+  z-index: 2;
+}
+
+.ai-glass-header__brand {
+  justify-self: start;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #111827;
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.85),
+    0 2px 7px rgba(15, 23, 42, 0.08);
+}
+
+.ai-glass-header__brand span {
+  color: #64748b;
+}
+
+.ai-glass-header__nav {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.ai-glass-header__link {
+  color: #111827;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75);
+
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ai-glass-header__link:hover {
+  color: #2563eb;
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.ai-glass-header__clock {
+  justify-self: end;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.ai-glass-header__clock span,
+.ai-glass-header__clock .seconds {
+  color: #2563eb;
+}
+
+.ai-glass-header__menu {
+  justify-self: end;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: transparent;
+  color: #1e293b;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Do not push hero down anymore because header is hidden on hero */
+.hero,
+.hero-section,
+#hero,
+#home,
+main > section:first-child {
+  padding-top: 0 !important;
+}
+
+/* ============================= */
+/* FLOATING MESSAGE BUTTON */
+/* ============================= */
+
+.floating-message-button {
+  position: fixed;
+  top: 74px;
+  right: 34px;
+  z-index: 99998;
+
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+
+  box-shadow:
+    0 12px 24px -8px rgba(37, 99, 235, 0.55),
+    inset 0 2px 2px rgba(255, 255, 255, 0.42),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.20);
+
+  cursor: pointer;
+
+  transition:
+    top 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.floating-message-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 30px -10px rgba(37, 99, 235, 0.68),
+    inset 0 2px 2px rgba(255, 255, 255, 0.48),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.24);
+}
+
+/* after scroll: move to bottom right */
+.floating-message-button.is-docked {
+  top: auto;
+  right: 28px;
+  bottom: 28px;
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .ai-glass-header {
+    height: 56px;
+  }
+
+  .ai-glass-header__inner {
+    height: 56px;
+    padding: 0 18px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .ai-glass-header__nav,
+  .ai-glass-header__clock {
+    display: none !important;
+  }
+
+  .ai-glass-header__menu {
+    display: inline-flex !important;
+  }
+
+  .ai-glass-header__brand {
+    font-size: 14px;
+  }
+
+  .floating-message-button {
+    top: 72px;
+    right: 18px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .floating-message-button.is-docked {
+    top: auto;
+    right: 18px;
+    bottom: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-glass-header {
+    height: 54px;
+  }
+
+  .ai-glass-header__inner {
+    height: 54px;
+    padding: 0 16px;
+  }
+
+  .ai-glass-header__brand {
+    font-size: 13px;
+  }
+
+  .floating-message-button {
+    top: 70px;
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .floating-message-button.is-docked {
+    top: auto;
+    right: 16px;
+    bottom: 20px;
+  }
+}
