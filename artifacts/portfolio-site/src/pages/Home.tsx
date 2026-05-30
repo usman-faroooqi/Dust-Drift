@@ -122,50 +122,35 @@ export default function Home() {
       {/* Camera drift wrapper */}
       <div className="animate-camera-drift relative" style={{ zIndex: 1 }}>
 
-        {/* ── Header — transparent glassy ── */}
-        <header className="sticky top-0 z-40 w-full">
-          <div
-            className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
-            style={{
-              background: "rgba(243,245,255,0.52)",
-              backdropFilter: "blur(40px) saturate(200%)",
-              WebkitBackdropFilter: "blur(40px) saturate(200%)",
-              borderBottom: "1px solid rgba(255,255,255,0.55)",
-              boxShadow: "0 1px 0 rgba(0,0,0,0.04), 0 6px 24px rgba(59,130,246,0.05), inset 0 1px 0 rgba(255,255,255,0.7)",
-            }}
-          >
-            <span
-              className="select-none font-black uppercase text-slate-900"
-              style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)", letterSpacing: "0.06em" }}
-            >
-              GFX <span className="text-blue-600">WITH</span> USMAN
-            </span>
+        {/* ── Header — premium metallic glass pill ── */}
+        <header className="metal-glass-header">
+          {/* Logo */}
+          <span className="metal-glass-logo select-none font-black uppercase" style={{ fontSize: "clamp(0.75rem, 1.2vw, 1rem)" }}>
+            GFX <span>WITH</span> USMAN
+          </span>
 
-            <nav className="hidden items-center gap-8 md:flex">
-              {["Work", "About", "Services", "Contact"].map((l) => (
-                <a
-                  key={l}
-                  href={`#${l.toLowerCase()}`}
-                  className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
-                >
-                  {l}
-                </a>
-              ))}
-            </nav>
+          {/* Desktop nav */}
+          <nav className="metal-glass-nav hidden md:flex">
+            {["Work", "About", "Services", "Contact"].map((l) => (
+              <a key={l} href={`#${l.toLowerCase()}`} className="metal-glass-link">
+                {l}
+              </a>
+            ))}
+          </nav>
 
-            <div className="flex items-center gap-4">
-              <div className="hidden md:block">
-                <LiveClock />
-              </div>
-              <button
-                onClick={() => setNavOpen(true)}
-                data-testid="button-menu"
-                aria-label="Open menu"
-                className="md:hidden grid size-10 place-items-center rounded-full text-slate-700 transition-colors hover:bg-slate-100"
-              >
-                <Menu className="size-5" strokeWidth={2} />
-              </button>
+          {/* Right side: clock + mobile hamburger */}
+          <div className="header-right flex items-center gap-4">
+            <div className="clock hidden md:block">
+              <LiveClock />
             </div>
+            <button
+              onClick={() => setNavOpen(true)}
+              data-testid="button-menu"
+              aria-label="Open menu"
+              className="md:hidden grid size-10 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
+            >
+              <Menu className="size-5" strokeWidth={2} />
+            </button>
           </div>
         </header>
 
