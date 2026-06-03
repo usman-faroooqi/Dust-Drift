@@ -4,6 +4,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import Projects from "@/pages/Projects";
+import Contact from "@/pages/Contact";
+import LiquidGlassStyles from "@/components/LiquidGlassStyles";
 
 const queryClient = new QueryClient();
 
@@ -11,6 +14,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/projects" component={Projects} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -24,6 +29,9 @@ function App() {
           <Router />
         </WouterRouter>
         <Toaster />
+
+        {/* This must stay LAST so it overrides all page/component styles */}
+        <LiquidGlassStyles />
       </TooltipProvider>
     </QueryClientProvider>
   );
