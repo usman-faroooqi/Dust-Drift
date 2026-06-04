@@ -5846,4 +5846,189 @@ body.is-scrolled .hero-section {
     }
   }
 
-  
+/* ===== FIX PROJECTS PAGE BIG WHITE OVERLAY ===== */
+
+html body .projects-page,
+html body .projects-page * {
+  filter: none !important;
+}
+
+html body .projects-page {
+  position: relative !important;
+  overflow-x: hidden !important;
+}
+
+/* Remove any huge glass layer from project page floating controls */
+html body .projects-floating-header,
+html body .projects-floating-nav,
+html body .projects-page-header,
+html body .projects-topbar,
+html body .project-topbar,
+html body .project-floating-header,
+html body .project-floating-nav {
+  position: fixed !important;
+  top: 22px !important;
+  left: 24px !important;
+  right: 24px !important;
+  bottom: auto !important;
+
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  transform: none !important;
+  translate: none !important;
+  opacity: 1 !important;
+
+  z-index: 99999 !important;
+  pointer-events: none !important;
+  overflow: visible !important;
+}
+
+/* Kill pseudo overlays */
+html body .projects-floating-header::before,
+html body .projects-floating-header::after,
+html body .projects-floating-nav::before,
+html body .projects-floating-nav::after,
+html body .projects-page-header::before,
+html body .projects-page-header::after,
+html body .projects-topbar::before,
+html body .projects-topbar::after,
+html body .project-topbar::before,
+html body .project-topbar::after,
+html body .project-floating-header::before,
+html body .project-floating-header::after,
+html body .project-floating-nav::before,
+html body .project-floating-nav::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Back Home button must be a small capsule only */
+html body .projects-back-home,
+html body .project-back-home,
+html body .back-home-button,
+html body a[href="/#selected-work"],
+html body a[href="/"],
+html body a[href="/#work"] {
+  pointer-events: auto !important;
+}
+
+/* Fix common Back Home capsule classes */
+html body .projects-back-home,
+html body .project-back-home,
+html body .back-home-button {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+
+  width: auto !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+
+  padding: 0 22px !important;
+  margin: 0 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+
+  border-radius: 999px !important;
+  color: #2563eb !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+
+  backdrop-filter: blur(24px) saturate(165%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(165%) !important;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(255, 255, 255, 0.34)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+
+  box-shadow:
+    0 18px 44px rgba(15, 23, 42, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 -1px 0 rgba(15, 23, 42, 0.07) !important;
+
+  opacity: 1 !important;
+  transform: none !important;
+  translate: none !important;
+  overflow: hidden !important;
+}
+
+/* Make project cards visible again */
+html body .all-projects-section,
+html body .projects-section,
+html body .selected-work-final,
+html body .selected-work-section,
+html body .selected-work-card,
+html body .project-card,
+html body .work-card {
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none;
+}
+
+/* Remove accidental giant white overlay blocks */
+html body .projects-page [class*="overlay"],
+html body .projects-page [class*="glass-layer"],
+html body .projects-page [class*="blur-layer"],
+html body .projects-page [class*="floating-layer"] {
+  pointer-events: none !important;
+}
+
+/* Only hide overlay-like empty divs that are huge and fixed/absolute */
+html body .projects-page div:empty {
+  max-height: none;
+}
+
+@media (max-width: 899px) {
+  html body .projects-floating-header,
+  html body .projects-floating-nav,
+  html body .projects-page-header,
+  html body .projects-topbar,
+  html body .project-topbar,
+  html body .project-floating-header,
+  html body .project-floating-nav {
+    top: 14px !important;
+    left: 12px !important;
+    right: 12px !important;
+  }
+
+  html body .projects-back-home,
+  html body .project-back-home,
+  html body .back-home-button {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    padding: 0 18px !important;
+    font-size: 13px !important;
+  }
+}
