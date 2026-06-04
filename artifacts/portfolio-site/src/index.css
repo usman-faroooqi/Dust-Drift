@@ -1200,3 +1200,103 @@ section {
     transition: none !important;
   }
 }
+
+/* ========================================================= */
+/* FINAL FIX — RESTORE ABOUT SECTION + REMOVE DUPLICATE HEADER */
+/* ========================================================= */
+
+/*
+  Problem:
+  The old .ai-glass-header is still active and appears over the About section.
+  This makes the About section look redesigned/broken.
+
+  Fix:
+  Hide only the duplicate old scroll header.
+  Do NOT change About layout.
+  Do NOT resize About cards.
+  Do NOT center/rebuild About.
+*/
+
+html body .ai-glass-header {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* If any child of old header is still rendered, hide it too */
+html body .ai-glass-header__inner,
+html body .ai-glass-header__brand,
+html body .ai-glass-header__nav,
+html body .ai-glass-header__clock,
+html body .ai-glass-header__menu,
+html body .ai-glass-header__hire {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* About section must use the original Home.tsx design */
+html body .option-a-about-section {
+  position: relative !important;
+  isolation: isolate !important;
+  background: transparent !important;
+}
+
+/* Do NOT force layout here */
+html body .option-a-about-inner {
+  position: relative !important;
+}
+
+/* Keep text clear and visible */
+html body .option-a-about-label-wrap,
+html body .option-a-about-title,
+html body .option-a-about-copy,
+html body .option-a-about-cta-row,
+html body .option-a-journey-button,
+html body .option-a-stats-row,
+html body .option-a-stat-card {
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+/* Keep image/card visible but stop it from covering text */
+html body .option-a-workspace-card {
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Decorative items should never block About content */
+html body .option-a-blue-circle,
+html body .option-a-dotted-pattern,
+html body .option-a-curve,
+html body .option-a-curve-one,
+html body .option-a-curve-two,
+html body .option-a-desk-surface,
+html body .option-a-lamp,
+html body .option-a-lamp-head,
+html body .option-a-lamp-arm-one,
+html body .option-a-lamp-arm-two,
+html body .option-a-lamp-base,
+html body .option-a-pencil-cup,
+html body .option-a-laptop,
+html body .option-a-mug,
+html body .option-a-role-pill {
+  pointer-events: none !important;
+}
+
+/* Prevent pseudo overlays from sitting above content */
+html body .option-a-about-section::before,
+html body .option-a-about-section::after {
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
