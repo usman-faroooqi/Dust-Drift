@@ -300,202 +300,770 @@ html body .ai-glass-header {display: none !important;opacity: 0 !important;visib
 
 /* Prevent pseudo overlays from sitting above content */html body .option-a-about-section::before,html body .option-a-about-section::after {pointer-events: none !important;z-index: 0 !important;}
 
-/* ========================================================= // RESTORE ABOUT SECTION TO OLD IMAGE-1 DESIGN // ========================================================= */
+/* =========================
 
-/* Keep About as a clean vertical section */html body .option-a-about-section {position: relative !important;isolation: isolate !important;overflow: hidden !important;padding: 72px 18px 76px !important;background: transparent !important;z-index: 3 !important;}
+   RESPONSIVE ABOUT
 
-/* Main About container: centered, same old stacked layout */html body .option-a-about-inner {position: relative !important;z-index: 5 !important;width: min(980px, 100%) !important;margin: 0 auto !important;display: flex !important;flex-direction: column !important;align-items: center !important;text-align: center !important;gap: 0 !important;}
+========================= */
 
-/* About label and heading stay above, centered */html body .option-a-about-label-wrap {position: relative !important;z-index: 20 !important;display: flex !important;align-items: center !important;justify-content: center !important;gap: 10px !important;margin: 0 0 18px !important;opacity: 1 !important;filter: none !important;}
 
-html body .option-a-about-line {width: 46px !important;height: 5px !important;border-radius: 999px !important;background: #2563eb !important;box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25) !important;}
 
-html body .option-a-about-dot {width: 10px !important;height: 10px !important;border-radius: 999px !important;background: #2563eb !important;}
+@media (max-width: 820px) {
 
-html body .option-a-about-label {color: #94a3b8 !important;font-size: 12px !important;font-weight: 900 !important;letter-spacing: 0.32em !important;text-transform: uppercase !important;}
+  .option-a-about-section {
 
-html body .option-a-about-title {position: relative !important;z-index: 20 !important;margin: 0 !important;color: #071225 !important;font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;font-size: clamp(46px, 8.4vw, 86px) !important;font-weight: 850 !important;line-height: 0.95 !important;letter-spacing: -0.07em !important;text-transform: uppercase !important;text-align: center !important;opacity: 1 !important;filter: none !important;-webkit-mask-image: none !important;mask-image: none !important;}
+    padding: 76px 16px 78px;
 
-html body .option-a-about-copy {position: relative !important;z-index: 20 !important;max-width: 760px !important;margin: 22px auto 0 !important;color: #64748b !important;font-size: clamp(17px, 2vw, 22px) !important;line-height: 1.65 !important;font-weight: 650 !important;text-align: center !important;opacity: 1 !important;filter: none !important;-webkit-mask-image: none !important;mask-image: none !important;}
+  }
 
-html body .option-a-about-copy--second {margin-top: 16px !important;}
 
-/* Restore old Connect With Me glass button */html body .option-a-about-cta-row {position: relative !important;z-index: 25 !important;width: 100% !important;display: flex !important;justify-content: center !important;margin: 32px 0 34px !important;}
 
-html body .option-a-journey-button {width: min(560px, 92vw) !important;min-height: 66px !important;padding: 0 34px !important;border-radius: 999px !important;
+  .option-a-about-inner {
 
-display: inline-flex !important;align-items: center !important;justify-content: center !important;gap: 18px !important;
+    width: min(100%, 720px);
 
-color: #2563eb !important;font-size: clamp(18px, 2.5vw, 25px) !important;font-weight: 900 !important;line-height: 1 !important;text-decoration: none !important;cursor: pointer !important;
+  }
 
-background:linear-gradient(180deg,rgba(255, 255, 255, 0.78) 0%,rgba(255, 255, 255, 0.42) 54%,rgba(255, 255, 255, 0.24) 100%) !important;
 
-border: 1px solid rgba(255, 255, 255, 0.86) !important;
 
-backdrop-filter: blur(30px) saturate(175%) !important;-webkit-backdrop-filter: blur(30px) saturate(175%) !important;
+  .option-a-about-label-wrap {
 
-box-shadow:0 22px 54px rgba(15, 23, 42, 0.10),inset 0 1px 0 rgba(255, 255, 255, 0.96),inset 0 -1px 0 rgba(15, 23, 42, 0.06) !important;
+    gap: 11px;
 
-opacity: 1 !important;filter: none !important;transform: none !important;}
+    margin-bottom: 24px;
 
-/* Restore old big illustration card */html body .option-a-workspace-card {position: relative !important;z-index: 10 !important;
+  }
 
-width: min(920px, 100%) !important;height: clamp(500px, 74vw, 720px) !important;margin: 0 auto !important;
 
-border-radius: 34px !important;overflow: hidden !important;
 
-background:radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.88), transparent 38%),linear-gradient(180deg,rgba(255, 255, 255, 0.68),rgba(255, 255, 255, 0.30)) !important;
+  .option-a-about-line {
 
-border: 1px solid rgba(255, 255, 255, 0.84) !important;
+    width: 44px;
 
-backdrop-filter: blur(28px) saturate(175%) !important;-webkit-backdrop-filter: blur(28px) saturate(175%) !important;
+    height: 4px;
 
-box-shadow:0 34px 90px rgba(15, 23, 42, 0.13),inset 0 1px 0 rgba(255, 255, 255, 0.95),inset 0 -1px 0 rgba(15, 23, 42, 0.06) !important;
+  }
 
-opacity: 1 !important;filter: none !important;-webkit-mask-image: none !important;mask-image: none !important;}
 
-/* Illustration objects — old positions */html body .option-a-blue-circle {position: absolute !important;width: clamp(240px, 38vw, 360px) !important;height: clamp(240px, 38vw, 360px) !important;left: 50% !important;top: 45% !important;transform: translate(-50%, -50%) !important;border-radius: 999px !important;background:radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.75), transparent 28%),linear-gradient(180deg, #93c5fd, #3b82f6) !important;opacity: 0.72 !important;box-shadow:0 30px 70px rgba(37, 99, 235, 0.24),inset 0 4px 10px rgba(255, 255, 255, 0.42),inset 0 -8px 22px rgba(15, 23, 42, 0.12) !important;}
 
-html body .option-a-dotted-pattern {position: absolute !important;inset: 70px 70px 160px auto !important;width: 250px !important;opacity: 0.32 !important;background-image: radial-gradient(rgba(37, 99, 235, 0.5) 2px, transparent 2px) !important;background-size: 22px 22px !important;}
+  .option-a-about-dot {
 
-html body .option-a-curve {position: absolute !important;border-radius: 999px !important;border: 3px solid rgba(37, 99, 235, 0.16) !important;pointer-events: none !important;}
+    width: 10px;
 
-html body .option-a-curve-one {width: 360px !important;height: 130px !important;left: 70px !important;top: 145px !important;transform: rotate(-22deg) !important;}
+    height: 10px;
 
-html body .option-a-curve-two {width: 430px !important;height: 145px !important;right: 95px !important;top: 260px !important;transform: rotate(16deg) !important;}
+  }
 
-html body .option-a-desk-surface {position: absolute !important;left: 50% !important;bottom: 195px !important;width: 100% !important;height: 165px !important;transform: translateX(-50%) !important;border-radius: 0 !important;background: rgba(203, 213, 225, 0.42) !important;filter: none !important;}
 
-html body .option-a-lamp {position: absolute !important;left: 8% !important;bottom: 245px !important;width: 180px !important;height: 250px !important;z-index: 8 !important;}
 
-html body .option-a-lamp-head,html body .option-a-lamp-arm-one,html body .option-a-lamp-arm-two,html body .option-a-lamp-base {position: absolute !important;display: block !important;background: #071225 !important;box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18) !important;}
+  .option-a-about-label {
 
-html body .option-a-lamp-head {width: 86px !important;height: 54px !important;left: 75px !important;top: 20px !important;border-radius: 36px 36px 14px 14px !important;transform: rotate(-18deg) !important;}
+    font-size: 12px;
 
-html body .option-a-lamp-arm-one {width: 14px !important;height: 132px !important;left: 68px !important;top: 68px !important;border-radius: 999px !important;transform: rotate(26deg) !important;}
+    letter-spacing: 0.38em;
 
-html body .option-a-lamp-arm-two {width: 14px !important;height: 108px !important;left: 42px !important;top: 160px !important;border-radius: 999px !important;transform: rotate(-18deg) !important;}
+  }
 
-html body .option-a-lamp-base {width: 145px !important;height: 18px !important;left: 0 !important;bottom: 0 !important;border-radius: 999px !important;}
 
-/* Laptop centered */html body .option-a-laptop {position: absolute !important;left: 50% !important;bottom: 238px !important;width: clamp(300px, 40vw, 450px) !important;height: clamp(175px, 23vw, 260px) !important;transform: translateX(-50%) !important;border-radius: 22px 22px 10px 10px !important;background: linear-gradient(180deg, rgba(7, 18, 37, 0.98), rgba(15, 23, 42, 0.98)) !important;box-shadow: 0 28px 58px rgba(15, 23, 42, 0.22) !important;z-index: 9 !important;}
 
-html body .option-a-laptop span {position: absolute !important;left: 50% !important;bottom: -28px !important;width: 112% !important;height: 28px !important;transform: translateX(-50%) !important;border-radius: 999px !important;background: #1e293b !important;box-shadow: 0 16px 24px rgba(15, 23, 42, 0.14) !important;}
+  .option-a-about-title {
 
-/* Mug right */html body .option-a-mug {position: absolute !important;right: 8% !important;bottom: 245px !important;width: 85px !important;height: 95px !important;border-radius: 18px 18px 24px 24px !important;background: #071225 !important;box-shadow:0 16px 28px rgba(15, 23, 42, 0.18),inset 0 -4px 8px rgba(37, 99, 235, 0.10) !important;z-index: 9 !important;}
+    font-size: clamp(46px, 13vw, 74px) !important;
 
-html body .option-a-mug::after {content: "" !important;position: absolute !important;right: -34px !important;top: 25px !important;width: 44px !important;height: 45px !important;border-radius: 999px !important;border: 9px solid #071225 !important;}
+    line-height: 0.88 !important;
 
-/* Hide pencil cup if present, because old screenshot does not need it */html body .option-a-pencil-cup {display: none !important;}
+  }
 
-/* Role badge bottom-left inside card */html body .option-a-role-pill {position: absolute !important;left: 42px !important;bottom: 56px !important;top: auto !important;transform: none !important;
 
-min-height: 64px !important;padding: 0 34px !important;border-radius: 999px !important;
 
-display: inline-flex !important;align-items: center !important;gap: 18px !important;
+  .option-a-about-copy {
 
-color: #ffffff !important;font-size: clamp(15px, 2vw, 24px) !important;font-weight: 900 !important;letter-spacing: 0.22em !important;text-transform: uppercase !important;
+    margin-top: 28px !important;
 
-background:linear-gradient(180deg,rgba(51, 65, 85, 0.92),rgba(30, 41, 59, 0.88)) !important;
+    font-size: clamp(19px, 4.2vw, 27px) !important;
 
-border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    line-height: 1.72 !important;
 
-backdrop-filter: blur(18px) saturate(160%) !important;-webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  }
 
-box-shadow:0 18px 40px rgba(15, 23, 42, 0.20),inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
 
-z-index: 15 !important;}
 
-html body .option-a-role-pill span {width: 16px !important;height: 16px !important;border-radius: 999px !important;background: #2563eb !important;box-shadow: none !important;}
+  .option-a-workspace-card {
 
-/* Stats restored under card */html body .option-a-stats-row {position: relative !important;z-index: 20 !important;width: min(920px, 100%) !important;margin: 40px auto 0 !important;
+    height: clamp(390px, 78vw, 545px);
 
-display: grid !important;grid-template-columns: repeat(3, 1fr) !important;gap: 20px !important;}
+    margin-top: 44px;
 
-html body .option-a-stat-card {min-height: 210px !important;padding: 32px 28px !important;border-radius: 30px !important;
+    border-radius: 34px;
 
-display: flex !important;flex-direction: column !important;align-items: flex-start !important;justify-content: center !important;text-align: left !important;
+  }
 
-background:linear-gradient(180deg,rgba(255, 255, 255, 0.70),rgba(255, 255, 255, 0.30)) !important;
 
-border: 1px solid rgba(255, 255, 255, 0.80) !important;
 
-backdrop-filter: blur(24px) saturate(170%) !important;-webkit-backdrop-filter: blur(24px) saturate(170%) !important;
+  .option-a-blue-circle {
 
-box-shadow:0 24px 58px rgba(15, 23, 42, 0.09),inset 0 1px 0 rgba(255, 255, 255, 0.94),inset 0 -1px 0 rgba(15, 23, 42, 0.06) !important;
+    top: 18%;
 
-opacity: 1 !important;filter: none !important;}
+    width: 300px;
 
-html body .option-a-stat-icon {width: 64px !important;height: 64px !important;margin: 0 0 28px !important;border-radius: 18px !important;
+    height: 300px;
 
-display: grid !important;place-items: center !important;
+  }
 
-color: #2563eb !important;font-size: 20px !important;
 
-background:linear-gradient(180deg,rgba(219, 234, 254, 0.90),rgba(255, 255, 255, 0.36)) !important;
 
-box-shadow:0 14px 30px rgba(37, 99, 235, 0.12),inset 0 1px 0 rgba(255,255,255,0.92) !important;}
+  .option-a-dotted-pattern {
 
-html body .option-a-stat-card strong {display: block !important;color: #071225 !important;font-size: clamp(44px, 6vw, 72px) !important;font-weight: 950 !important;line-height: 0.9 !important;letter-spacing: -0.06em !important;}
+    right: 8%;
 
-html body .option-a-stat-card span {display: block !important;margin-top: 20px !important;color: #94a3b8 !important;font-size: clamp(15px, 2vw, 22px) !important;font-weight: 900 !important;line-height: 1.35 !important;letter-spacing: 0.16em !important;text-transform: uppercase !important;}
+    top: 22%;
 
-/* Do not let review toast cover the About image on mobile */@media (max-width: 900px) {html body .option-a-about-section {padding: 70px 22px 78px !important;}
+    width: 170px;
 
-html body .option-a-about-inner {width: 100% !important;}
+    height: 230px;
 
-html body .option-a-about-cta-row {margin: 30px 0 30px !important;}
+    background-size: 18px 18px;
 
-html body .option-a-journey-button {width: 100% !important;min-height: 64px !important;font-size: 20px !important;}
+  }
 
-html body .option-a-workspace-card {width: 100% !important;height: clamp(520px, 105vw, 760px) !important;border-radius: 34px !important;}
 
-html body .option-a-blue-circle {width: 330px !important;height: 330px !important;top: 45% !important;}
 
-html body .option-a-desk-surface {bottom: 210px !important;height: 170px !important;}
+  .option-a-curve-one {
 
-html body .option-a-lamp {left: 5% !important;bottom: 275px !important;transform: scale(0.92) !important;transform-origin: left bottom !important;}
+    left: -5%;
 
-html body .option-a-laptop {bottom: 275px !important;width: 58vw !important;height: 33vw !important;min-width: 300px !important;min-height: 180px !important;}
+    top: 34%;
 
-html body .option-a-mug {right: 6% !important;bottom: 278px !important;transform: scale(0.92) !important;transform-origin: right bottom !important;}
+    width: 290px;
 
-html body .option-a-role-pill {left: 36px !important;bottom: 58px !important;min-height: 64px !important;padding: 0 30px !important;font-size: 18px !important;}
+    height: 92px;
 
-html body .option-a-stats-row {grid-template-columns: repeat(3, minmax(0, 1fr)) !important;gap: 14px !important;margin-top: 36px !important;}
+  }
 
-html body .option-a-stat-card {min-height: 210px !important;padding: 24px 20px !important;border-radius: 28px !important;}
 
-html body .option-a-stat-icon {width: 58px !important;height: 58px !important;margin-bottom: 30px !important;}
 
-html body .option-a-stat-card strong {font-size: clamp(44px, 11vw, 64px) !important;}
+  .option-a-curve-two {
 
-html body .option-a-stat-card span {font-size: clamp(13px, 3.5vw, 18px) !important;letter-spacing: 0.14em !important;}
+    right: -12%;
 
-html body .review-toast-card {display: none !important;}}
+    top: 46%;
 
-@media (max-width: 520px) {html body .option-a-about-section {padding-left: 14px !important;padding-right: 14px !important;}
+    width: 260px;
 
-html body .option-a-workspace-card {height: 560px !important;}
+    height: 88px;
 
-html body .option-a-blue-circle {width: 280px !important;height: 280px !important;}
+  }
 
-html body .option-a-lamp {transform: scale(0.78) !important;left: 2% !important;bottom: 255px !important;}
 
-html body .option-a-laptop {width: 58vw !important;height: 34vw !important;min-width: 245px !important;min-height: 150px !important;bottom: 270px !important;}
 
-html body .option-a-mug {transform: scale(0.74) !important;right: 1% !important;bottom: 258px !important;}
+  .option-a-desk-surface {
 
-html body .option-a-role-pill {left: 28px !important;bottom: 48px !important;min-height: 58px !important;padding: 0 24px !important;font-size: 15px !important;letter-spacing: 0.18em !important;}
+    bottom: 25%;
 
-html body .option-a-role-pill span {width: 14px !important;height: 14px !important;}
+  }
 
-html body .option-a-stats-row {gap: 10px !important;}
 
-html body .option-a-stat-card {min-height: 180px !important;padding: 22px 14px !important;border-radius: 24px !important;}
 
-html body .option-a-stat-icon {width: 48px !important;height: 48px !important;border-radius: 15px !important;margin-bottom: 26px !important;}
+  .option-a-laptop {
 
-html body .option-a-stat-card strong {font-size: 42px !important;}
+    width: 42%;
 
-html body .option-a-stat-card span {font-size: 12px !important;line-height: 1.35 !important;letter-spacing: 0.12em !important;}}
+    height: 132px;
+
+    bottom: 30%;
+
+  }
+
+
+
+  .option-a-lamp {
+
+    left: 5%;
+
+    bottom: 29%;
+
+    transform: scale(0.8);
+
+    transform-origin: left bottom;
+
+  }
+
+
+
+  .option-a-pencil-cup {
+
+    left: 20%;
+
+    bottom: 30%;
+
+    transform: scale(0.82);
+
+    transform-origin: bottom left;
+
+  }
+
+
+
+  .option-a-mug {
+
+    right: 9%;
+
+    bottom: 30%;
+
+    transform: scale(0.84);
+
+    transform-origin: bottom right;
+
+  }
+
+
+
+  .option-a-role-pill {
+
+    left: 28px;
+
+    bottom: 30px;
+
+    min-height: 56px;
+
+    padding: 0 24px;
+
+    gap: 12px;
+
+    font-size: 15px;
+
+    letter-spacing: 0.16em;
+
+  }
+
+
+
+  .option-a-role-pill span {
+
+    width: 12px;
+
+    height: 12px;
+
+    min-width: 12px;
+
+  }
+
+
+
+  .option-a-stats-row {
+
+    gap: 16px;
+
+    margin-top: 22px;
+
+  }
+
+
+
+  .option-a-stat-card {
+
+    min-height: 190px;
+
+    padding: 24px 22px;
+
+    border-radius: 22px;
+
+  }
+
+
+
+  .option-a-stat-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    margin-bottom: 24px;
+
+    border-radius: 15px;
+
+  }
+
+
+
+  .option-a-stat-card strong {
+
+    font-size: clamp(36px, 8vw, 54px);
+
+  }
+
+
+
+  .option-a-stat-card > span {
+
+    margin-top: 20px;
+
+    font-size: 13px;
+
+    letter-spacing: 0.18em;
+
+  }
+
+
+
+  .option-a-journey-button {
+
+    min-height: 64px;
+
+    font-size: 18px;
+
+  }
+
+}
+
+
+
+@media (max-width: 620px) {
+
+  .option-a-about-section {
+
+    padding: 64px 14px 70px;
+
+  }
+
+
+
+  .option-a-about-title {
+
+    font-size: clamp(42px, 14vw, 62px) !important;
+
+  }
+
+
+
+  .option-a-about-copy {
+
+    font-size: clamp(18px, 5.7vw, 26px) !important;
+
+    line-height: 1.72 !important;
+
+  }
+
+
+
+  .option-a-workspace-card {
+
+    height: 380px;
+
+    margin-top: 38px;
+
+    border-radius: 30px;
+
+  }
+
+
+
+  .option-a-blue-circle {
+
+    top: 18%;
+
+    width: 260px;
+
+    height: 260px;
+
+  }
+
+
+
+  .option-a-dotted-pattern {
+
+    right: 6%;
+
+    width: 145px;
+
+    height: 210px;
+
+  }
+
+
+
+  .option-a-laptop {
+
+    width: 44%;
+
+    height: 112px;
+
+    bottom: 31%;
+
+  }
+
+
+
+  .option-a-laptop span {
+
+    left: -18px;
+
+    right: -18px;
+
+    bottom: -18px;
+
+    height: 20px;
+
+  }
+
+
+
+  .option-a-lamp {
+
+    left: 3%;
+
+    transform: scale(0.66);
+
+  }
+
+
+
+  .option-a-pencil-cup {
+
+    left: 19%;
+
+    transform: scale(0.66);
+
+  }
+
+
+
+  .option-a-mug {
+
+    right: 8%;
+
+    transform: scale(0.66);
+
+  }
+
+
+
+  .option-a-role-pill {
+
+    left: 22px;
+
+    bottom: 24px;
+
+    min-height: 48px;
+
+    padding: 0 20px;
+
+    font-size: 12px;
+
+    letter-spacing: 0.17em;
+
+  }
+
+
+
+  .option-a-stats-row {
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+
+  }
+
+
+
+  .option-a-stat-card {
+
+    min-height: 176px;
+
+    padding: 20px 16px;
+
+    border-radius: 20px;
+
+  }
+
+
+
+  .option-a-stat-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    margin-bottom: 24px;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+
+  }
+
+
+
+  .option-a-stat-card strong {
+
+    font-size: clamp(32px, 10vw, 44px);
+
+  }
+
+
+
+  .option-a-stat-card > span {
+
+    margin-top: 18px;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+    letter-spacing: 0.18em;
+
+  }
+
+
+
+  .option-a-about-cta-row {
+
+    margin-top: 32px;
+
+  }
+
+
+
+  .option-a-journey-button {
+
+    min-width: min(330px, 100%);
+
+    min-height: 62px;
+
+    padding: 0 26px;
+
+    font-size: 17px;
+
+  }
+
+}
+
+
+
+@media (max-width: 460px) {
+
+  .option-a-about-section {
+
+    padding-left: 14px;
+
+    padding-right: 14px;
+
+  }
+
+
+
+  .option-a-about-label {
+
+    font-size: 10px;
+
+    letter-spacing: 0.34em;
+
+  }
+
+
+
+  .option-a-about-title {
+
+    font-size: clamp(39px, 15vw, 54px) !important;
+
+  }
+
+
+
+  .option-a-about-copy {
+
+    font-size: 19px !important;
+
+    line-height: 1.72 !important;
+
+  }
+
+
+
+  .option-a-workspace-card {
+
+    height: 330px;
+
+    border-radius: 27px;
+
+  }
+
+
+
+  .option-a-blue-circle {
+
+    width: 225px;
+
+    height: 225px;
+
+  }
+
+
+
+  .option-a-dotted-pattern {
+
+    width: 120px;
+
+    height: 180px;
+
+    background-size: 15px 15px;
+
+  }
+
+
+
+  .option-a-laptop {
+
+    width: 42%;
+
+    height: 86px;
+
+  }
+
+
+
+  .option-a-lamp {
+
+    left: 1%;
+
+    transform: scale(0.52);
+
+  }
+
+
+
+  .option-a-pencil-cup {
+
+    left: 18%;
+
+    transform: scale(0.52);
+
+  }
+
+
+
+  .option-a-mug {
+
+    right: 7%;
+
+    transform: scale(0.52);
+
+  }
+
+
+
+  .option-a-role-pill {
+
+    left: 18px;
+
+    bottom: 20px;
+
+    min-height: 42px;
+
+    padding: 0 16px;
+
+    font-size: 10px;
+
+    gap: 9px;
+
+  }
+
+
+
+  .option-a-role-pill span {
+
+    width: 9px;
+
+    height: 9px;
+
+    min-width: 9px;
+
+  }
+
+
+
+  .option-a-stats-row {
+
+    gap: 10px;
+
+  }
+
+
+
+  .option-a-stat-card {
+
+    min-height: 154px;
+
+    padding: 18px 12px;
+
+    border-radius: 18px;
+
+  }
+
+
+
+  .option-a-stat-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    margin-bottom: 22px;
+
+    border-radius: 13px;
+
+  }
+
+
+
+  .option-a-stat-card strong {
+
+    font-size: 34px;
+
+  }
+
+
+
+  .option-a-stat-card > span {
+
+    margin-top: 16px;
+
+    font-size: 9.5px;
+
+    line-height: 1.55;
+
+    letter-spacing: 0.17em;
+
+  }
+
+
+
+  .option-a-journey-button {
+
+    min-height: 58px;
+
+    font-size: 16px;
+
+  }
+
+}
+
+
+
+@media (max-width: 360px) {
+
+  .option-a-stats-row {
+
+    grid-template-columns: 1fr;
+
+  }
+
+
+
+  .option-a-stat-card {
+
+    min-height: 138px;
+
+  }
+
+}
