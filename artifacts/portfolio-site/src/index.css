@@ -1176,31 +1176,6 @@ section {
   }
 }
 
-/* ============================= */
-/* REDUCED MOTION */
-/* ============================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-camera-drift,
-  [data-dust],
-  [data-float-card],
-  .featured-work-grid {
-    animation: none !important;
-  }
-
-  [data-reveal] {
-    opacity: 1 !important;
-    animation: none !important;
-  }
-
-  .ai-glass-header,
-  .floating-message-button,
-  .review-system-button,
-  .btn-capsule {
-    transition: none !important;
-  }
-}
-
 /* ========================================================= */
 /* ABOUT SECTION FINAL — IMAGE MATCH VERSION ONLY */
 /* ========================================================= */
