@@ -2287,3 +2287,575 @@ html body .option-a-role-pill span {
     min-width: 8px !important;
   }
 }
+
+
+/* ========================================================= */
+/* ABOUT SECTION — COMPACT RESET */
+/* Fixes oversized section elements */
+/* ========================================================= */
+
+html body .option-a-about-section {
+  padding: 70px 24px 82px !important;
+}
+
+html body .option-a-about-inner {
+  width: min(920px, 100%) !important;
+  margin: 0 auto !important;
+}
+
+/* label */
+html body .option-a-about-label-wrap {
+  margin: 0 0 18px !important;
+  gap: 10px !important;
+}
+
+html body .option-a-about-line {
+  width: 42px !important;
+  height: 4px !important;
+}
+
+html body .option-a-about-dot {
+  width: 9px !important;
+  height: 9px !important;
+  min-width: 9px !important;
+}
+
+html body .option-a-about-label {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.32em !important;
+}
+
+/* title */
+html body .option-a-about-title {
+  font-size: clamp(44px, 5.8vw, 68px) !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.065em !important;
+  margin: 0 !important;
+}
+
+/* paragraph */
+html body .option-a-about-copy {
+  width: min(650px, 100%) !important;
+  max-width: 650px !important;
+  margin-top: 22px !important;
+
+  font-size: clamp(15px, 1.35vw, 17px) !important;
+  font-weight: 500 !important;
+  line-height: 1.58 !important;
+}
+
+html body .option-a-about-copy--second {
+  margin-top: 9px !important;
+}
+
+/* connect button spacing */
+html body .option-a-about-cta-row {
+  margin: 30px 0 34px !important;
+}
+
+html body .option-a-journey-button {
+  min-height: 54px !important;
+  width: min(560px, 100%) !important;
+  padding: 0 26px !important;
+  font-size: 15px !important;
+  font-weight: 650 !important;
+}
+
+/* card wrapper support for both old/new JSX */
+html body .option-a-workspace-card,
+html body .about-card {
+  width: min(820px, 100%) !important;
+  min-height: 455px !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 34px !important;
+}
+
+/* if using new about-card-container */
+html body .about-card-container {
+  width: 100% !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* stats */
+html body .option-a-stats-row {
+  margin-top: 18px !important;
+  gap: 14px !important;
+}
+
+html body .option-a-stat-card {
+  min-height: 155px !important;
+  padding: 20px 18px !important;
+  border-radius: 24px !important;
+}
+
+html body .option-a-stat-icon {
+  width: 42px !important;
+  height: 42px !important;
+  margin-bottom: 20px !important;
+  border-radius: 13px !important;
+  font-size: 13px !important;
+}
+
+html body .option-a-stat-card strong {
+  font-size: clamp(34px, 3.8vw, 44px) !important;
+  line-height: 0.95 !important;
+}
+
+html body .option-a-stat-card > span {
+  margin-top: 15px !important;
+  font-size: 10px !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.13em !important;
+  font-weight: 650 !important;
+}
+
+/* tablet */
+@media (max-width: 820px) {
+  html body .option-a-about-section {
+    padding: 58px 16px 70px !important;
+  }
+
+  html body .option-a-about-inner {
+    width: min(720px, 100%) !important;
+  }
+
+  html body .option-a-about-title {
+    font-size: clamp(40px, 9vw, 58px) !important;
+  }
+
+  html body .option-a-about-copy {
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+  }
+
+  html body .option-a-workspace-card,
+  html body .about-card {
+    min-height: 390px !important;
+    border-radius: 30px !important;
+  }
+
+  html body .option-a-stat-card {
+    min-height: 142px !important;
+    padding: 17px 14px !important;
+  }
+}
+
+/* mobile */
+@media (max-width: 620px) {
+  html body .option-a-about-section {
+    padding: 50px 14px 62px !important;
+  }
+
+  html body .option-a-about-label-wrap {
+    margin-bottom: 14px !important;
+  }
+
+  html body .option-a-about-line {
+    width: 34px !important;
+    height: 3px !important;
+  }
+
+  html body .option-a-about-dot {
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px !important;
+  }
+
+  html body .option-a-about-label {
+    font-size: 9px !important;
+    letter-spacing: 0.28em !important;
+  }
+
+  html body .option-a-about-title {
+    font-size: clamp(36px, 11vw, 46px) !important;
+  }
+
+  html body .option-a-about-copy {
+    margin-top: 18px !important;
+    font-size: 14.5px !important;
+    line-height: 1.55 !important;
+  }
+
+  html body .option-a-about-copy--second {
+    margin-top: 8px !important;
+  }
+
+  html body .option-a-about-cta-row {
+    margin: 24px 0 28px !important;
+  }
+
+  html body .option-a-journey-button {
+    min-height: 50px !important;
+    font-size: 14px !important;
+  }
+
+  html body .option-a-workspace-card,
+  html body .about-card {
+    height: 310px !important;
+    min-height: 310px !important;
+    aspect-ratio: auto !important;
+    border-radius: 24px !important;
+  }
+
+  html body .option-a-stats-row {
+    margin-top: 14px !important;
+    gap: 8px !important;
+  }
+
+  html body .option-a-stat-card {
+    min-height: 122px !important;
+    padding: 13px 9px !important;
+    border-radius: 18px !important;
+  }
+
+  html body .option-a-stat-icon {
+    width: 32px !important;
+    height: 32px !important;
+    margin-bottom: 15px !important;
+    border-radius: 10px !important;
+    font-size: 10px !important;
+  }
+
+  html body .option-a-stat-card strong {
+    font-size: 27px !important;
+  }
+
+  html body .option-a-stat-card > span {
+    margin-top: 12px !important;
+    font-size: 7.5px !important;
+    letter-spacing: 0.1em !important;
+    line-height: 1.45 !important;
+  }
+}
+
+/* ========================================================= */
+/* ABOUT SECTION — CARD ALIGNMENT PATCH */
+/* Slightly bigger card + better alignment with stats/text */
+/* ========================================================= */
+
+html body .option-a-about-inner {
+  width: min(980px, 100%) !important;
+}
+
+/* keep text readable but aligned with section width */
+html body .option-a-about-copy {
+  width: min(720px, 100%) !important;
+  max-width: 720px !important;
+}
+
+/* slightly increase image card again */
+html body .option-a-workspace-card,
+html body .about-card {
+  width: min(900px, 100%) !important;
+  min-height: 510px !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 36px !important;
+}
+
+/* make portrait fit the slightly larger card */
+html body .option-a-portrait-image,
+html body .about-card-img {
+  width: 116% !important;
+  bottom: -2px !important;
+}
+
+/* circle should scale with card, not dominate */
+html body .option-a-blue-circle,
+html body .circle-bg {
+  width: min(500px, 53%) !important;
+  top: 14% !important;
+}
+
+/* align stats with same card width */
+html body .option-a-stats-row {
+  width: min(900px, 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 18px !important;
+}
+
+/* stats slightly fuller so they don't look disconnected */
+html body .option-a-stat-card {
+  min-height: 165px !important;
+  padding: 22px 20px !important;
+}
+
+/* tablet */
+@media (max-width: 820px) {
+  html body .option-a-about-inner {
+    width: min(760px, 100%) !important;
+  }
+
+  html body .option-a-workspace-card,
+  html body .about-card {
+    width: 100% !important;
+    min-height: 430px !important;
+    border-radius: 32px !important;
+  }
+
+  html body .option-a-portrait-image,
+  html body .about-card-img {
+    width: 126% !important;
+  }
+
+  html body .option-a-blue-circle,
+  html body .circle-bg {
+    width: 62% !important;
+  }
+
+  html body .option-a-stats-row {
+    width: 100% !important;
+  }
+}
+
+/* mobile */
+@media (max-width: 620px) {
+  html body .option-a-workspace-card,
+  html body .about-card {
+    height: 345px !important;
+    min-height: 345px !important;
+    border-radius: 26px !important;
+  }
+
+  html body .option-a-portrait-image,
+  html body .about-card-img {
+    width: 138% !important;
+    bottom: -2px !important;
+  }
+
+  html body .option-a-blue-circle,
+  html body .circle-bg {
+    width: 275px !important;
+    top: 14% !important;
+  }
+
+  html body .option-a-stats-row {
+    margin-top: 14px !important;
+  }
+}
+
+/* ========================================================= */
+/* ABOUT SECTION — FINAL BALANCE PATCH */
+/* fixes gap + card scale + portrait head cutting */
+/* ========================================================= */
+
+/* overall section width */
+html body .option-a-about-inner {
+  width: min(930px, 100%) !important;
+}
+
+/* reduce extra paragraph/card gap */
+html body .option-a-about-copy {
+  width: min(690px, 100%) !important;
+  max-width: 690px !important;
+}
+
+html body .option-a-about-copy--second {
+  margin-top: 8px !important;
+}
+
+/* if Connect button row exists, don't let it create huge blank space */
+html body .option-a-about-cta-row {
+  margin: 24px 0 30px !important;
+}
+
+/* main card size: slightly smaller and controlled */
+html body .option-a-workspace-card,
+html body .about-card {
+  width: min(820px, 100%) !important;
+  min-height: 465px !important;
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 34px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* card container if you are still using about-card-container */
+html body .about-card-container {
+  width: 100% !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* move blue circle slightly lower and reduce it */
+html body .option-a-blue-circle,
+html body .circle-bg {
+  top: 17% !important;
+  width: min(450px, 50%) !important;
+}
+
+/* portrait: reduce a bit and move down so head does not touch roof */
+html body .option-a-portrait-image,
+html body .about-card-img {
+  width: 108% !important;
+  bottom: -18px !important;
+}
+
+/* dots should stay subtle */
+html body .option-a-dotted-pattern,
+html body .about-card-dots {
+  right: 7% !important;
+  top: 26% !important;
+  width: 210px !important;
+  height: 270px !important;
+  opacity: 0.2 !important;
+}
+
+/* no front fog/fade */
+html body .option-a-portrait-fade,
+html body .fade-overlay {
+  display: none !important;
+}
+
+/* role pill slightly smaller */
+html body .option-a-role-pill,
+html body .role-label {
+  left: 6% !important;
+  bottom: 7% !important;
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  font-size: 11px !important;
+}
+
+/* stats align with card */
+html body .option-a-stats-row {
+  width: min(820px, 100%) !important;
+  margin: 16px auto 0 !important;
+}
+
+/* desktop stats smaller */
+html body .option-a-stat-card {
+  min-height: 150px !important;
+  padding: 18px 16px !important;
+}
+
+/* tablet */
+@media (max-width: 820px) {
+  html body .option-a-workspace-card,
+  html body .about-card {
+    width: 100% !important;
+    min-height: 395px !important;
+    border-radius: 30px !important;
+  }
+
+  html body .option-a-blue-circle,
+  html body .circle-bg {
+    top: 17% !important;
+    width: 58% !important;
+  }
+
+  html body .option-a-portrait-image,
+  html body .about-card-img {
+    width: 118% !important;
+    bottom: -16px !important;
+  }
+}
+
+/* mobile */
+@media (max-width: 620px) {
+  html body .option-a-about-section {
+    padding-top: 46px !important;
+    padding-bottom: 58px !important;
+  }
+
+  html body .option-a-about-cta-row {
+    margin: 22px 0 24px !important;
+  }
+
+  html body .option-a-workspace-card,
+  html body .about-card {
+    height: 315px !important;
+    min-height: 315px !important;
+    aspect-ratio: auto !important;
+    border-radius: 24px !important;
+  }
+
+  html body .option-a-blue-circle,
+  html body .circle-bg {
+    top: 18% !important;
+    width: 245px !important;
+  }
+
+  html body .option-a-portrait-image,
+  html body .about-card-img {
+    width: 126% !important;
+    bottom: -14px !important;
+  }
+
+  html body .option-a-dotted-pattern,
+  html body .about-card-dots {
+    top: 30% !important;
+    right: 4% !important;
+    width: 100px !important;
+    height: 140px !important;
+    background-size: 14px 14px !important;
+  }
+
+  html body .option-a-role-pill,
+  html body .role-label {
+    left: 14px !important;
+    bottom: 16px !important;
+    min-height: 38px !important;
+    padding: 0 14px !important;
+    font-size: 8px !important;
+    letter-spacing: 0.13em !important;
+  }
+
+  html body .option-a-stats-row {
+    margin-top: 12px !important;
+  }
+}
+
+/* ========================================================= */
+/* ABOUT SECTION — HORIZONTAL WIDTH ADJUSTMENT */
+/* Keep vertical height same, increase horizontal width of card and stats */
+/* ========================================================= */
+
+/* Card container and card */
+html body .about-card-container,
+html body .option-a-workspace-card,
+html body .about-card {
+  width: min(920px, 100%) !important; /* increase horizontal width */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  min-height: 465px !important; /* keep vertical height same */
+  aspect-ratio: 4 / 3 !important;
+}
+
+/* Stats row aligned with new card width */
+html body .option-a-stats-row {
+  width: min(920px, 100%) !important;
+  margin: 18px auto 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+}
+
+/* Tablet */
+@media (max-width: 820px) {
+  html body .about-card-container,
+  html body .option-a-workspace-card,
+  html body .about-card,
+  html body .option-a-stats-row {
+    width: 100% !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 620px) {
+  html body .option-a-workspace-card,
+  html body .about-card {
+    width: 100% !important;
+    min-height: 345px !important; /* keep previous mobile height */
+    margin-top: 22px !important;
+  }
+
+  html body .option-a-stats-row {
+    width: 100% !important;
+    gap: 8px !important;
+  }
+}
