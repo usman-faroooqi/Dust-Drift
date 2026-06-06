@@ -205,48 +205,27 @@ function OptionAAboutSection() {
           </button>
         </div>
 
-        <div
-          className="option-a-workspace-card"
-          aria-label="Graphic designer workspace"
-        >
-          <div className="option-a-blue-circle" aria-hidden="true" />
-          <div className="option-a-dotted-pattern" aria-hidden="true" />
-          <div
-            className="option-a-curve option-a-curve-one"
-            aria-hidden="true"
-          />
-          <div
-            className="option-a-curve option-a-curve-two"
-            aria-hidden="true"
+        <div className="option-a-workspace-card">
+          <div className="option-a-card-glow" />
+          <div className="option-a-blue-circle" />
+          <div className="option-a-dotted-pattern" />
+          <div className="option-a-curve option-a-curve-one" />
+          <div className="option-a-curve option-a-curve-two" />
+
+          <img
+            src="/about-portrait.png"
+            alt="Usman Farooqi - Graphic Designer"
+            className="option-a-portrait-image"
           />
 
-          <div className="option-a-desk-surface" aria-hidden="true" />
-
-          <div className="option-a-lamp" aria-hidden="true">
-            <span className="option-a-lamp-head" />
-            <span className="option-a-lamp-arm-one" />
-            <span className="option-a-lamp-arm-two" />
-            <span className="option-a-lamp-base" />
-          </div>
-
-          <div className="option-a-pencil-cup" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-
-          <div className="option-a-laptop" aria-hidden="true">
-            <span />
-          </div>
-
-          <div className="option-a-mug" aria-hidden="true" />
+          <div className="option-a-portrait-fade" />
 
           <div className="option-a-role-pill">
             <span />
             GRAPHIC DESIGNER
           </div>
         </div>
-
+        
         <div className="option-a-stats-row" aria-label="Portfolio statistics">
           {aboutStats.map((stat) => (
             <article className="option-a-stat-card" key={stat.label}>
