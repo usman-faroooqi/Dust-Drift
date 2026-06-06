@@ -205,24 +205,24 @@ function OptionAAboutSection() {
           </button>
         </div>
 
-        <div className="about-card-container">
-          <div className="about-card">
-            <div className="circle-bg"></div>
-            <div className="about-card-glow"></div>
-            <div className="about-card-dots"></div>
-            <div className="about-card-curve about-card-curve-one"></div>
-            <div className="about-card-curve about-card-curve-two"></div>
+        <div className="option-a-workspace-card">
+          <div className="option-a-card-glow" />
+          <div className="option-a-blue-circle" />
+          <div className="option-a-dotted-pattern" />
+          <div className="option-a-curve option-a-curve-one" />
+          <div className="option-a-curve option-a-curve-two" />
 
-            <img
-              src="/about-portrait.png"
-              alt="Profile Photo"
-              className="about-card-img"
-            />
+          <img
+            src="/about-portrait.png"
+            alt="Usman Farooqi - Graphic Designer"
+            className="option-a-portrait-image"
+          />
 
-            <span className="role-label">
-              <span></span>
-                GRAPHIC DESIGNER
-              </span>
+          <div className="option-a-portrait-fade" />
+
+          <div className="option-a-role-pill">
+            <span />
+              GRAPHIC DESIGNER
             </div>
           </div>
         
