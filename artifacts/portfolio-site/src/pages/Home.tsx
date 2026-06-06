@@ -208,11 +208,23 @@ function OptionAAboutSection() {
         <div className="about-card-container">
           <div className="about-card">
             <div className="circle-bg"></div>
-            <img src="public/about-portrait.png" alt="Profile Photo" className="about-card-img" />
-          <div className="fade-overlay"></div>
-          <span className="role-label">GRAPHIC DESIGNER</span>
+            <div className="about-card-glow"></div>
+            <div className="about-card-dots"></div>
+            <div className="about-card-curve about-card-curve-one"></div>
+            <div className="about-card-curve about-card-curve-two"></div>
+
+            <img
+              src="/about-portrait.png"
+              alt="Profile Photo"
+              className="about-card-img"
+            />
+
+            <span className="role-label">
+              <span></span>
+                GRAPHIC DESIGNER
+              </span>
+            </div>
           </div>
-        </div>
         
         <div className="option-a-stats-row" aria-label="Portfolio statistics">
           {aboutStats.map((stat) => (
