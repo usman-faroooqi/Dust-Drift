@@ -1,34 +1,31 @@
 import ServicesFinal from "../components/ServicesFinal";
 import SelectedWorkFinal from "../components/SelectedWorkFinal";
-import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useState, useEffect, useRef, type CSSProperties, type FormEvent } from "react";
 import {
-  ArrowRight,
-  BriefcaseBusiness,
   Check,
   Clock3,
   FolderKanban,
   HomeIcon,
   Mail,
   Menu,
+  MessageCircle,
   Sparkles,
   UserRound,
   X,
 } from "lucide-react";
 import { DustLayer } from "@/components/DustLayer";
 import { PillButton } from "@/components/Buttons";
-import { Typewriter } from "@/components/TypingText";
 
 const navItems = [
   { label: "Home", href: "#top" },
-  { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "#about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const mobileMenuItems = [
   { label: "Home", href: "#top", icon: HomeIcon },
-  { label: "Work", href: "#work", icon: BriefcaseBusiness },
   { label: "Services", href: "#services", icon: Sparkles },
   { label: "Projects", href: "/projects", icon: FolderKanban },
   { label: "About", href: "#about", icon: UserRound },
@@ -98,6 +95,69 @@ const clientReviews = [
   },
 ];
 
+function AnimatedHeroKicker() {
+  const roles = ["Graphic Designer", "Brand Designer", "Reel Editor"];
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentRole = roles[roleIndex];
+    const isComplete = visibleCount === currentRole.length;
+    const isEmpty = visibleCount === 0;
+
+    const timeout = window.setTimeout(
+      () => {
+        if (!deleting && !isComplete) {
+          setVisibleCount((value) => value + 1);
+          return;
+        }
+
+        if (!deleting && isComplete) {
+          setDeleting(true);
+          return;
+        }
+
+        if (deleting && !isEmpty) {
+          setVisibleCount((value) => value - 1);
+          return;
+        }
+
+        setDeleting(false);
+        setRoleIndex((value) => (value + 1) % roles.length);
+      },
+      !deleting && isComplete ? 980 : deleting ? 44 : 78,
+    );
+
+    return () => window.clearTimeout(timeout);
+  }, [deleting, roleIndex, visibleCount]);
+
+  const currentRole = roles[roleIndex];
+  const displayedRole = currentRole.slice(0, visibleCount) || " ";
+  const progress = currentRole.length ? visibleCount / currentRole.length : 0;
+
+  return (
+    <div
+      className="hero-kicker"
+      aria-label="Creative role"
+      style={
+        {
+          "--hero-kicker-progress": progress,
+          "--hero-kicker-dot-left": `${progress * 100}%`,
+          "--hero-kicker-dot-opacity": progress > 0.03 ? 1 : 0,
+        } as CSSProperties
+      }
+    >
+      <span className="hero-kicker__text">{displayedRole}</span>
+      <span className="hero-kicker__cursor" aria-hidden="true" />
+      <span className="hero-kicker__motion" aria-hidden="true">
+        <span className="hero-kicker__line" />
+        <span className="hero-kicker__dot" />
+      </span>
+    </div>
+  );
+}
+
 function MobileLiquidMenu({
   isOpen,
   setIsOpen,
@@ -105,21 +165,40 @@ function MobileLiquidMenu({
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }) {
+  const [clockOpen, setClockOpen] = useState(false);
+
   if (!isOpen) return null;
 
   return (
     <div className="mobile-liquid-menu">
       <div className="mobile-liquid-menu__quick-row">
-        <span>
+        <a href="#top" aria-label="Go to home" onClick={() => setIsOpen(false)}>
           <HomeIcon size={16} strokeWidth={2} />
-        </span>
-        <span>
+        </a>
+        <a href="/contact" aria-label="Open contact" onClick={() => setIsOpen(false)}>
+          <MessageCircle size={16} strokeWidth={2} />
+        </a>
+        <button
+          type="button"
+          aria-label="Show current time"
+          onClick={() => setClockOpen((value) => !value)}
+        >
           <Clock3 size={16} strokeWidth={2} />
-        </span>
-        <span>
-          <Mail size={16} strokeWidth={2} />
-        </span>
+        </button>
       </div>
+
+      {clockOpen && (
+        <div className="mobile-liquid-menu__clock-popover" aria-live="polite">
+          <div className="mobile-liquid-menu__clock-top">
+            <Clock3 size={15} strokeWidth={2.2} />
+            <span>Local Time</span>
+          </div>
+          <strong className="mobile-liquid-menu__clock-value">
+            <LiveClock />
+          </strong>
+          <span className="mobile-liquid-menu__clock-zone">PKT · Pakistan</span>
+        </div>
+      )}
 
       <div className="mobile-liquid-menu__divider" />
 
@@ -133,8 +212,8 @@ function MobileLiquidMenu({
               href={item.href}
               onClick={() => setIsOpen(false)}
             >
-              <span>{item.label}</span>
               <Icon size={19} strokeWidth={2} />
+              <span>{item.label}</span>
             </a>
           );
         })}
@@ -159,7 +238,16 @@ function FeaturedCapsules() {
           {[...capsules, ...capsules, ...capsules, ...capsules].map(
             (item, index) => (
               <span className="featured-capsule" key={`${item}-${index}`}>
-                ✨ {item}
+                <svg
+                  className="featured-capsule__spark"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M12 3.5 13.9 8.8 19.2 10.7 13.9 12.6 12 17.9 10.1 12.6 4.8 10.7 10.1 8.8 12 3.5Z" />
+                  <path d="M18.2 3.8 18.9 5.8 20.9 6.5 18.9 7.2 18.2 9.2 17.5 7.2 15.5 6.5 17.5 5.8 18.2 3.8Z" />
+                </svg>
+                <span>{item}</span>
               </span>
             ),
           )}
@@ -201,7 +289,6 @@ function OptionAAboutSection() {
             }}
           >
             Connect With Me
-            <ArrowRight className="size-4" />
           </button>
         </div>
 
@@ -222,7 +309,7 @@ function OptionAAboutSection() {
 
           <div className="option-a-role-pill">
             <span />
-              GRAPHIC DESIGNER
+              USMAN FAROOQI
             </div>
           </div>
         
@@ -329,36 +416,44 @@ function ReviewSystem() {
       <style>{`
         .review-system-button {
           position: fixed;
-          right: 18px;
-          bottom: 18px;
+          right: 26px;
+          bottom: 26px;
+          top: auto;
           z-index: 10000;
-          width: 58px;
-          height: 58px;
-          border: 0;
+          width: 64px;
+          height: 64px;
+          border: 1px solid rgba(255, 255, 255, 0.66);
           border-radius: 999px;
           display: flex;
           align-items: center;
           justify-content: center;
           color: #ffffff;
           cursor: pointer;
+          backdrop-filter: blur(24px) saturate(170%);
+          -webkit-backdrop-filter: blur(24px) saturate(170%);
           background:
-            radial-gradient(circle at 32% 24%, rgba(255,255,255,0.36), transparent 28%),
-            linear-gradient(180deg, #3b82f6 0%, #2563eb 45%, #1d4ed8 100%);
+            radial-gradient(circle at 30% 22%, rgba(255,255,255,0.46), transparent 28%),
+            linear-gradient(180deg, #60a5fa 0%, #2563eb 50%, #1d4ed8 100%);
           box-shadow:
-            0 18px 38px rgba(37, 99, 235, 0.34),
-            inset 0 2px 2px rgba(255, 255, 255, 0.46),
-            inset 0 -2px 5px rgba(0, 0, 0, 0.22);
+            0 22px 52px rgba(37, 99, 235, 0.40),
+            inset 0 2px 2px rgba(255, 255, 255, 0.52),
+            inset 0 -2px 6px rgba(0, 0, 0, 0.24);
           transition: transform 0.22s ease, box-shadow 0.22s ease;
         }
 
         .review-system-button:hover {
-          transform: translateY(-2px);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow:
+            0 28px 64px rgba(37, 99, 235, 0.44),
+            inset 0 2px 2px rgba(255, 255, 255, 0.56),
+            inset 0 -2px 6px rgba(0, 0, 0, 0.24);
         }
 
-        .review-system-button svg {
-          width: 30px;
-          height: 30px;
+        .review-system-button > svg {
+          width: 28px;
+          height: 28px;
         }
+
 
         .review-toast-loop {
           position: fixed;
@@ -735,10 +830,11 @@ function ReviewSystem() {
 
         @media (max-width: 720px) {
           .review-system-button {
-            right: 14px;
-            bottom: 16px;
-            width: 56px;
-            height: 56px;
+            right: 16px;
+            bottom: 18px;
+            top: auto;
+            width: 58px;
+            height: 58px;
           }
 
           .review-toast-loop {
@@ -901,23 +997,10 @@ function ReviewSystem() {
       <button
         className="review-system-button"
         type="button"
-        aria-label="Open reviews"
+        aria-label="Open client reviews"
         onClick={() => setPanelOpen(true)}
       >
-        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <path
-            d="M39.8 15.5c-4.8 0-8.3 3.6-11.4 6.9l-5.7 6.1c-2.1 2.2-4.6 4.3-8.1 4.3-3.7 0-6.6-2.8-6.6-6.4 0-3.8 3.1-6.7 7-6.7 2.2 0 4.1.8 5.8 2.1"
-            stroke="currentColor"
-            strokeWidth="7"
-            strokeLinecap="round"
-          />
-          <path
-            d="M24.2 48.5c4.8 0 8.3-3.6 11.4-6.9l5.7-6.1c2.1-2.2 4.6-4.3 8.1-4.3 3.7 0 6.6 2.8 6.6 6.4 0 3.8-3.1 6.7-7 6.7-2.2 0-4.1-.8-5.8-2.1"
-            stroke="currentColor"
-            strokeWidth="7"
-            strokeLinecap="round"
-          />
-        </svg>
+        <MessageCircle aria-hidden="true" strokeWidth={2.4} />
       </button>
 
       {panelOpen && (
@@ -1008,6 +1091,11 @@ function ReviewSystem() {
 function SiteFooterFinal() {
   return (
     <footer className="site-footer-final">
+      <div className="site-footer-final__mobile-brand" aria-hidden="true">
+        <strong>Portfolio.</strong>
+        <span>Graphic design that builds trust.</span>
+      </div>
+
       <nav className="site-footer-final__links" aria-label="Footer navigation">
         <a href="#services">Services</a>
         <a href="/projects">Projects</a>
@@ -1082,22 +1170,89 @@ function SiteFooterFinal() {
           letter-spacing: -0.03em;
         }
 
+        .site-footer-final__mobile-brand {
+          display: none;
+        }
+
         @media (max-width: 720px) {
           .site-footer-final {
+            width: 100%;
             min-height: auto;
-            padding: 28px 22px 34px;
+            margin: 10px auto 0;
+            padding: 16px 14px 18px;
+            border-radius: 0;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 24px;
+            align-items: center;
+            gap: 11px;
+            background: transparent;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: none;
+          }
+
+          .site-footer-final__mobile-brand {
+            display: none;
+          }
+
+          .site-footer-final__mobile-brand strong {
+            color: #071225;
+            font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -0.065em;
+          }
+
+          .site-footer-final__mobile-brand span {
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 700;
           }
 
           .site-footer-final__links {
-            flex-wrap: wrap;
-            gap: 18px 26px;
+            width: 100%;
+            max-width: none;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 7px;
+            overflow-x: auto;
+            scrollbar-width: none;
+          }
+
+          .site-footer-final__links::-webkit-scrollbar {
+            display: none;
+          }
+
+          .site-footer-final__links a {
+            min-height: 31px;
+            padding: 0 11px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            color: #334155;
+            background: rgba(255, 255, 255, 0.36);
+            border: 1px solid rgba(255, 255, 255, 0.62);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+            font-size: 12px;
           }
 
           .site-footer-final__socials {
-            gap: 24px;
+            justify-content: center;
+            gap: 10px;
+          }
+
+          .site-footer-final__socials a {
+            width: 34px;
+            height: 34px;
+            min-height: 34px;
+            font-size: 14px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.44);
+            border: 1px solid rgba(255, 255, 255, 0.68);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
           }
         }
       `}</style>
@@ -1121,7 +1276,7 @@ function LiveClock() {
   const ss = String(time.getSeconds()).padStart(2, "0");
 
   return (
-    <span className="font-mono text-sm tabular-nums tracking-widest text-slate-600 select-none">
+    <span className="live-clock-time font-mono text-sm tabular-nums tracking-widest text-slate-600 select-none">
       {hh}
       <span className="opacity-40">:</span>
       {mm}
@@ -1308,6 +1463,100 @@ export default function Home() {
           display: none;
         }
 
+
+        .hero-kicker {
+          width: min(1080px, 100%);
+          margin: 0 auto 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          color: #2563eb;
+          font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif;
+          font-size: clamp(11px, 1.08vw, 14px);
+          font-weight: 750;
+          letter-spacing: 0.34em;
+          text-transform: uppercase;
+        }
+
+        .hero-kicker__text {
+          display: inline-flex;
+          min-width: 0;
+          align-items: center;
+        }
+
+        .hero-kicker__cursor {
+          width: 2px;
+          height: 1em;
+          margin-left: 5px;
+          border-radius: 999px;
+          background: currentColor;
+          opacity: calc(0.28 + (var(--hero-kicker-progress, 0) * 0.72));
+        }
+
+        .hero-kicker__line {
+          width: min(var(--hero-kicker-line-width, 0px), clamp(44px, 7vw, 92px));
+          height: 3px;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #2563eb, rgba(96, 165, 250, 0.18));
+          transition: width 72ms linear;
+        }
+
+        .hero-kicker__dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 999px;
+          background: #2563eb;
+          opacity: var(--hero-kicker-dot-opacity, 0);
+          box-shadow: 0 0 0 7px rgba(37, 99, 235, 0.10);
+          transition: opacity 72ms linear;
+        }
+
+        .hero-main-title {
+          max-width: 1120px;
+          margin: 0 auto !important;
+          display: grid;
+          gap: clamp(5px, 0.72vw, 10px);
+          text-align: center;
+          justify-items: center;
+          font-size: clamp(3.05rem, 5.9vw, 6.35rem) !important;
+          font-weight: 660 !important;
+          line-height: 0.98 !important;
+          letter-spacing: -0.045em !important;
+          transform: scaleX(0.96) !important;
+          transform-origin: center !important;
+        }
+
+        .hero-title-line {
+          display: block;
+          white-space: nowrap;
+        }
+
+        .hero-title-line--mobile {
+          display: none;
+        }
+
+        .hero-title-line--desktop-indent,
+        .hero-title-line--desktop-final {
+          padding-left: 0;
+        }
+
+        .hero-title-blue {
+          color: #2563eb;
+          text-shadow: 0 12px 34px rgba(37, 99, 235, 0.16);
+        }
+
+        .hero-copy-wrap {
+          width: min(760px, 100%);
+          margin: 22px auto 0;
+          display: block;
+          text-align: center;
+        }
+
+        .hero-copy-mark {
+          display: none;
+        }
+
         @media (min-width: 900px) {
           .hero-section {
             padding-top: 168px !important;
@@ -1316,9 +1565,10 @@ export default function Home() {
           }
 
           .hero-description {
-            max-width: 690px !important;
-            font-size: 16px !important;
-            line-height: 1.65 !important;
+            max-width: none !important;
+            font-size: 15px !important;
+            line-height: 1.5 !important;
+            white-space: nowrap !important;
           }
 
           .hero-actions {
@@ -1379,7 +1629,7 @@ export default function Home() {
           position: relative;
           z-index: 2;
           width: 100%;
-          padding: 16px 0 72px;
+          padding: 14px 0 6px;
           overflow: hidden;
           background: transparent;
         }
@@ -1439,6 +1689,15 @@ export default function Home() {
             0 14px 32px rgba(15, 23, 42, 0.07),
             inset 0 1px 0 rgba(255, 255, 255, 0.96),
             inset 0 -1px 0 rgba(15, 23, 42, 0.05);
+        }
+
+        .featured-capsule__spark {
+          width: 18px;
+          height: 18px;
+          color: #1d4ed8;
+          stroke: currentColor;
+          fill: none;
+          filter: drop-shadow(0 3px 8px rgba(29, 78, 216, 0.18));
         }
 
         @keyframes featuredCapsulesMove {
@@ -1609,7 +1868,8 @@ export default function Home() {
             margin-bottom: 12px;
           }
 
-          .mobile-liquid-menu__quick-row span {
+          .mobile-liquid-menu__quick-row a,
+          .mobile-liquid-menu__quick-row button {
             width: 36px;
             height: 36px;
             border-radius: 999px;
@@ -1617,9 +1877,69 @@ export default function Home() {
             align-items: center;
             justify-content: center;
             color: #0f172a;
+            text-decoration: none;
+            cursor: pointer;
             background: rgba(255, 255, 255, 0.42);
             border: 1px solid rgba(255, 255, 255, 0.70);
           }
+          .mobile-liquid-menu__clock-popover {
+            margin-top: 12px;
+            padding: 13px 14px 14px;
+            border-radius: 20px;
+            display: grid;
+            gap: 8px;
+            color: #071225;
+            background:
+              linear-gradient(
+                180deg,
+                rgba(255,255,255,0.72),
+                rgba(255,255,255,0.34)
+              );
+            border: 1px solid rgba(255,255,255,0.78);
+            box-shadow:
+              0 14px 34px rgba(15,23,42,0.10),
+              inset 0 1px 0 rgba(255,255,255,0.90);
+          }
+
+          .mobile-liquid-menu__clock-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #2563eb;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+          }
+
+          .mobile-liquid-menu__clock-value {
+            display: block;
+            color: #071225;
+            font-size: 24px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+          }
+
+          .mobile-liquid-menu__clock-popover .live-clock-time {
+            color: #071225 !important;
+            font-size: 24px !important;
+            line-height: 1 !important;
+            letter-spacing: 0.02em !important;
+            font-weight: 900 !important;
+          }
+
+          .mobile-liquid-menu__clock-popover .live-clock-time span {
+            opacity: 0.42;
+          }
+
+          .mobile-liquid-menu__clock-zone {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+          }
+
 
           .mobile-liquid-menu__divider {
             height: 1px;
@@ -1634,11 +1954,11 @@ export default function Home() {
 
           .mobile-liquid-menu__links a {
             min-height: 44px;
-            padding: 0 4px 0 6px;
+            padding: 0 6px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 16px;
+            justify-content: flex-start;
+            gap: 13px;
             color: #0f172a;
             text-decoration: none;
             font-size: 17px;
@@ -1647,8 +1967,8 @@ export default function Home() {
           }
 
           .mobile-liquid-menu__links a svg {
-            color: #0f172a;
-            opacity: 0.72;
+            color: #2563eb;
+            opacity: 0.86;
           }
 
           @keyframes mobileLiquidMenuIn {
@@ -1676,7 +1996,7 @@ export default function Home() {
           }
 
           .featured-capsules-section {
-            padding: 12px 0 68px;
+            padding: 10px 0 4px;
           }
 
           .featured-capsules-window {
@@ -1700,6 +2020,65 @@ export default function Home() {
 
           .option-a-about-cta-row {
             margin: 20px 0 28px;
+          }
+
+
+          .hero-kicker {
+            justify-content: flex-start;
+            margin: 0 0 20px;
+            gap: 9px;
+            font-size: 10.5px;
+            letter-spacing: 0.30em;
+          }
+
+          .hero-kicker__line {
+            width: min(var(--hero-kicker-line-width, 20px), 42px);
+          }
+
+          .hero-main-title {
+            width: 100% !important;
+            max-width: 100% !important;
+            text-align: left !important;
+            justify-items: start !important;
+            white-space: normal !important;
+            overflow: visible !important;
+            font-size: clamp(2.15rem, 9.3vw, 3.65rem) !important;
+            font-weight: 640 !important;
+            line-height: 0.99 !important;
+            letter-spacing: -0.048em !important;
+            transform: scaleX(0.97) !important;
+            transform-origin: left center !important;
+          }
+
+          .hero-title-line--desktop {
+            display: none !important;
+          }
+
+          .hero-title-line--mobile {
+            display: block !important;
+          }
+
+          .hero-copy-wrap {
+            width: 100%;
+            max-width: 350px;
+            margin: 24px 0 0;
+            text-align: left;
+          }
+
+          .hero-copy-mark {
+            display: none;
+          }
+
+          .hero-description {
+            margin: 0 !important;
+            font-size: 0.92rem !important;
+            line-height: 1.52 !important;
+            white-space: normal !important;
+          }
+
+          .hero-actions {
+            justify-content: flex-start !important;
+            margin-top: 24px !important;
           }
         }
 
@@ -1740,7 +2119,6 @@ export default function Home() {
         <div className="portfolio-liquid-header__right">
           <a href="/contact" className="portfolio-liquid-header__hire">
             Hire Now
-            <ArrowRight className="size-4" />
           </a>
 
           <div className="portfolio-liquid-header__clock">
@@ -1753,16 +2131,12 @@ export default function Home() {
             Portfolio.
           </a>
 
-          <a href="#work" className="portfolio-liquid-mobile-pill__mini-link">
-            Work
-          </a>
-
           <a
-            href="/contact"
+            href="/projects"
             className="portfolio-liquid-mobile-pill__hire"
-            aria-label="Hire Now"
+            aria-label="Open projects"
           >
-            <BriefcaseBusiness size={18} strokeWidth={2.3} />
+            <FolderKanban size={18} strokeWidth={2.3} />
           </a>
 
           <button
@@ -1779,7 +2153,10 @@ export default function Home() {
           </button>
         </div>
 
-        <MobileLiquidMenu isOpen={navOpen} setIsOpen={setNavOpen} />
+        <MobileLiquidMenu
+          isOpen={navOpen}
+          setIsOpen={setNavOpen}
+        />
       </header>
 
       <div
@@ -1797,30 +2174,25 @@ export default function Home() {
         <main className="w-full">
           <section className="hero-section relative w-full px-6 pb-20 md:px-12">
             <div className="hero-content w-full select-none">
-              <h1 className="hero-main-title w-full text-center uppercase text-slate-900">
-                USMAN FAROOQI
+              <AnimatedHeroKicker />
+
+              <h1 className="hero-main-title w-full uppercase text-slate-900">
+                <span className="hero-title-line hero-title-line--desktop">
+                  Design with clarity.
+                </span>
+                <span className="hero-title-line hero-title-line--desktop hero-title-blue">
+                  Not noise.
+                </span>
+
+                <span className="hero-title-line hero-title-line--mobile">Design with clarity.</span>
+                <span className="hero-title-line hero-title-line--mobile hero-title-blue">Not noise.</span>
               </h1>
 
-              <p className="hero-subtitle w-full text-center font-semibold uppercase text-slate-400">
-                <Typewriter
-                  words={["Graphic Designer", "Brand Designer", "Reel Editor"]}
-                  typeSpeed={100}
-                  deleteSpeed={50}
-                  holdTime={2000}
-                />
-              </p>
-
-              <p className="hero-description mx-auto max-w-sm text-center text-sm leading-relaxed text-slate-400">
-                Turning expertise into impactful visuals.
-              </p>
-
-              <div className="hero-mobile-proof" aria-label="Creative focus">
-                <div className="hero-proof-dots" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                <p>Identity systems · Social visuals · Digital brand presence</p>
+              <div className="hero-copy-wrap">
+                <span className="hero-copy-mark" aria-hidden="true" />
+                <p className="hero-description text-sm leading-relaxed text-slate-400">
+                  I create clean visuals that help brands look professional, consistent, and memorable.
+                </p>
               </div>
 
               <div className="hero-actions flex flex-wrap items-center gap-3">
@@ -1828,24 +2200,22 @@ export default function Home() {
                   variant="primary"
                   size="lg"
                   onClick={() => {
-                    window.location.href = "/contact";
+                    window.location.href = "/projects";
                   }}
-                  data-testid="button-hire-hero"
+                  data-testid="button-view-work"
                 >
-                  Hire Now <ArrowRight className="size-4" />
+                  View Projects
                 </PillButton>
 
                 <PillButton
                   variant="secondary"
                   size="lg"
-                  onClick={() =>
-                    document
-                      .getElementById("work")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  data-testid="button-view-work"
+                  onClick={() => {
+                    window.location.href = "/contact";
+                  }}
+                  data-testid="button-hire-hero"
                 >
-                  View Work
+                  Hire Me
                 </PillButton>
               </div>
             </div>
