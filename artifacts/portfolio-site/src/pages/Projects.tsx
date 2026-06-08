@@ -1,5 +1,16 @@
-import { Link } from "wouter";
-import { Menu, X } from "lucide-react";
+import {
+  ChevronLeft,
+  FolderKanban,
+  HomeIcon,
+  Mail,
+  Menu,
+  MessageCircle,
+  Moon,
+  Sparkles,
+  Sun,
+  UserRound,
+  X,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { DustLayer } from "@/components/DustLayer";
 
@@ -15,18 +26,83 @@ const allProjects = [
 ];
 
 const projectNavItems = [
-  { label: "Work", href: "/#work" },
-  { label: "Services", href: "/#services" },
-  { label: "Selected Work", href: "/#selected-work" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Home", href: "/", icon: HomeIcon },
+  { label: "Services", href: "/#services", icon: Sparkles },
+  { label: "Projects", href: "/projects", icon: FolderKanban },
+  { label: "About", href: "/#about", icon: UserRound },
+  { label: "Contact", href: "/contact", icon: Mail },
 ];
+
+function MobileLiquidMenu({
+  isOpen,
+  setIsOpen,
+  isDarkMode,
+  toggleTheme,
+}: {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  isDarkMode: boolean;
+  toggleTheme: () => void;
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <nav className="projects-mobile-menu is-open" aria-label="Mobile menu">
+      <div className="projects-mobile-menu__quick-row">
+        <a href="/" aria-label="Go to home" onClick={() => setIsOpen(false)}>
+          <HomeIcon size={16} strokeWidth={2} />
+        </a>
+        <a href="/contact" aria-label="Open contact" onClick={() => setIsOpen(false)}>
+          <MessageCircle size={16} strokeWidth={2} />
+        </a>
+        <button type="button" aria-label="Toggle dark and light mode" onClick={toggleTheme}>
+          {isDarkMode ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
+        </button>
+      </div>
+
+      <div className="projects-mobile-menu__divider" />
+
+      <div className="projects-mobile-menu__links">
+        {projectNavItems.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <a key={item.label} href={item.href} onClick={() => setIsOpen(false)}>
+              <Icon size={19} strokeWidth={2} />
+              <span>{item.label}</span>
+            </a>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
 
 export default function Projects() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [px, setPx] = useState(0);
   const [py, setPy] = useState(0);
   const frameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const active =
+      document.documentElement.classList.contains("dark") ||
+      document.body.classList.contains("dark-mode");
+
+    setIsDarkMode(active);
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkMode((current) => {
+      const next = !current;
+
+      document.documentElement.classList.toggle("dark", next);
+      document.body.classList.toggle("dark-mode", next);
+
+      return next;
+    });
+  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -120,18 +196,24 @@ export default function Projects() {
         }
 
         .projects-back-home {
+          width: 54px;
+          height: 54px;
+          min-height: 54px;
+          padding: 0;
+          border-radius: 999px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          min-height: 54px;
-          padding: 14px 26px;
-          border-radius: 999px;
           text-decoration: none;
           color: #2563eb;
           font-size: 16px;
           font-weight: 850;
           white-space: nowrap;
+        }
+
+        .projects-back-home svg {
+          width: 25px;
+          height: 25px;
         }
 
         .projects-menu-button {
@@ -150,40 +232,98 @@ export default function Projects() {
           top: 86px;
           right: 16px;
           z-index: 99998;
-          width: min(260px, calc(100vw - 32px));
-          padding: 14px;
-          border-radius: 24px;
+          width: min(270px, calc(100vw - 32px));
+          padding: 15px;
+          border-radius: 26px;
           display: none;
-          backdrop-filter: blur(24px) saturate(165%);
-          -webkit-backdrop-filter: blur(24px) saturate(165%);
+          backdrop-filter: blur(30px) saturate(175%);
+          -webkit-backdrop-filter: blur(30px) saturate(175%);
           background:
             linear-gradient(
               180deg,
-              rgba(255, 255, 255, 0.48) 0%,
-              rgba(255, 255, 255, 0.26) 100%
+              rgba(255, 255, 255, 0.70) 0%,
+              rgba(255, 255, 255, 0.38) 100%
             );
-          border: 1px solid rgba(255, 255, 255, 0.65);
+          border: 1px solid rgba(255, 255, 255, 0.78);
           box-shadow:
-            0 20px 48px rgba(15, 23, 42, 0.16),
-            inset 0 1px 0 rgba(255, 255, 255, 0.86);
+            0 24px 66px rgba(15, 23, 42, 0.16),
+            inset 0 1px 0 rgba(255, 255, 255, 0.92),
+            inset 0 -1px 0 rgba(15, 23, 42, 0.08);
+          animation: projectsMobileMenuIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
         .projects-mobile-menu.is-open {
-          display: grid;
-          gap: 6px;
+          display: block;
         }
 
-        .projects-mobile-menu a {
-          padding: 13px 14px;
-          border-radius: 16px;
+        .projects-mobile-menu__quick-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          margin-bottom: 12px;
+        }
+
+        .projects-mobile-menu__quick-row a,
+        .projects-mobile-menu__quick-row button {
+          width: 36px;
+          height: 36px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #0f172a;
+          text-decoration: none;
+          cursor: pointer;
+          background: rgba(255, 255, 255, 0.42);
+          border: 1px solid rgba(255, 255, 255, 0.70);
+        }
+
+        .projects-mobile-menu__divider {
+          height: 1px;
+          background: rgba(15, 23, 42, 0.08);
+          margin-bottom: 8px;
+        }
+
+        .projects-mobile-menu__links {
+          display: grid;
+          gap: 2px;
+        }
+
+        .projects-mobile-menu__links a {
+          min-height: 44px;
+          padding: 0 6px;
+          border-radius: 0;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 13px;
           text-decoration: none;
           color: #0f172a;
-          font-weight: 800;
-          font-size: 14px;
+          font-size: 17px;
+          font-weight: 850;
+          letter-spacing: -0.02em;
         }
 
-        .projects-mobile-menu a:hover {
-          background: rgba(255, 255, 255, 0.36);
+        .projects-mobile-menu__links a svg {
+          color: #2563eb;
+          opacity: 0.86;
+        }
+
+        .projects-mobile-menu__links a:hover {
+          background: transparent;
+        }
+
+        @keyframes projectsMobileMenuIn {
+          from {
+            opacity: 0;
+            transform: translateY(-8px) scale(0.96);
+            filter: blur(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+          }
         }
 
         .projects-dust-layer {
@@ -392,8 +532,10 @@ export default function Projects() {
           }
 
           .projects-back-home {
+            width: 50px;
+            height: 50px;
             min-height: 50px;
-            padding: 12px 20px;
+            padding: 0;
             font-size: 15px;
           }
 
@@ -441,8 +583,8 @@ export default function Projects() {
       </div>
 
       <div className="projects-fixed-topbar">
-        <a href="/#selected-work" className="projects-back-home">
-          ← Back Home
+        <a href="/" className="projects-back-home" aria-label="Back home">
+          <ChevronLeft size={24} strokeWidth={2.4} />
         </a>
 
         <button
@@ -455,13 +597,12 @@ export default function Projects() {
         </button>
       </div>
 
-      <nav className={`projects-mobile-menu ${menuOpen ? "is-open" : ""}`}>
-        {projectNavItems.map((item) => (
-          <a key={item.label} href={item.href} onClick={() => setMenuOpen(false)}>
-            {item.label}
-          </a>
-        ))}
-      </nav>
+      <MobileLiquidMenu
+        isOpen={menuOpen}
+        setIsOpen={setMenuOpen}
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
+      />
 
       <div className="projects-clean-inner">
         <div className="projects-clean-eyebrow">All Projects</div>
