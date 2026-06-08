@@ -1,11 +1,16 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import {
-  ArrowLeft,
   Check,
+  ChevronLeft,
+  Clock3,
   ExternalLink,
+  FolderKanban,
+  HomeIcon,
   Mail,
   Menu,
-  Send,
+  MessageCircle,
+  Sparkles,
+  UserRound,
   X,
 } from "lucide-react";
 
@@ -30,18 +35,131 @@ const contactLinks = [
   },
 ];
 
+const mobileMenuItems = [
+  { label: "Home", href: "/", icon: HomeIcon },
+  { label: "Services", href: "/#services", icon: Sparkles },
+  { label: "Projects", href: "/projects", icon: FolderKanban },
+  { label: "About", href: "/#about", icon: UserRound },
+  { label: "Contact", href: "/contact", icon: Mail },
+];
+
+function MenuClock() {
+  const [time, setTime] = useState(() => new Date());
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => window.clearInterval(id);
+  }, []);
+
+  const hh = String(time.getHours()).padStart(2, "0");
+  const mm = String(time.getMinutes()).padStart(2, "0");
+  const ss = String(time.getSeconds()).padStart(2, "0");
+
+  return (
+    <span className="contact-menu-clock">
+      {hh}<span>:</span>{mm}<span>:</span><strong>{ss}</strong>
+    </span>
+  );
+}
+
+function MobileLiquidMenu({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+}) {
+  const [clockOpen, setClockOpen] = useState(false);
+
+  if (!isOpen) return null;
+
+  return (
+    <nav className="contact-mobile-menu" aria-label="Mobile menu">
+      <div className="contact-mobile-menu__quick-row">
+        <a href="/" aria-label="Go to home" onClick={() => setIsOpen(false)}>
+          <HomeIcon size={16} strokeWidth={2} />
+        </a>
+        <a href="/contact" aria-label="Open contact" onClick={() => setIsOpen(false)}>
+          <MessageCircle size={16} strokeWidth={2} />
+        </a>
+        <button
+          type="button"
+          aria-label="Show current time"
+          onClick={() => setClockOpen((value) => !value)}
+        >
+          <Clock3 size={16} strokeWidth={2} />
+        </button>
+      </div>
+
+      {clockOpen && (
+        <div className="contact-mobile-menu__clock-popover" aria-live="polite">
+          <span>Local time</span>
+          <MenuClock />
+        </div>
+      )}
+
+      <div className="contact-mobile-menu__divider" />
+
+      <div className="contact-mobile-menu__links">
+        {mobileMenuItems.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <a key={item.label} href={item.href} onClick={() => setIsOpen(false)}>
+              <Icon size={19} strokeWidth={2} />
+              <span>{item.label}</span>
+            </a>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mrevqebq";
+
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSent(true);
-    event.currentTarget.reset();
 
-    window.setTimeout(() => {
-      setSent(false);
-    }, 2400);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setSubmitting(true);
+    setSubmitError(false);
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed");
+      }
+
+      setSent(true);
+      form.reset();
+
+      window.setTimeout(() => {
+        setSent(false);
+      }, 2800);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -90,15 +208,22 @@ export default function Contact() {
         }
 
         .contact-back {
-          min-height: 52px;
-          padding: 0 20px;
+          width: 54px;
+          height: 54px;
+          min-height: 54px;
+          padding: 0;
           border-radius: 999px;
           display: inline-flex;
           align-items: center;
-          gap: 10px;
+          justify-content: center;
           color: #2563eb;
           text-decoration: none;
           font-weight: 900;
+        }
+
+        .contact-back svg {
+          width: 25px;
+          height: 25px;
         }
 
         .contact-menu-button {
@@ -130,17 +255,117 @@ export default function Contact() {
           border: 1px solid rgba(255, 255, 255, 0.78);
           box-shadow:
             0 24px 66px rgba(15, 23, 42, 0.16),
-            inset 0 1px 0 rgba(255, 255, 255, 0.92);
+            inset 0 1px 0 rgba(255, 255, 255, 0.92),
+            inset 0 -1px 0 rgba(15, 23, 42, 0.08);
+          animation: contactMobileMenuIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
-        .contact-mobile-menu a {
-          min-height: 44px;
+        .contact-mobile-menu__quick-row {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-          color: #071225;
+          justify-content: space-around;
+          margin-bottom: 12px;
+        }
+
+        .contact-mobile-menu__quick-row a,
+        .contact-mobile-menu__quick-row button {
+          width: 36px;
+          height: 36px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #0f172a;
           text-decoration: none;
+          cursor: pointer;
+          background: rgba(255, 255, 255, 0.42);
+          border: 1px solid rgba(255, 255, 255, 0.70);
+        }
+
+        .contact-mobile-menu__clock-popover {
+          margin: -2px 4px 12px;
+          padding: 12px 14px;
+          border-radius: 18px;
+          display: grid;
+          gap: 6px;
+          background: rgba(255, 255, 255, 0.48);
+          border: 1px solid rgba(255, 255, 255, 0.72);
+          box-shadow:
+            0 14px 32px rgba(15, 23, 42, 0.10),
+            inset 0 1px 0 rgba(255, 255, 255, 0.84);
+        }
+
+        .contact-mobile-menu__clock-popover > span:first-child {
+          color: #94a3b8;
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+
+        .contact-menu-clock {
+          display: inline-flex;
+          align-items: baseline;
+          gap: 5px;
+          color: #071225;
+          font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 0.06em;
+          line-height: 1;
+        }
+
+        .contact-menu-clock span {
+          color: #94a3b8;
+          font-weight: 700;
+        }
+
+        .contact-menu-clock strong {
+          color: #2563eb;
+          font-weight: 900;
+        }
+
+        .contact-mobile-menu__divider {
+          height: 1px;
+          background: rgba(15, 23, 42, 0.08);
+          margin-bottom: 8px;
+        }
+
+        .contact-mobile-menu__links {
+          display: grid;
+          gap: 2px;
+        }
+
+        .contact-mobile-menu__links a {
+          min-height: 44px;
+          padding: 0 6px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 13px;
+          color: #0f172a;
+          text-decoration: none;
+          font-size: 17px;
           font-weight: 850;
+          letter-spacing: -0.02em;
+        }
+
+        .contact-mobile-menu__links a svg {
+          color: #2563eb;
+          opacity: 0.86;
+        }
+
+        @keyframes contactMobileMenuIn {
+          from {
+            opacity: 0;
+            transform: translateY(-8px) scale(0.96);
+            filter: blur(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+          }
         }
 
         .contact-inner {
@@ -298,21 +523,22 @@ export default function Contact() {
 
         .contact-send {
           min-height: 52px;
-          border: 0;
+          border: 1px solid rgba(255,255,255,0.82);
           border-radius: 999px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          color: white;
+          gap: 0;
+          color: #071225;
           font-weight: 900;
           cursor: pointer;
           background:
-            linear-gradient(180deg, #3b82f6 0%, #2563eb 48%, #1d4ed8 100%);
+            radial-gradient(circle at 44% 8%, rgba(255,255,255,0.96), rgba(255,255,255,0.34) 31%, transparent 58%),
+            linear-gradient(180deg, #dbeafe 0%, #93c5fd 44%, #3b82f6 100%);
           box-shadow:
-            0 16px 36px rgba(37,99,235,0.32),
-            inset 0 2px 2px rgba(255,255,255,0.48),
-            inset 0 -2px 5px rgba(0,0,0,0.22);
+            0 18px 42px rgba(37,99,235,0.28),
+            inset 0 2px 2px rgba(255,255,255,0.72),
+            inset 0 -2px 5px rgba(29,78,216,0.22);
         }
 
         .contact-toast {
@@ -341,6 +567,16 @@ export default function Contact() {
           box-shadow: 0 20px 50px rgba(15,23,42,0.13);
         }
 
+        .contact-toast--error {
+          color: #991b1b;
+        }
+
+        .contact-send:disabled {
+          cursor: wait;
+          opacity: 0.72;
+          transform: none;
+        }
+
         @media (max-width: 760px) {
           .contact-page {
             padding: 112px 16px 54px;
@@ -350,6 +586,13 @@ export default function Contact() {
             top: 14px;
             left: 12px;
             right: 12px;
+          }
+
+          .contact-back,
+          .contact-menu-button {
+            width: 50px;
+            height: 50px;
+            min-height: 50px;
           }
 
           .contact-menu-button {
@@ -383,10 +626,15 @@ export default function Contact() {
         </div>
       )}
 
+      {submitError && (
+        <div className="contact-toast contact-toast--error">
+          Please try again
+        </div>
+      )}
+
       <div className="contact-topbar">
-        <a className="contact-back" href="/#selected-work">
-          <ArrowLeft size={18} />
-          Back Home
+        <a className="contact-back" href="/" aria-label="Back home">
+          <ChevronLeft size={24} strokeWidth={2.4} />
         </a>
 
         <button
@@ -399,14 +647,10 @@ export default function Contact() {
         </button>
       </div>
 
-      {menuOpen && (
-        <nav className="contact-mobile-menu">
-          <a href="/">Home</a>
-          <a href="/#services">Services</a>
-          <a href="/projects">Projects</a>
-          <a href="/#about">Profile</a>
-        </nav>
-      )}
+      <MobileLiquidMenu
+        isOpen={menuOpen}
+        setIsOpen={setMenuOpen}
+      />
 
       <div className="contact-inner">
         <div className="contact-eyebrow">
@@ -445,7 +689,13 @@ export default function Contact() {
             })}
           </aside>
 
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+            action={FORMSPREE_ENDPOINT}
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="New portfolio inquiry from usmanfarooqi.com" />
             <input type="text" name="name" placeholder="Your name" required />
             <input
               type="email"
@@ -472,9 +722,8 @@ export default function Contact() {
               required
             />
 
-            <button className="contact-send" type="submit">
-              Send Message
-              <Send size={18} />
+            <button className="contact-send" type="submit" disabled={submitting}>
+              {submitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
