@@ -650,12 +650,12 @@ body.is-scrolled .ai-glass-header {
 .floating-message-button,
 .review-system-button {
   position: fixed;
-  top: 20px;
-  right: 22px;
-  bottom: auto;
+  top: auto !important;
+  right: 26px !important;
+  bottom: 26px !important;
   z-index: 10000;
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 9999px;
   display: flex;
   align-items: center;
@@ -683,25 +683,26 @@ body.is-scrolled .ai-glass-header {
 
 .floating-message-button.is-docked,
 body.is-scrolled .floating-message-button {
-  top: auto;
-  bottom: 26px;
-  right: 26px;
+  top: auto !important;
+  bottom: 26px !important;
+  right: 26px !important;
 }
 
 @media (max-width: 768px) {
   .floating-message-button,
   .review-system-button {
-    width: 54px;
-    height: 54px;
-    top: 18px;
-    right: 18px;
+    width: 58px;
+    height: 58px;
+    top: auto !important;
+    right: 16px !important;
+    bottom: 18px !important;
   }
 
   .floating-message-button.is-docked,
   body.is-scrolled .floating-message-button {
-    top: auto;
-    bottom: 22px;
-    right: 18px;
+    top: auto !important;
+    bottom: 18px !important;
+    right: 16px !important;
   }
 }
 
@@ -741,7 +742,6 @@ body.is-scrolled .floating-message-button {
 /* Does not control layout. Only improves consistent glass look. */
 /* ============================= */
 
-.gfx-services-clean,
 .services-v2,
 .sw-final,
 .gfx-selected-work-final,
@@ -1172,7 +1172,16 @@ section {
   }
 
   .site-footer-final {
-    border-radius: 0 !important;
+    width: calc(100% - 28px) !important;
+    margin: 34px auto 22px !important;
+    padding: 22px !important;
+    border-radius: 30px !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.72),
+        rgba(255, 255, 255, 0.30)
+      ) !important;
   }
 }
 
@@ -2857,5 +2866,1803 @@ html body .option-a-stats-row {
   html body .option-a-stats-row {
     width: 100% !important;
     gap: 8px !important;
+  }
+}
+
+/* ============================= */
+/* USER REQUESTED FINAL PATCHES */
+/* ============================= */
+
+html body .review-system-button {
+  top: auto !important;
+  right: 26px !important;
+  bottom: 26px !important;
+}
+
+@media (max-width: 768px) {
+  html body .review-system-button {
+    top: auto !important;
+    right: 16px !important;
+    bottom: 18px !important;
+  }
+}
+
+html body .projects-back-home,
+html body .contact-back {
+  width: 54px !important;
+  height: 54px !important;
+  min-height: 54px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+@media (max-width: 720px) {
+  html body .site-footer-final {
+    width: calc(100% - 28px) !important;
+    margin: 34px auto 22px !important;
+    padding: 22px !important;
+    border-radius: 30px !important;
+  }
+}
+
+
+/* ========================================================= */
+/* FINAL USER CORRECTIONS — HERO, CLOCK MENU, FOOTER, SERVICE */
+/* ========================================================= */
+
+html body .gfx-services-clean {
+  padding-top: 20px !important;
+  background: transparent !important;
+}
+
+html body .featured-capsules-section {
+  padding-bottom: 28px !important;
+  background: transparent !important;
+}
+
+html body .hero-section {
+  min-height: 78vh !important;
+  padding-top: clamp(150px, 18vh, 190px) !important;
+  padding-bottom: 58px !important;
+  align-items: flex-start !important;
+}
+
+html body .hero-content {
+  width: min(1160px, 100%) !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+html body .hero-kicker {
+  width: min(980px, 100%) !important;
+  margin: 0 auto 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  color: #2563eb !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(12px, 1.32vw, 16px) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.38em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+html body .hero-kicker__text {
+  display: inline-flex !important;
+  min-width: 0 !important;
+  align-items: center !important;
+}
+
+html body .hero-kicker__cursor {
+  width: 2px !important;
+  height: 1em !important;
+  margin-left: 5px !important;
+  border-radius: 999px !important;
+  background: currentColor !important;
+  opacity: calc(0.28 + (var(--hero-kicker-progress, 0) * 0.72)) !important;
+}
+
+html body .hero-kicker__line {
+  width: min(var(--hero-kicker-line-width, 20px), clamp(44px, 7vw, 92px)) !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #2563eb, rgba(96, 165, 250, 0.18)) !important;
+  transition: width 72ms linear !important;
+}
+
+html body .hero-kicker__dot {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: #2563eb !important;
+  box-shadow: 0 0 0 7px rgba(37, 99, 235, 0.10) !important;
+}
+
+html body .hero-main-title {
+  width: 100% !important;
+  max-width: 1080px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  gap: clamp(5px, 0.8vw, 10px) !important;
+  color: #071225 !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(3.55rem, 6.9vw, 7.25rem) !important;
+  font-weight: 700 !important;
+  line-height: 0.92 !important;
+  letter-spacing: -0.052em !important;
+  text-align: center !important;
+  white-space: normal !important;
+  transform: scaleX(0.96) !important;
+  transform-origin: center !important;
+}
+
+html body .hero-title-line {
+  display: block !important;
+}
+
+html body .hero-title-line--mobile {
+  display: none !important;
+}
+
+html body .hero-title-blue {
+  color: #2563eb !important;
+  text-shadow: 0 12px 34px rgba(37, 99, 235, 0.16) !important;
+}
+
+html body .hero-copy-wrap {
+  width: min(820px, 100%) !important;
+  margin: 34px auto 0 !important;
+  display: grid !important;
+  grid-template-columns: 4px 1fr !important;
+  gap: 18px !important;
+  align-items: center !important;
+  text-align: left !important;
+}
+
+html body .hero-copy-mark {
+  width: 4px !important;
+  height: 100% !important;
+  min-height: 42px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, #2563eb, rgba(96, 165, 250, 0.20)) !important;
+}
+
+html body .hero-description {
+  margin: 0 !important;
+  max-width: none !important;
+  color: #64748b !important;
+  font-size: clamp(14px, 1.15vw, 16px) !important;
+  line-height: 1.5 !important;
+  white-space: nowrap !important;
+  font-weight: 600 !important;
+}
+
+html body .hero-actions {
+  width: 100% !important;
+  margin-top: 34px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+}
+
+html body .hero-actions [data-testid="button-view-work"] {
+  order: 1 !important;
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 48%, #1d4ed8 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.48) !important;
+  box-shadow:
+    0 18px 40px rgba(37, 99, 235, 0.34),
+    inset 0 2px 2px rgba(255, 255, 255, 0.50),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.24) !important;
+}
+
+html body .hero-actions [data-testid="button-hire-hero"] {
+  order: 2 !important;
+  color: #2563eb !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.34)) !important;
+  border: 1px solid rgba(37, 99, 235, 0.24) !important;
+  box-shadow:
+    0 14px 34px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 -1px 0 rgba(15, 23, 42, 0.06) !important;
+}
+
+html body .featured-capsule__spark {
+  width: 18px !important;
+  height: 18px !important;
+  color: #1d4ed8 !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  filter: drop-shadow(0 3px 8px rgba(29, 78, 216, 0.18)) !important;
+}
+
+@media (max-width: 768px) {
+  html body .hero-section {
+    min-height: auto !important;
+    padding: 132px 20px 36px !important;
+  }
+
+  html body .hero-content {
+    text-align: left !important;
+  }
+
+  html body .hero-kicker {
+    width: 100% !important;
+    margin: 0 0 22px !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.34em !important;
+  }
+
+  html body .hero-kicker__line {
+    width: min(var(--hero-kicker-line-width, 20px), 42px) !important;
+  }
+
+  html body .hero-main-title {
+    max-width: 100% !important;
+    text-align: left !important;
+    font-size: clamp(2.28rem, 10.1vw, 4rem) !important;
+    font-weight: 700 !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.052em !important;
+    transform: scaleX(0.97) !important;
+    transform-origin: left center !important;
+  }
+
+  html body .hero-title-line--desktop {
+    display: none !important;
+  }
+
+  html body .hero-title-line--mobile {
+    display: block !important;
+  }
+
+  html body .hero-copy-wrap {
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 28px 0 0 !important;
+    gap: 14px !important;
+    align-items: center !important;
+  }
+
+  html body .hero-copy-mark {
+    min-height: 52px !important;
+  }
+
+  html body .hero-description {
+    font-size: 0.92rem !important;
+    line-height: 1.52 !important;
+    white-space: normal !important;
+  }
+
+  html body .hero-actions {
+    width: 100% !important;
+    margin-top: 28px !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  html body .hero-actions button,
+  html body .hero-actions .btn-capsule,
+  html body .hero-actions [data-testid="button-view-work"],
+  html body .hero-actions [data-testid="button-hire-hero"] {
+    width: min(48%, 164px) !important;
+    min-width: 148px !important;
+    max-width: 164px !important;
+    min-height: 52px !important;
+    padding: 0 16px !important;
+    font-size: 0.86rem !important;
+    letter-spacing: 0.02em !important;
+  }
+}
+
+@media (max-width: 390px) {
+  html body .hero-main-title {
+    font-size: clamp(2rem, 9.2vw, 3.05rem) !important;
+  }
+
+  html body .hero-actions [data-testid="button-view-work"],
+  html body .hero-actions [data-testid="button-hire-hero"] {
+    min-width: 138px !important;
+    max-width: 150px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 720px) {
+  html body .site-footer-final {
+    width: 100% !important;
+    margin: 10px auto 0 !important;
+    padding: 16px 14px 18px !important;
+    border-radius: 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 11px !important;
+    background: transparent !important;
+    border-top: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow: none !important;
+  }
+
+  html body .site-footer-final__mobile-brand {
+    display: none !important;
+  }
+
+  html body .site-footer-final__links {
+    width: 100% !important;
+    max-width: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 7px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  html body .site-footer-final__links::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  html body .site-footer-final__links a {
+    min-height: 31px !important;
+    padding: 0 11px !important;
+    border-radius: 999px !important;
+    flex: 0 0 auto !important;
+    background: rgba(255, 255, 255, 0.36) !important;
+    border: 1px solid rgba(255, 255, 255, 0.62) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+    font-size: 12px !important;
+  }
+
+  html body .site-footer-final__socials {
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+
+  html body .site-footer-final__socials a {
+    width: 34px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    border-radius: 999px !important;
+    font-size: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.44) !important;
+    border: 1px solid rgba(255, 255, 255, 0.68) !important;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06) !important;
+  }
+}
+
+
+/* ========================================================= */
+/* CLEAN FINAL PATCH — HOME ONLY REQUESTED FIXES              */
+/* ========================================================= */
+
+html body .featured-capsules-section {
+  padding-top: 12px !important;
+  padding-bottom: 4px !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+}
+
+html body .gfx-services-clean {
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body .gfx-services-clean::before,
+html body .gfx-services-clean::after {
+  display: none !important;
+}
+
+html body .hero-section {
+  min-height: 78vh !important;
+  padding-top: clamp(150px, 18vh, 188px) !important;
+  padding-bottom: 54px !important;
+  align-items: flex-start !important;
+}
+
+html body .hero-content {
+  width: min(1120px, 100%) !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+}
+
+html body .hero-kicker {
+  width: min(1080px, 100%) !important;
+  margin: 0 auto 24px !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+  color: #2563eb !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(12px, 1.25vw, 15px) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.36em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+html body .hero-kicker__line {
+  width: min(var(--hero-kicker-line-width, 0px), clamp(42px, 7vw, 92px)) !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #2563eb, rgba(96, 165, 250, 0.18)) !important;
+  transition: width 72ms linear !important;
+}
+
+html body .hero-kicker__dot {
+  opacity: var(--hero-kicker-dot-opacity, 0) !important;
+  transition: opacity 72ms linear !important;
+}
+
+html body .hero-main-title {
+  width: 100% !important;
+  max-width: 1080px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  gap: clamp(3px, 0.55vw, 8px) !important;
+  color: #071225 !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(3.5rem, 6.55vw, 7rem) !important;
+  font-weight: 650 !important;
+  line-height: 0.94 !important;
+  letter-spacing: -0.052em !important;
+  text-align: left !important;
+  white-space: normal !important;
+  transform: scaleX(0.96) !important;
+  transform-origin: left center !important;
+}
+
+html body .hero-title-line--desktop {
+  display: block !important;
+}
+
+html body .hero-title-line--mobile {
+  display: none !important;
+}
+
+html body .hero-title-line--desktop-indent {
+  padding-left: clamp(54px, 8vw, 148px) !important;
+}
+
+html body .hero-title-line--desktop-final {
+  padding-left: clamp(128px, 17vw, 292px) !important;
+}
+
+html body .hero-title-blue {
+  color: #2563eb !important;
+  text-shadow: 0 12px 34px rgba(37, 99, 235, 0.15) !important;
+}
+
+html body .hero-copy-wrap {
+  width: min(820px, 100%) !important;
+  max-width: 820px !important;
+  margin: 28px auto 0 !important;
+  display: grid !important;
+  grid-template-columns: 4px 1fr !important;
+  gap: 16px !important;
+  align-items: center !important;
+  text-align: left !important;
+}
+
+html body .hero-description {
+  margin: 0 !important;
+  max-width: none !important;
+  color: #64748b !important;
+  font-size: clamp(13px, 1vw, 15px) !important;
+  line-height: 1.48 !important;
+  white-space: nowrap !important;
+  font-weight: 600 !important;
+}
+
+html body .hero-actions {
+  width: min(820px, 100%) !important;
+  margin: 30px auto 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 18px !important;
+}
+
+html body .featured-capsule__spark {
+  width: 18px !important;
+  height: 18px !important;
+  color: #1d4ed8 !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  stroke-width: 2.15 !important;
+  filter: drop-shadow(0 3px 8px rgba(29, 78, 216, 0.18)) !important;
+}
+
+@media (max-width: 768px) {
+  html body .featured-capsules-section {
+    padding-top: 8px !important;
+    padding-bottom: 0 !important;
+  }
+
+  html body .gfx-services-clean {
+    padding-top: 4px !important;
+  }
+
+  html body .hero-section {
+    min-height: auto !important;
+    padding: 132px 20px 36px !important;
+  }
+
+  html body .hero-content {
+    width: 100% !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  html body .hero-kicker {
+    width: 100% !important;
+    margin: 0 0 22px !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.34em !important;
+  }
+
+  html body .hero-kicker__line {
+    width: min(var(--hero-kicker-line-width, 0px), 42px) !important;
+  }
+
+  html body .hero-main-title {
+    max-width: 100% !important;
+    text-align: left !important;
+    font-size: clamp(2.18rem, 9.65vw, 3.8rem) !important;
+    font-weight: 650 !important;
+    line-height: 0.99 !important;
+    letter-spacing: -0.052em !important;
+    transform: scaleX(0.97) !important;
+    transform-origin: left center !important;
+  }
+
+  html body .hero-title-line--desktop {
+    display: none !important;
+  }
+
+  html body .hero-title-line--mobile {
+    display: block !important;
+    padding-left: 0 !important;
+  }
+
+  html body .hero-copy-wrap {
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 26px 0 0 !important;
+    gap: 14px !important;
+  }
+
+  html body .hero-description {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+    white-space: normal !important;
+  }
+
+  html body .hero-actions {
+    width: 100% !important;
+    margin: 26px 0 0 !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  html body .mobile-liquid-menu__clock-popover {
+    margin-top: 12px !important;
+    padding: 13px 14px 14px !important;
+    border-radius: 20px !important;
+    display: grid !important;
+    gap: 8px !important;
+    color: #071225 !important;
+    background: linear-gradient(180deg, rgba(255,255,255,0.74), rgba(255,255,255,0.36)) !important;
+    border: 1px solid rgba(255,255,255,0.78) !important;
+    box-shadow: 0 14px 34px rgba(15,23,42,0.10), inset 0 1px 0 rgba(255,255,255,0.92) !important;
+  }
+
+  html body .mobile-liquid-menu__clock-top {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    color: #2563eb !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
+  }
+
+  html body .mobile-liquid-menu__clock-value,
+  html body .mobile-liquid-menu__clock-popover .live-clock-time {
+    display: block !important;
+    color: #071225 !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  html body .mobile-liquid-menu__clock-popover .live-clock-time span {
+    opacity: 0.42 !important;
+  }
+
+  html body .mobile-liquid-menu__clock-zone {
+    color: #64748b !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  html body .site-footer-final {
+    width: 100% !important;
+    margin: 6px auto 0 !important;
+    padding: 10px 12px 12px !important;
+    min-height: auto !important;
+    border-radius: 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: transparent !important;
+    border-top: 1px solid rgba(15,23,42,0.08) !important;
+    box-shadow: none !important;
+  }
+
+  html body .site-footer-final__links {
+    width: 100% !important;
+    max-width: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  html body .site-footer-final__links a {
+    min-height: 28px !important;
+    padding: 0 9px !important;
+    border-radius: 999px !important;
+    flex: 0 0 auto !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    background: rgba(255,255,255,0.34) !important;
+    border: 1px solid rgba(255,255,255,0.62) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.82) !important;
+  }
+
+  html body .site-footer-final__socials {
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+
+  html body .site-footer-final__socials a {
+    width: 30px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* ========================================================= */
+/* FINAL REQUEST PATCH — HERO ALIGNMENT, SERVICES FLOW, BUTTON UI */
+/* ========================================================= */
+
+:root {
+  --gfx-primary-button-final: radial-gradient(circle at 46% 8%, rgba(255,255,255,0.98) 0%, rgba(239,248,255,0.74) 27%, rgba(147,197,253,0.88) 56%, rgba(59,130,246,0.98) 100%);
+  --gfx-primary-button-final-hover: radial-gradient(circle at 46% 8%, rgba(255,255,255,1) 0%, rgba(219,234,254,0.88) 28%, rgba(96,165,250,0.96) 58%, rgba(37,99,235,1) 100%);
+  --gfx-secondary-button-final: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.36));
+  --gfx-button-final-shadow: 0 20px 46px rgba(37,99,235,0.24), inset 0 2px 2px rgba(255,255,255,0.78), inset 0 -2px 5px rgba(29,78,216,0.20);
+}
+
+/* Let hero, marquee and services read as one continuous page background. */
+html body .featured-capsules-section {
+  padding-top: 6px !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+html body .featured-capsules-window {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+html body .gfx-services-clean {
+  margin-top: 0 !important;
+  padding-top: 16px !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  outline: 0 !important;
+  overflow: visible !important;
+}
+
+html body .gfx-services-clean::before,
+html body .gfx-services-clean::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Web hero: no mixed middle/right alignment. */
+html body .hero-section {
+  min-height: 78vh !important;
+  padding-top: clamp(150px, 17vh, 186px) !important;
+  padding-bottom: 42px !important;
+  align-items: flex-start !important;
+}
+
+html body .hero-content {
+  width: min(1120px, 100%) !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+}
+
+html body .hero-kicker {
+  width: 100% !important;
+  max-width: 1000px !important;
+  margin: 0 0 24px !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+html body .hero-kicker__line {
+  width: min(var(--hero-kicker-line-width, 0px), 96px) !important;
+  transition: width 72ms linear !important;
+}
+
+html body .hero-kicker__dot {
+  flex: 0 0 auto !important;
+  opacity: var(--hero-kicker-dot-opacity, 0) !important;
+  transition: opacity 72ms linear !important;
+}
+
+html body .hero-main-title {
+  width: 100% !important;
+  max-width: 1000px !important;
+  margin: 0 !important;
+  display: grid !important;
+  gap: clamp(4px, 0.58vw, 8px) !important;
+  text-align: left !important;
+  white-space: normal !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(3.25rem, 6.15vw, 6.55rem) !important;
+  font-weight: 620 !important;
+  line-height: 0.93 !important;
+  letter-spacing: -0.052em !important;
+  transform: scaleX(0.965) !important;
+  transform-origin: left center !important;
+}
+
+html body .hero-title-line--desktop,
+html body .hero-title-line--desktop-indent,
+html body .hero-title-line--desktop-final {
+  display: block !important;
+  padding-left: 0 !important;
+  text-align: left !important;
+}
+
+html body .hero-title-line--mobile {
+  display: none !important;
+}
+
+html body .hero-copy-wrap {
+  width: min(780px, 100%) !important;
+  margin: 30px 0 0 !important;
+  display: grid !important;
+  grid-template-columns: 4px minmax(0, 1fr) !important;
+  gap: 16px !important;
+  align-items: center !important;
+  text-align: left !important;
+}
+
+html body .hero-description {
+  margin: 0 !important;
+  max-width: none !important;
+  font-size: clamp(13px, 1vw, 14.5px) !important;
+  line-height: 1.45 !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+html body .hero-actions {
+  width: 100% !important;
+  margin-top: 30px !important;
+  justify-content: flex-start !important;
+  gap: 16px !important;
+}
+
+/* New capsule button skin: inspired by the provided blue-white button, still matching the site. */
+html body .hero-actions button,
+html body .portfolio-liquid-header__hire,
+html body .contact-send,
+html body .btn-capsule {
+  border-radius: 999px !important;
+  min-height: 52px !important;
+  padding: 0 30px !important;
+  gap: 0 !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.01em !important;
+  text-decoration: none !important;
+}
+
+html body .hero-actions [data-testid="button-view-work"],
+html body .portfolio-liquid-header__hire,
+html body .contact-send {
+  color: #071225 !important;
+  background: var(--gfx-primary-button-final) !important;
+  border: 1px solid rgba(255,255,255,0.86) !important;
+  box-shadow: var(--gfx-button-final-shadow) !important;
+}
+
+html body .hero-actions [data-testid="button-view-work"]:hover,
+html body .portfolio-liquid-header__hire:hover,
+html body .contact-send:hover {
+  background: var(--gfx-primary-button-final-hover) !important;
+  transform: translateY(-2px) !important;
+}
+
+html body .hero-actions [data-testid="button-hire-hero"] {
+  color: #2563eb !important;
+  background: var(--gfx-secondary-button-final) !important;
+  border: 1px solid rgba(37,99,235,0.22) !important;
+  box-shadow: 0 16px 36px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,0.96), inset 0 -1px 0 rgba(15,23,42,0.06) !important;
+}
+
+html body .hero-actions [data-testid="button-hire-hero"]:hover {
+  transform: translateY(-2px) !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(219,234,254,0.46)) !important;
+}
+
+html body .review-system-button,
+html body .floating-message-button {
+  color: #071225 !important;
+  background: var(--gfx-primary-button-final) !important;
+  border: 1px solid rgba(255,255,255,0.86) !important;
+  box-shadow: var(--gfx-button-final-shadow) !important;
+}
+
+html body .review-system-button:hover,
+html body .floating-message-button:hover {
+  background: var(--gfx-primary-button-final-hover) !important;
+}
+
+html body .review-system-button svg,
+html body .floating-message-button svg {
+  color: #071225 !important;
+}
+
+/* Dark blue outlined sparkle in the marquee. */
+html body .featured-capsule__spark {
+  width: 18px !important;
+  height: 18px !important;
+  color: #1d4ed8 !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  stroke-width: 2.05 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 3px 8px rgba(29,78,216,0.20)) !important;
+}
+
+/* Professional mobile clock card. */
+html body .mobile-liquid-menu__clock-popover {
+  margin: 12px 0 2px !important;
+  padding: 14px 15px 13px !important;
+  border-radius: 20px !important;
+  display: grid !important;
+  gap: 9px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.34)) !important;
+  border: 1px solid rgba(255,255,255,0.82) !important;
+  box-shadow: 0 16px 36px rgba(15,23,42,0.10), inset 0 1px 0 rgba(255,255,255,0.92) !important;
+}
+
+html body .mobile-liquid-menu__clock-top {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  color: #2563eb !important;
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+html body .mobile-liquid-menu__clock-value {
+  display: block !important;
+  line-height: 1 !important;
+}
+
+html body .live-clock-time {
+  display: inline-flex !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  color: #071225 !important;
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: -0.02em !important;
+  white-space: nowrap !important;
+}
+
+html body .live-clock-time__main {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+}
+
+html body .mobile-liquid-menu__clock-popover .live-clock-time__main {
+  font-size: 28px !important;
+}
+
+html body .live-clock-time__seconds {
+  font-size: 10px !important;
+  font-weight: 900 !important;
+  color: #64748b !important;
+  letter-spacing: 0.04em !important;
+}
+
+html body .mobile-liquid-menu__clock-popover .live-clock-time__seconds {
+  font-size: 13px !important;
+}
+
+html body .mobile-liquid-menu__clock-zone {
+  color: #64748b !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Mobile footer compact, not a tall extra section. */
+@media (max-width: 720px) {
+  html body .site-footer-final {
+    width: 100% !important;
+    min-height: auto !important;
+    margin: 6px auto 0 !important;
+    padding: 13px 14px 15px !important;
+    border-radius: 0 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 9px !important;
+    background: transparent !important;
+    border-top: 1px solid rgba(15,23,42,0.08) !important;
+    box-shadow: none !important;
+  }
+
+  html body .site-footer-final__links {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 7px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+  }
+
+  html body .site-footer-final__links::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  html body .site-footer-final__links a {
+    flex: 0 0 auto !important;
+    min-height: 30px !important;
+    padding: 0 10px !important;
+    border-radius: 999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    background: rgba(255,255,255,0.34) !important;
+    border: 1px solid rgba(255,255,255,0.62) !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+  }
+
+  html body .site-footer-final__socials {
+    gap: 8px !important;
+  }
+
+  html body .site-footer-final__socials a {
+    width: 32px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    border-radius: 999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255,255,255,0.38) !important;
+    border: 1px solid rgba(255,255,255,0.62) !important;
+    font-size: 13px !important;
+  }
+
+  html body .featured-capsules-section {
+    padding-top: 6px !important;
+    padding-bottom: 0 !important;
+  }
+
+  html body .gfx-services-clean {
+    padding-top: 10px !important;
+  }
+
+  html body .hero-section {
+    min-height: auto !important;
+    padding: 132px 20px 32px !important;
+  }
+
+  html body .hero-content {
+    width: 100% !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  html body .hero-kicker {
+    width: 100% !important;
+    margin: 0 0 22px !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.34em !important;
+  }
+
+  html body .hero-kicker__line {
+    width: min(var(--hero-kicker-line-width, 0px), 44px) !important;
+  }
+
+  html body .hero-main-title {
+    max-width: 100% !important;
+    font-size: clamp(2.18rem, 9.8vw, 3.75rem) !important;
+    font-weight: 620 !important;
+    line-height: 0.98 !important;
+    transform: scaleX(0.97) !important;
+    transform-origin: left center !important;
+  }
+
+  html body .hero-title-line--desktop {
+    display: none !important;
+  }
+
+  html body .hero-title-line--mobile {
+    display: block !important;
+  }
+
+  html body .hero-copy-wrap {
+    width: 100% !important;
+    max-width: 360px !important;
+    margin: 26px 0 0 !important;
+    gap: 13px !important;
+  }
+
+  html body .hero-description {
+    font-size: 0.9rem !important;
+    line-height: 1.48 !important;
+    white-space: normal !important;
+  }
+
+  html body .hero-actions {
+    margin-top: 26px !important;
+    justify-content: flex-start !important;
+    gap: 11px !important;
+  }
+
+  html body .hero-actions button,
+  html body .hero-actions .btn-capsule,
+  html body .hero-actions [data-testid="button-view-work"],
+  html body .hero-actions [data-testid="button-hire-hero"] {
+    width: min(48%, 164px) !important;
+    min-width: 138px !important;
+    max-width: 164px !important;
+    min-height: 50px !important;
+    padding: 0 15px !important;
+    font-size: 0.84rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  html body .hero-actions [data-testid="button-view-work"],
+  html body .hero-actions [data-testid="button-hire-hero"] {
+    min-width: 132px !important;
+    max-width: 148px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+
+/* ========================================================= */
+/* FINAL CLEAN HERO + P2/S1/F2 BUTTON SYSTEM                 */
+/* ========================================================= */
+
+:root {
+  --uf-primary-p2: linear-gradient(180deg, #4f8dfd 0%, #2563eb 58%, #1d4ed8 100%);
+  --uf-primary-p2-hover: linear-gradient(180deg, #65a2ff 0%, #2f70f0 58%, #1d4ed8 100%);
+  --uf-secondary-s1: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(241,247,255,0.86) 100%);
+  --uf-secondary-s1-hover: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(226,239,255,0.92) 100%);
+  --uf-button-shadow: 0 14px 30px rgba(37, 99, 235, 0.26), inset 0 1px 1px rgba(255,255,255,0.54), inset 0 -1px 3px rgba(15,23,42,0.18);
+  --uf-button-shadow-hover: 0 18px 40px rgba(37, 99, 235, 0.32), inset 0 1px 1px rgba(255,255,255,0.58), inset 0 -1px 3px rgba(15,23,42,0.18);
+  --uf-secondary-shadow: 0 12px 26px rgba(15,23,42,0.08), inset 0 1px 1px rgba(255,255,255,0.95), inset 0 -1px 2px rgba(37,99,235,0.08);
+}
+
+/* Continuous page flow around marquee/services: no separate services partition. */
+html body .featured-capsules-section {
+  margin: 0 !important;
+  padding-top: 10px !important;
+  padding-bottom: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+html body .featured-capsules-window {
+  margin-bottom: 0 !important;
+}
+
+html body .gfx-services-clean {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  isolation: auto !important;
+}
+
+html body .gfx-services-clean::before,
+html body .gfx-services-clean::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Clean centered hero: no mixed alignment, no noisy composition. */
+html body .hero-section {
+  min-height: 660px !important;
+  padding-top: clamp(150px, 17vh, 190px) !important;
+  padding-bottom: 40px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+html body .hero-content {
+  width: min(1120px, 100%) !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+html body .hero-kicker {
+  width: 100% !important;
+  margin: 0 auto 24px !important;
+  justify-content: center !important;
+  gap: 13px !important;
+  color: #2563eb !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(12px, 1.18vw, 15px) !important;
+  font-weight: 750 !important;
+  letter-spacing: 0.38em !important;
+  text-align: center !important;
+}
+
+html body .hero-kicker__text {
+  min-width: auto !important;
+}
+
+html body .hero-kicker__cursor {
+  display: none !important;
+}
+
+html body .hero-kicker__line {
+  width: clamp(48px, 6vw, 78px) !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, #2563eb, rgba(96,165,250,0.22)) !important;
+  transition: none !important;
+}
+
+html body .hero-kicker__dot {
+  opacity: 1 !important;
+  width: 8px !important;
+  height: 8px !important;
+  background: #2563eb !important;
+}
+
+html body .hero-main-title {
+  width: 100% !important;
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  gap: clamp(5px, 0.7vw, 10px) !important;
+  text-align: center !important;
+  font-family: "Orbitron", "Michroma", "Inter", system-ui, sans-serif !important;
+  font-size: clamp(4rem, 7.5vw, 8.15rem) !important;
+  font-weight: 640 !important;
+  line-height: 0.92 !important;
+  letter-spacing: -0.06em !important;
+  transform: scaleX(0.96) !important;
+  transform-origin: center !important;
+}
+
+html body .hero-title-line,
+html body .hero-title-line--desktop,
+html body .hero-title-line--desktop-indent,
+html body .hero-title-line--desktop-final {
+  display: block !important;
+  padding-left: 0 !important;
+  text-align: center !important;
+}
+
+html body .hero-title-line--mobile {
+  display: none !important;
+}
+
+html body .hero-title-blue {
+  color: #2563eb !important;
+  text-shadow: 0 12px 32px rgba(37,99,235,0.14) !important;
+}
+
+html body .hero-copy-wrap {
+  width: min(820px, 100%) !important;
+  margin: 24px auto 0 !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+html body .hero-copy-mark {
+  display: none !important;
+}
+
+html body .hero-description {
+  max-width: 820px !important;
+  margin: 0 auto !important;
+  color: #64748b !important;
+  font-size: clamp(0.94rem, 1.15vw, 1.08rem) !important;
+  line-height: 1.55 !important;
+  font-weight: 600 !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+
+html body .hero-actions {
+  width: 100% !important;
+  margin-top: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+}
+
+/* P2 primary button: clean gradient capsule, no arrows/icons. */
+html body .hero-actions [data-testid="button-view-work"],
+html body .portfolio-liquid-header__hire,
+html body .ai-glass-header__hire,
+html body .contact-send,
+html body .contact-send-button,
+html body .btn-3d-primary {
+  min-height: 50px !important;
+  border-radius: 999px !important;
+  padding: 0 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0 !important;
+  text-decoration: none !important;
+  background: var(--uf-primary-p2) !important;
+  border: 1px solid rgba(255,255,255,0.42) !important;
+  box-shadow: var(--uf-button-shadow) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.10) !important;
+  backdrop-filter: blur(22px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+}
+
+html body .hero-actions [data-testid="button-view-work"]:hover,
+html body .portfolio-liquid-header__hire:hover,
+html body .ai-glass-header__hire:hover,
+html body .contact-send:hover,
+html body .contact-send-button:hover,
+html body .btn-3d-primary:hover {
+  transform: translateY(-2px) !important;
+  background: var(--uf-primary-p2-hover) !important;
+  box-shadow: var(--uf-button-shadow-hover) !important;
+}
+
+/* S1 secondary button: glass white capsule for hero Hire Me. */
+html body .hero-actions [data-testid="button-hire-hero"],
+html body .btn-3d-secondary {
+  min-height: 50px !important;
+  border-radius: 999px !important;
+  padding: 0 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  color: #2563eb !important;
+  font-size: 14px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0 !important;
+  text-decoration: none !important;
+  background: var(--uf-secondary-s1) !important;
+  border: 1px solid rgba(37,99,235,0.16) !important;
+  box-shadow: var(--uf-secondary-shadow) !important;
+  text-shadow: none !important;
+  backdrop-filter: blur(22px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+}
+
+html body .hero-actions [data-testid="button-hire-hero"]:hover,
+html body .btn-3d-secondary:hover {
+  transform: translateY(-2px) !important;
+  background: var(--uf-secondary-s1-hover) !important;
+  box-shadow: 0 16px 34px rgba(37,99,235,0.12), inset 0 1px 1px rgba(255,255,255,0.96) !important;
+}
+
+/* F2 floating review button: gradient blue icon button. */
+html body .review-system-button,
+html body .floating-message-button {
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  min-height: 58px !important;
+  border-radius: 999px !important;
+  color: #ffffff !important;
+  background: var(--uf-primary-p2) !important;
+  border: 1px solid rgba(255,255,255,0.46) !important;
+  box-shadow: 0 18px 40px rgba(37,99,235,0.34), inset 0 1px 1px rgba(255,255,255,0.50), inset 0 -1px 4px rgba(0,0,0,0.18) !important;
+}
+
+html body .review-system-button:hover,
+html body .floating-message-button:hover {
+  transform: translateY(-2px) !important;
+  background: var(--uf-primary-p2-hover) !important;
+}
+
+html body .review-system-button svg,
+html body .floating-message-button svg {
+  color: #ffffff !important;
+  stroke: currentColor !important;
+}
+
+/* Keep button text-only: hide decorative arrows/icons inside text CTA buttons if any remain. */
+html body .hero-actions button svg,
+html body .portfolio-liquid-header__hire svg,
+html body .ai-glass-header__hire svg,
+html body .contact-send svg,
+html body .contact-send-button svg,
+html body .btn-3d-primary svg,
+html body .btn-3d-secondary svg {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  html body .hero-section {
+    min-height: auto !important;
+    padding: 132px 20px 34px !important;
+  }
+
+  html body .hero-content {
+    text-align: center !important;
+  }
+
+  html body .hero-kicker {
+    justify-content: center !important;
+    margin-bottom: 20px !important;
+    gap: 10px !important;
+    font-size: 10.5px !important;
+    letter-spacing: 0.32em !important;
+  }
+
+  html body .hero-kicker__line {
+    width: 42px !important;
+  }
+
+  html body .hero-main-title {
+    font-size: clamp(2.45rem, 10.4vw, 4.05rem) !important;
+    font-weight: 620 !important;
+    line-height: 0.96 !important;
+    letter-spacing: -0.052em !important;
+    text-align: center !important;
+    transform: scaleX(0.96) !important;
+    transform-origin: center !important;
+  }
+
+  html body .hero-title-line--desktop {
+    display: none !important;
+  }
+
+  html body .hero-title-line--mobile {
+    display: block !important;
+    text-align: center !important;
+  }
+
+  html body .hero-copy-wrap {
+    width: min(360px, 100%) !important;
+    margin: 22px auto 0 !important;
+    text-align: center !important;
+  }
+
+  html body .hero-description {
+    font-size: 0.92rem !important;
+    line-height: 1.52 !important;
+    text-align: center !important;
+  }
+
+  html body .hero-actions {
+    margin-top: 24px !important;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+
+  html body .hero-actions [data-testid="button-view-work"],
+  html body .hero-actions [data-testid="button-hire-hero"] {
+    width: min(46vw, 158px) !important;
+    min-width: 132px !important;
+    max-width: 158px !important;
+    min-height: 48px !important;
+    padding: 0 14px !important;
+    font-size: 0.84rem !important;
+  }
+
+  html body .featured-capsules-section {
+    padding-top: 6px !important;
+  }
+
+  html body .gfx-services-clean {
+    padding-top: 0 !important;
+  }
+}
+
+/* ========================================================= */
+/* FINAL FORM + HERO + SERVICES PATCH — keep at very bottom  */
+/* ========================================================= */
+html body .scene-bg,
+html body .hero-section,
+html body .featured-capsules-section,
+html body .gfx-services-clean {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+html body .featured-capsules-section {
+  margin: 0 !important;
+  padding-top: 8px !important;
+  padding-bottom: 4px !important;
+  overflow: hidden !important;
+}
+
+html body .featured-capsules-window {
+  margin: 0 !important;
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+html body .gfx-services-clean {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  isolation: auto !important;
+}
+
+html body .gfx-services-clean::before,
+html body .gfx-services-clean::after,
+html body .featured-capsules-section::before,
+html body .featured-capsules-section::after {
+  content: none !important;
+  display: none !important;
+}
+
+html body .hero-section {
+  min-height: 650px !important;
+  padding-top: clamp(142px, 16vh, 176px) !important;
+  padding-bottom: 38px !important;
+  align-items: flex-start !important;
+}
+
+html body .hero-content {
+  max-width: 1160px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+
+html body .hero-kicker {
+  justify-content: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html body .hero-main-title {
+  max-width: 1120px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+  justify-items: center !important;
+  font-size: clamp(3.05rem, 5.9vw, 6.35rem) !important;
+  font-weight: 660 !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.045em !important;
+  transform: scaleX(0.96) !important;
+  transform-origin: center !important;
+}
+
+html body .hero-title-line {
+  white-space: nowrap !important;
+}
+
+html body .hero-copy-wrap {
+  width: min(760px, 100%) !important;
+  margin: 22px auto 0 !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+html body .hero-copy-mark {
+  display: none !important;
+}
+
+html body .hero-description {
+  max-width: none !important;
+  margin: 0 auto !important;
+  font-size: 0.94rem !important;
+  line-height: 1.55 !important;
+  color: #64748b !important;
+}
+
+html body .hero-actions {
+  justify-content: center !important;
+  margin-top: 26px !important;
+}
+
+html body .hero-actions button,
+html body .ai-glass-header__hire,
+html body .contact-send {
+  border-radius: 999px !important;
+  min-height: 48px !important;
+  padding: 0 28px !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.01em !important;
+  border: 1px solid rgba(255, 255, 255, 0.58) !important;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.26), inset 0 1px 1px rgba(255,255,255,0.54), inset 0 -1px 3px rgba(15,23,42,0.18) !important;
+}
+
+html body .hero-actions button:first-child,
+html body .ai-glass-header__hire,
+html body .contact-send {
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #4f8dff 0%, #2563eb 56%, #1d4ed8 100%) !important;
+}
+
+html body .hero-actions button:nth-child(2) {
+  color: #2563eb !important;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(241,247,255,0.86) 100%) !important;
+  border: 1px solid rgba(37, 99, 235, 0.16) !important;
+  box-shadow: 0 12px 26px rgba(15,23,42,0.08), inset 0 1px 1px rgba(255,255,255,0.95), inset 0 -1px 2px rgba(37,99,235,0.08) !important;
+}
+
+html body .review-system-button {
+  background: linear-gradient(180deg, #4f8dff 0%, #2563eb 56%, #1d4ed8 100%) !important;
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.34), inset 0 1px 1px rgba(255,255,255,0.52), inset 0 -1px 3px rgba(15,23,42,0.20) !important;
+}
+
+@media (max-width: 768px) {
+  html body .hero-section {
+    min-height: auto !important;
+    padding: 122px 20px 30px !important;
+  }
+
+  html body .hero-content {
+    max-width: 100% !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  html body .hero-kicker {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+  }
+
+  html body .hero-main-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    justify-items: start !important;
+    font-size: clamp(2.15rem, 9.3vw, 3.65rem) !important;
+    font-weight: 640 !important;
+    line-height: 0.99 !important;
+    letter-spacing: -0.048em !important;
+    transform: scaleX(0.97) !important;
+    transform-origin: left center !important;
+  }
+
+  html body .hero-title-line {
+    white-space: normal !important;
+  }
+
+  html body .hero-copy-wrap {
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 24px 0 0 !important;
+    text-align: left !important;
+  }
+
+  html body .hero-description {
+    margin: 0 !important;
+    font-size: 0.92rem !important;
+    line-height: 1.52 !important;
+  }
+
+  html body .hero-actions {
+    justify-content: flex-start !important;
+    margin-top: 24px !important;
+  }
+
+  html body .featured-capsules-section {
+    padding-top: 6px !important;
+    padding-bottom: 0 !important;
+  }
+
+  html body .featured-capsules-window {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+  }
+
+  html body .gfx-services-clean {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+
+/* ========================================================= */
+/* FINAL HERO POLISH: synced kicker + mobile left alignment   */
+/* ========================================================= */
+
+html body .hero-section {
+  padding-top: clamp(158px, 17vh, 196px) !important;
+  padding-bottom: 54px !important;
+}
+
+html body .hero-kicker {
+  margin-bottom: 30px !important;
+}
+
+html body .hero-kicker__cursor {
+  display: inline-block !important;
+}
+
+html body .hero-kicker__motion {
+  --hero-kicker-motion-width: clamp(48px, 6.6vw, 92px);
+  position: relative !important;
+  width: var(--hero-kicker-motion-width) !important;
+  height: 14px !important;
+  flex: 0 0 var(--hero-kicker-motion-width) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+html body .hero-kicker__motion .hero-kicker__line,
+html body .hero-kicker__line {
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  width: 100% !important;
+  height: 3px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #2563eb, rgba(96,165,250,0.22)) !important;
+  transform: translateY(-50%) scaleX(var(--hero-kicker-progress, 0)) !important;
+  transform-origin: left center !important;
+  transition: transform 76ms linear !important;
+}
+
+html body .hero-kicker__motion .hero-kicker__dot,
+html body .hero-kicker__dot {
+  position: absolute !important;
+  left: calc(var(--hero-kicker-dot-left, 0%) - 4px) !important;
+  top: 50% !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: #2563eb !important;
+  opacity: var(--hero-kicker-dot-opacity, 0) !important;
+  box-shadow: 0 0 0 7px rgba(37,99,235,0.10) !important;
+  transform: translateY(-50%) !important;
+  transition: left 76ms linear, opacity 76ms linear !important;
+}
+
+html body .hero-main-title {
+  gap: clamp(12px, 1.1vw, 18px) !important;
+  line-height: 0.95 !important;
+}
+
+html body .hero-copy-wrap {
+  margin-top: 30px !important;
+}
+
+html body .hero-actions {
+  margin-top: 34px !important;
+}
+
+@media (max-width: 768px) {
+  html body .hero-section {
+    padding: 138px 20px 44px !important;
+  }
+
+  html body .hero-content {
+    text-align: left !important;
+  }
+
+  html body .hero-kicker {
+    justify-content: flex-start !important;
+    text-align: left !important;
+    margin: 0 0 28px !important;
+    gap: 9px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.28em !important;
+  }
+
+  html body .hero-kicker__motion {
+    --hero-kicker-motion-width: 46px;
+    height: 12px !important;
+  }
+
+  html body .hero-main-title {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    justify-items: start !important;
+    gap: 13px !important;
+    font-size: clamp(1.68rem, 7vw, 2.75rem) !important;
+    font-weight: 610 !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.045em !important;
+    transform: scaleX(0.98) !important;
+    transform-origin: left center !important;
+  }
+
+  html body .hero-title-line,
+  html body .hero-title-line--mobile,
+  html body .hero-title-blue {
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+
+  html body .hero-copy-wrap {
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 28px 0 0 !important;
+    text-align: left !important;
+  }
+
+  html body .hero-description {
+    text-align: left !important;
+    font-size: 0.9rem !important;
+    line-height: 1.56 !important;
+  }
+
+  html body .hero-actions {
+    margin-top: 30px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  html body .hero-main-title {
+    font-size: clamp(1.55rem, 6.7vw, 2.25rem) !important;
+    letter-spacing: -0.04em !important;
   }
 }
